@@ -49,7 +49,8 @@ INSERT INTO `badge`
             ('badge20', 20, 200, 'url20'),
             ('badge30', 30, 300, 'url30'),
             ('badge50', 50, 500, 'url50'),
-            ('badge100', 100, 1000, 'url100'),
+            ('badge50', 70, 700, 'url70'),
+            ('badge100', 100, 1000, 'url100');
             
 SELECT * FROM user;
 SELECT * FROM addiction_list;
