@@ -31,18 +31,25 @@ CREATE TABLE `addiction_list`(
 
 CREATE TABLE `badge`(
 	`badge_name` varchar(50) NOT NULL PRIMARY KEY,
+    `badge_date` int NOT NULL,
     `badge_score` int NOT NULL,
     `badge_img_url` varchar(255) NOT NULL
 );
 
 INSERT INTO `badge`
-	VALUES ('badge1', 10, 'url1'), 
-			('badge2', 20, 'url2'), 
-			('badge3', 30, 'url3'), 
-			('badge4', 40, 'url4'),
-            ('badge5', 50, 'url5'),
-            ('badge6', 60, 'url6'),
-            ('badge7', 70, 'url7');
+	VALUES ('badge1', 1, 10, 'url1'), 
+			('badge2', 2, 20, 'url2'), 
+			('badge3', 3, 30, 'url3'), 
+			('badge4', 4, 40, 'url4'),
+            ('badge5', 5, 50, 'url5'),
+            ('badge6', 6, 60, 'url6'),
+            ('badge7', 7, 70, 'url7'),
+            ('badge10', 10, 100, 'url10'),
+            ('badge14', 14, 140, 'url14'),
+            ('badge20', 20, 200, 'url20'),
+            ('badge30', 30, 300, 'url30'),
+            ('badge50', 50, 500, 'url50'),
+            ('badge100', 100, 1000, 'url100'),
             
 SELECT * FROM user;
 SELECT * FROM addiction_list;
