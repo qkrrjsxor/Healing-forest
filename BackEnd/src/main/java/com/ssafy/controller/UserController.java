@@ -35,7 +35,7 @@ public class UserController {
 	
 	// 2. 로그인
 	@PostMapping("/login")
-	public ResponseEntity<?> logIn(@ModelAttribute User user, HttpSession session) {
+	public ResponseEntity<?> logIn(@RequestBody User user, HttpSession session) {
 		User loginUser = userService.login(user.getUserId());
 
 		if (loginUser == null) {
