@@ -9,51 +9,43 @@ CREATE TABLE `user`(
     `password` varchar(100) NOT NULL,
     `nickname` varchar(100) NOT NULL,
     `user_image_url` varchar(255) DEFAULT 'URL',
-    `user_score` int DEFAULT 0
+    `user_score` INT DEFAULT 0
 );
 
 CREATE TABLE `addiction_list`(
-	`item_id` INT AUTO_INCREMENT PRIMARY KEY,
+	`addiction_id` INT AUTO_INCREMENT PRIMARY KEY,
     `user_id` varchar(100) NOT NULL,
 	`title` varchar(100) NOT NULL,
     `start_time` TIMESTAMP DEFAULT now(),
     `target_time` INT NOT NULL,
-    `item_score` INT DEFAULT 0,
-    `badge1` BOOLEAN DEFAULT FALSE,
-    `badge2` BOOLEAN DEFAULT FALSE,
-    `badge3` BOOLEAN DEFAULT FALSE,
-    `badge4` BOOLEAN DEFAULT FALSE,
-    `badge5` BOOLEAN DEFAULT FALSE,
-    `badge6` BOOLEAN DEFAULT FALSE,
-    `badge7` BOOLEAN DEFAULT FALSE,
-    CONSTRAINT `user_fk` FOREIGN KEY(`user_id`) REFERENCES `user`(`user_id`)
+    `end_time` TIMESTAMP NULL,
+    `addiction_score` INT DEFAULT 0,
+	`success` BOOLEAN DEFAULT FALSE,
+    CONSTRAINT `addiction_user_fk` FOREIGN KEY(`user_id`) REFERENCES `user`(`user_id`)
 );
 
 CREATE TABLE `badge`(
-	`badge_name` varchar(50) NOT NULL PRIMARY KEY,
-    `badge_date` int NOT NULL,
-    `badge_score` int NOT NULL,
-    `badge_img_url` varchar(255) NOT NULL
+	`badge_id` INT AUTO_INCREMENT PRIMARY KEY,
+    `user_id` varchar(100) NOT NULL,
+    `addiction_id` INT NOT NULL,
+    `badge_date` INT NOT NULL,
+    `badge_score` INT NOT NULL,
+    `badge_img_url` varchar(255) NOT NULL,
+    CONSTRAINT `badge_user_fk` FOREIGN KEY(`user_id`) REFERENCES `addiction_list`(`user_id`),
+    CONSTRAINT `badge_addiction_fk` FOREIGN KEY(`addiction_id`) REFERENCES `addiction_list`(`addiction_id`)
+    ON DELETE CASCADE
 );
 
-INSERT INTO `badge`
-	VALUES ('badge1', 1, 10, 'url1'), 
-			('badge2', 2, 20, 'url2'), 
-			('badge3', 3, 30, 'url3'), 
-			('badge4', 4, 40, 'url4'),
-            ('badge5', 5, 50, 'url5'),
-            ('badge6', 6, 60, 'url6'),
-            ('badge7', 7, 70, 'url7'),
-            ('badge10', 10, 100, 'url10'),
-            ('badge14', 14, 140, 'url14'),
-            ('badge20', 20, 200, 'url20'),
-            ('badge30', 30, 300, 'url30'),
-            ('badge50', 50, 500, 'url50'),
-            ('badge50', 70, 700, 'url70'),
-            ('badge100', 100, 1000, 'url100');
+INSERT INTO `user` (user_id, password, nickname)
+VALUE ('ssafy', 'ssafy', 'ssafy');
+
+INSERT INTO `addiction_list` (user_id, title, target_time, end_time)
+VALUE ('ssafy', '알코올', 10, DATE_ADD(now(), INTERVAL 10 DAY));
+
+INSERT INTO `badge` (user_id, addiction_id, badge_date, badge_score, badge_img_url)
+VALUE ('ssafy', '1', 10, 100, 'URL');
             
 SELECT * FROM user;
 SELECT * FROM addiction_list;
 SELECT * FROM badge;
-            
 
