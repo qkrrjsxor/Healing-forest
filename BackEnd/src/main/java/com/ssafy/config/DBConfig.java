@@ -4,7 +4,7 @@ import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@MapperScan(basePackages = "comi.ssafy.model.dao")
+@MapperScan(basePackages = "com.ssafy.model.dao")
 public class DBConfig {
 	
 }
