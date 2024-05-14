@@ -1,4 +1,3 @@
-import router from "@/router";
 import axios from "axios";
 import { defineStore } from "pinia";
 import { ref } from "vue";
@@ -17,6 +16,7 @@ export const useAddictionStore = defineStore("addiction", () => {
         withCredentials: true,
       })
       .then((res) => {
+        console.log(res.data);
         addictionList.value = res.data;
       });
   };

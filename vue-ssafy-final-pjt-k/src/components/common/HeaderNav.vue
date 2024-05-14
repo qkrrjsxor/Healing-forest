@@ -12,7 +12,7 @@
           >RANK</RouterLink
         >
       </div>
-      <picture id="profile-box">
+      <picture @click="submitLogout" id="profile-box">
         <img id="profile-img" src="@/assets/profile-icon.png" alt="profile" />
       </picture>
     </div>
@@ -20,10 +20,13 @@
 </template>
 
 <script setup>
-import { useRoute, useRouter } from "vue-router";
+import { useUserStore } from "@/stores/user";
 import { computed } from "vue";
+import { useRoute, useRouter } from "vue-router";
+
 const router = useRouter();
 const route = useRoute();
+const store = useUserStore();
 
 // 활성화 탭 처리
 const isActiveList = computed(() => {
@@ -36,6 +39,11 @@ const isActiveRank = computed(() => {
 // 홈으로
 const goHome = () => {
   router.push({ name: "home" });
+};
+
+// 로그아웃
+const submitLogout = () => {
+  store.submitLogout();
 };
 </script>
 

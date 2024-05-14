@@ -27,8 +27,22 @@ export const useUserStore = defineStore("user", () => {
         console.log(err);
       });
   };
+
+  // 2) 로그아웃 요청
+  const submitLogout = () => {
+    axios({
+      url: `${USER_REST_API}/logout`,
+      method: "GET",
+      withCredentials: true,
+    }).then(() => {
+      loginUser.value = null;
+      sessionStorage.removeItem("loginUser");
+      router.push({ name: "home" });
+    });
+  };
   return {
     loginUser,
     submitLogin,
+    submitLogout,
   };
 });
