@@ -6,13 +6,13 @@
   
 <mapper namespace="com.ssafy.model.dao.UserDao">
 
-
+	<!-- 회원 등록 -->
     <insert id="insertUser" parameterType="User">
         INSERT INTO user(user_id, password, nickname)
         VALUES(#{userId}, #{password}, #{nickname})
     </insert>
     
-    
+    <!-- 로그인 -->
     <select id="selectUser" parameterType="String" resultType="User">
         SELECT * FROM user 
         WHERE user_id = #{userId}
