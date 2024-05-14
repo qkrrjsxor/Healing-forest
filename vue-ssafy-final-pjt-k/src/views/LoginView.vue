@@ -3,22 +3,25 @@
     <section id="login-section">
       <div id="login-form-box">
         <h2>Log In</h2>
-        <form id="login-form">
+        <form @submit.prevent="submitLogin" id="login-form">
           <div id="input-set">
             <input
-              v-model="userId"
+              v-model="loginUser.userId"
               type="text"
               placeholder="아이디를 입력해주세요."
+              autocomplete="username"
+              autofocus
             />
             <input
-              v-model="password"
-              type="text"
+              v-model="loginUser.password"
+              type="password"
               placeholder="비밀번호를 입력해주세요."
+              autocomplete="current-password"
             />
           </div>
           <div id="button-set">
-            <button @click="goHome">홈으로</button>
-            <button>로그인</button>
+            <button type="button" @click="goHome">홈으로</button>
+            <button type="submit">로그인</button>
           </div>
           <RouterLink :to="{ name: 'signup' }"
             >아직 회원가입을 하지 않았나요?</RouterLink
@@ -36,13 +39,19 @@
 </template>
 
 <script setup>
+import { useUserStore } from "@/stores/user";
 import { ref, watchEffect } from "vue";
 import { useRouter } from "vue-router";
 
+const router = useRouter();
+const store = useUserStore();
+
 const showImage = ref(true);
 
-const userId = ref("");
-const password = ref("");
+const loginUser = ref({
+  userId: "",
+  password: "",
+});
 
 // [반응형] 화면 리사이징 -> image 제거
 watchEffect(() => {
@@ -59,10 +68,14 @@ watchEffect(() => {
   };
 });
 
-const router = useRouter();
 // 홈으로
 const goHome = () => {
   router.push({ name: "home" });
+};
+
+// 로그인 요청
+const submitLogin = () => {
+  store.submitLogin(loginUser.value);
 };
 </script>
 
