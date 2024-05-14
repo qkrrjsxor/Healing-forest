@@ -16,10 +16,10 @@ export const useUserStore = defineStore("user", () => {
       method: "POST",
       data: user,
     })
-      .then(() => {
-        loginUser.value = user.userId;
-        sessionStorage.setItem("loginUser", user.userId);
-        router.push({ name: "signup" });
+      .then((res) => {
+        loginUser.value = res.data.nickname;
+        sessionStorage.setItem("loginUser", res.data.nickname);
+        router.push({ name: "addictionList" });
       })
       .catch((err) => {
         console.log(err);

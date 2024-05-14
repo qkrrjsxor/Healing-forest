@@ -44,6 +44,7 @@ public class UserController {
 			if (!user.getPassword().equals(loginUser.getPassword())) {
 				return new ResponseEntity<String>("비밀 번호가 틀렸습니다.", HttpStatus.UNAUTHORIZED);
 			} else {
+				System.out.println(loginUser.getNickname());
 				session.setAttribute("loginUser", loginUser.getNickname());
 				return new ResponseEntity<User>(loginUser, HttpStatus.OK);
 			}
