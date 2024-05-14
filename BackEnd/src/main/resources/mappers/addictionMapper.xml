@@ -9,8 +9,8 @@
 
 	<!-- 생성 -->
 	<insert id="insertAddiction" parameterType="Addiction">
-		INSERT INTO addiction_list (user_id, title, target_time, end_time)
-		VALUES (#{userId}, #{title}, #{targetTime}, DATE_ADD(now(), INTERVAL #{targetTime} DAY));
+		INSERT INTO addiction_list (user_id, title, target_time, end_time, icon_path)
+		VALUES (#{userId}, #{title}, #{targetTime}, DATE_ADD(now(), INTERVAL #{targetTime} DAY), #{iconPath});
 	</insert>
 	
 	<!-- 전체 조회 -->
