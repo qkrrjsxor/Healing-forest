@@ -19,6 +19,7 @@ CREATE TABLE `addiction_list`(
     `start_time` TIMESTAMP DEFAULT now(),
     `target_time` INT NOT NULL,
     `end_time` TIMESTAMP NULL,
+    `icon_path` varchar(255) NOT NULL,
     `addiction_score` INT DEFAULT 0,
 	`success` BOOLEAN DEFAULT FALSE,
     CONSTRAINT `addiction_user_fk` FOREIGN KEY(`user_id`) REFERENCES `user`(`user_id`)
@@ -39,8 +40,8 @@ CREATE TABLE `badge`(
 INSERT INTO `user` (user_id, password, nickname)
 VALUE ('ssafy', 'ssafy', 'ssafy');
 
-INSERT INTO `addiction_list` (user_id, title, target_time, end_time)
-VALUE ('ssafy', '알코올', 10, DATE_ADD(now(), INTERVAL 10 DAY));
+INSERT INTO `addiction_list` (user_id, title, target_time, end_time, icon_path)
+VALUE ('ssafy', '알코올', 10, DATE_ADD(now(), INTERVAL 10 DAY), 'icon_path');
 
 INSERT INTO `badge` (user_id, addiction_id, badge_date, badge_score, badge_img_url)
 VALUE ('ssafy', '1', 10, 100, 'URL');
