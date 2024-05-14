@@ -52,7 +52,4 @@
   font-weight: 800;
   font-size: large;
 }
-
-/* media query */
-@media (min-width: );
 </style>
