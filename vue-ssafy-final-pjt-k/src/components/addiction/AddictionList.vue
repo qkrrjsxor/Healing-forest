@@ -1,9 +1,34 @@
 <template>
   <div>
-    <h2>리스트 컴포넌트</h2>
+    <!-- <ul v-for="addiction in store.addictionList" :key="addiction.addictionId">
+      <li>{{ addiction.title }}</li>
+    </ul> -->
+    <ul id="addiction-list">
+      <AddictionListItem />
+      <AddictionListItem />
+      <AddictionListItem />
+    </ul>
   </div>
 </template>
 
-<script setup></script>
+<script setup>
+import AddictionListItem from "./AddictionListItem.vue";
+import { useAddictionStore } from "@/stores/addiction";
+import { onMounted } from "vue";
+const store = useAddictionStore();
 
-<style lang="scss" scoped></style>
+onMounted(() => {
+  store.getAddictionList();
+});
+</script>
+
+<style scoped>
+#addiction-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: blue;
+  margin-top: 3rem;
+  padding: 5rem;
+}
+</style>

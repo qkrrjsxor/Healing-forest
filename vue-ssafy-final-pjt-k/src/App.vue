@@ -1,6 +1,8 @@
 <template>
-  <HeaderNav v-if="!route.meta.hideHeader" />
-  <RouterView />
+  <div id="background">
+    <HeaderNav v-if="!route.meta.hideHeader" />
+    <RouterView />
+  </div>
 </template>
 
 <script setup>
@@ -10,4 +12,9 @@ import { useRoute } from "vue-router";
 const route = useRoute();
 </script>
 
-<style></style>
+<style>
+#background {
+  background-color: #eaeceb;
+  height: 100vh;
+}
+</style>
