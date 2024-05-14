@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+    
+<mapper namespace="com.ssafy.model.dao.AddictionDao">
+
+	<!-- 생성 -->
+	<insert id="insertAddiction" parameterType="Addiction">
+		INSERT INTO addiction_list (user_id, title, target_time, end_time)
+		VALUES (#{userId}, #{title}, #{targetTime}, DATE_ADD(now(), INTERVAL #{targetTime} DAY));
+	</insert>
+	
+	<!-- 전체 조회 -->
+	<select id="selectAddictionList" parameterType="String" resultType="Addiction">
+		SELECT * FROM addiction_list
+		WHERE user_id = #{userId}
+	</select>
+	
+	
+	<!-- 삭제 -->
+	<delete id="deleteAddiction" parameterType="Integer">
+		DELETE FROM addiction_list
+		WHERE addiction_id = #{addictionId}
+	</delete>
+</mapper>
+  
