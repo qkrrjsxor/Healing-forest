@@ -15,6 +15,7 @@ export const useUserStore = defineStore("user", () => {
     axios({
       url: `${USER_REST_API}/login`,
       method: "POST",
+      withCredentials: true,
       data: user,
     })
       .then((res) => {

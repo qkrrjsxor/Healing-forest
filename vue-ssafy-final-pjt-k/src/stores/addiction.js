@@ -12,9 +12,13 @@ export const useAddictionStore = defineStore("addiction", () => {
   // actions
   // 1. 전체 조회
   const getAddictionList = () => {
-    axios.get(`${ADDICTION_REST_API}/addiction`).then((res) => {
-      addictionList.value = res.data;
-    });
+    axios
+      .get(`${ADDICTION_REST_API}/addiction`, {
+        withCredentials: true,
+      })
+      .then((res) => {
+        addictionList.value = res.data;
+      });
   };
 
   return {

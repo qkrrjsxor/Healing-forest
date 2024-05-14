@@ -46,7 +46,6 @@ public class AddictionController {
 	public ResponseEntity<?> getAddictionList(HttpSession session){
 		// 세션에 저장된 로그인 정보 아이디 가져오기
 		String userId = (String) session.getAttribute("loginUser");
-		System.out.println(userId);
 		
 		List<Addiction> addictionList = addictionService.getAddictionList(userId);
 		
