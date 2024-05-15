@@ -17,7 +17,6 @@ export const useAddictionStore = defineStore("addiction", () => {
         withCredentials: true,
       })
       .then((res) => {
-        console.log(res.data);
         addictionList.value = res.data;
       });
   };
