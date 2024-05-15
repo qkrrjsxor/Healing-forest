@@ -39,9 +39,9 @@ const router = createRouter({
           component: AddictionList,
         },
         {
-          path: "addictionCreate",
+          path: "create",
           name: "addictionCreate",
-          component:AddictionCreate,
+          component: AddictionCreate,
         },
       ],
     },

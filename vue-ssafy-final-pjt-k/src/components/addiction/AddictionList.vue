@@ -1,20 +1,13 @@
 <template>
-<<<<<<< HEAD
-  <div>
-    <!-- <ul v-for="addiction in store.addictionList" :key="addiction.addictionId">
-      <li>{{ addiction.title }}</li>
-    </ul> -->
-    <RouterLink :to="{ name: 'addictionCreate' }" id="addictionCreate">
-      <img id="plusicon" src="@/assets/plus.png" alt="plusicon" />
-    </RouterLink>
-=======
   <div id="list-container">
-    <img
-      id="add-addiction"
-      src="@/assets/addiction/create-addiction-btn.png"
-      alt="add-addiction"
-    />
->>>>>>> 9bedebc804f22f55d11000f92a07ebd5e54dc61a
+    <RouterLink :to="{ name: 'addictionCreate' }" id="addictionCreate">
+      <img
+        id="add-addiction"
+        src="@/assets/addiction/create-addiction-btn.png"
+        alt="add-addiction"
+      />
+    </RouterLink>
+
     <ul id="addiction-list">
       <AddictionListItem
         v-for="addiction in store.addictionList"
