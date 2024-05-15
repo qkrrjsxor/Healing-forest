@@ -1,18 +1,22 @@
 <template>
-  <div>
-    <!-- <ul v-for="addiction in store.addictionList" :key="addiction.addictionId">
-      <li>{{ addiction.title }}</li>
-    </ul> -->
+  <div id="list-container">
+    <img
+      id="add-addiction"
+      src="@/assets/addiction/create-addiction-btn.png"
+      alt="add-addiction"
+    />
     <ul id="addiction-list">
-      <AddictionListItem />
-      <AddictionListItem />
-      <AddictionListItem />
+      <AddictionListItem
+        v-for="addiction in store.addictionList"
+        :key="addiction.addictionId"
+        :addiction="addiction"
+      />
     </ul>
   </div>
 </template>
 
 <script setup>
-import AddictionListItem from "./AddictionListItem.vue";
+import AddictionListItem from "@/components/addiction/AddictionListItem.vue";
 import { useAddictionStore } from "@/stores/addiction";
 import { onMounted } from "vue";
 const store = useAddictionStore();
@@ -23,12 +27,52 @@ onMounted(() => {
 </script>
 
 <style scoped>
+#list-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: calc(100vh - 3.5rem);
+}
+
+#add-addiction {
+  margin-top: 3rem;
+}
+
 #addiction-list {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: blue;
-  margin-top: 3rem;
-  padding: 5rem;
+  gap: 1.5rem;
+
+  margin: 3rem auto;
+  padding: 0 5rem;
+
+  width: 80%;
+  height: 82vh;
+  overflow: scroll;
+}
+
+/* 스크롤바 제거 */
+#addiction-list::-webkit-scrollbar {
+  display: none; /* Chrome, Edge, and Safari */
+}
+#addiction-list {
+  scrollbar-width: none; /* Firefox */
+}
+#addiction-list {
+  -ms-overflow-style: none; /* IE11 */
+}
+
+/* media query */
+@media (max-width: 1024px) {
+  #addiction-list {
+    width: 75%;
+  }
+}
+
+@media (max-width: 1768px) {
+  #addiction-list {
+    width: 65%;
+  }
 }
 </style>
