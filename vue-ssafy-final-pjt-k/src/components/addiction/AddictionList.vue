@@ -3,6 +3,9 @@
     <!-- <ul v-for="addiction in store.addictionList" :key="addiction.addictionId">
       <li>{{ addiction.title }}</li>
     </ul> -->
+    <RouterLink :to="{ name: 'addictionCreate' }" id="addictionCreate">
+      <img id="plusicon" src="@/assets/plus.png" alt="plusicon" />
+    </RouterLink>
     <ul id="addiction-list">
       <AddictionListItem />
       <AddictionListItem />
@@ -30,5 +33,11 @@ onMounted(() => {
   background-color: blue;
   margin-top: 3rem;
   padding: 5rem;
+}
+
+#plusicon {
+  width: 50px;
+  margin-top: 3rem;
+  margin-left: 1rem;
 }
 </style>
