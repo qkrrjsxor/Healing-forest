@@ -1,5 +1,5 @@
 <template>
-  <li id="addiction-item">
+  <li @click="showDetail(addiction.addictionId)" id="addiction-item">
     <div id="item-top">
       <div id="item-title">
         <img src="@/assets/addiction/icons/alcohol.png" alt="alcohol" />
@@ -31,6 +31,8 @@
 import dayjs from "dayjs";
 import duration from "dayjs/plugin/duration";
 import { computed, onMounted, onUnmounted, ref } from "vue";
+import { useRouter } from "vue-router";
+const router = useRouter();
 
 // 플러그인 등록
 dayjs.extend(duration);
@@ -78,7 +80,9 @@ const progressWidth = computed(() => {
 });
 
 // 디테일 페이지로 이동
-const showDetail = () => {};
+const showDetail = (id) => {
+  router.push(`addiction/${id}`);
+};
 
 let intervalId;
 
