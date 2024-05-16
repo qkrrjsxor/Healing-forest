@@ -6,9 +6,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -30,7 +30,10 @@ public class AddictionController {
 	
 	// 생성
 	@PostMapping("/addiction")
-	public ResponseEntity<?> createAddiction(@ModelAttribute Addiction addiction){
+	public ResponseEntity<?> createAddiction(@RequestBody Addiction addiction, HttpSession session){
+		
+//		System.out.println("controller" + session.getAttribute("loginUser"));
+		addiction.setUserId((String) session.getAttribute("loginUser"));
 		
 		int result = addictionService.createAddiction(addiction);
 		
