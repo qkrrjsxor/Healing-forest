@@ -32,6 +32,12 @@ public class AddictionServiceImpl implements AddictionService{
 	}
 
 	// 상세 조회
+	@Override
+	public Addiction getAddictionDetail(String userId, int addictionId) {
+		System.out.println(addictionDao.selectAddictionOne(userId, addictionId));
+		System.out.println("상세조회 service test");
+		return addictionDao.selectAddictionOne(userId, addictionId);
+	}
 	
 	// 삭제
 	@Override
@@ -39,6 +45,7 @@ public class AddictionServiceImpl implements AddictionService{
 
 		return addictionDao.deleteAddiction(addictionId);
 	}
+
 
 
 	

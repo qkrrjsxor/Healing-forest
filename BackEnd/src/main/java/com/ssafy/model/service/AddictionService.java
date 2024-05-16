@@ -12,7 +12,9 @@ public interface AddictionService {
 	public List<Addiction> getAddictionList(String userId);
 	
 	// 상세 조회
+	public Addiction getAddictionDetail(String userId, int addictionId);
 	
 	// 삭제
 	public int removeAddiction(int addictionId);
+
 }
