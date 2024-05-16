@@ -30,10 +30,10 @@ const store = useUserStore();
 
 // 활성화 탭 처리
 const isActiveList = computed(() => {
-  return route.name.includes("addiction");
+  return route.name?.includes("addiction");
 });
 const isActiveRank = computed(() => {
-  return route.name.includes("rank");
+  return route.name?.includes("rank");
 });
 
 // 홈으로
