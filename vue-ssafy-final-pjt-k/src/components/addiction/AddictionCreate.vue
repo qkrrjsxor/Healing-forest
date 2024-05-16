@@ -15,6 +15,24 @@
             <option disabled value="">아이콘을 선택해주세요</option>
             <option v-for="icon in icons" :key="icon" :value="icon">{{ icon }}</option>
           </select>
+
+          <div class="icon-selection-form">
+            <h2>아이콘 선택 폼</h2>
+            <div class="dropdown" @click="toggleDropdown">
+              <button type="button" class="dropdown-button">
+                {{ selectedIcon ? selectedIcon.alt : '아이콘 선택하기' }}
+                <span v-if="showIcons">▲</span>
+                <span v-else>▼</span>
+              </button>
+              <div v-if="showIcons" class="dropdown-menu">
+                <div v-for="icon in icons" :key="icon.id" class="dropdown-item" @click="selectIcon(icon)">
+                  <img :src="getIconUrl(icon.alt)" :alt="icon.alt" />
+                  {{ icon.alt }}
+                </div>
+              </div>
+            </div>
+
+          </div>
         </div>
 
         <div id="button-set">
@@ -40,8 +58,15 @@ const addiction = ref({
   iconPath: "",
 })
 
-const icons = ref(['Icon1', 'Icon2', 'Icon3']); // Replace with actual icons
+const icons = ref([
+  { id: 1, src: '@/assets/addiction/icons/alcohol.png', alt: 'alcohol' },
+  { id: 2, src: '@/assets/addiction/icons/Smoke.png', alt: 'Smoke' },
+  { id: 3, src: '@/assets/addiction/icons/Game.png', alt: 'Game' },
+]);
 
+const getIconUrl = function (name) {
+  return new URL(`@/assets/addiction/icons/${name}.png`, import.meta.url).href;
+}
 
 // 목록으로
 const goList = () => {
@@ -54,6 +79,19 @@ const submitAddiction = () => {
   // console.log(addiction)
   store.submitAddiction(addiction.value);
 };
+
+const showIcons = ref(false);
+const selectedIcon = ref(null);
+
+const toggleDropdown = () => {
+  showIcons.value = !showIcons.value;
+};
+
+const selectIcon = (icon) => {
+  selectedIcon.value = icon;
+  showIcons.value = false;
+};
+
 </script>
 
 
