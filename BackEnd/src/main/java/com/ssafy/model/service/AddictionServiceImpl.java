@@ -6,6 +6,8 @@ import org.springframework.stereotype.Service;
 
 import com.ssafy.model.dao.AddictionDao;
 import com.ssafy.model.dto.Addiction;
+import com.ssafy.model.dto.AddictionDetail;
+import com.ssafy.model.dto.Badge;
 
 @Service
 public class AddictionServiceImpl implements AddictionService{
@@ -33,10 +35,10 @@ public class AddictionServiceImpl implements AddictionService{
 
 	// 상세 조회
 	@Override
-	public Addiction getAddictionDetail(String userId, int addictionId) {
-		System.out.println(addictionDao.selectAddictionOne(userId, addictionId));
-		System.out.println("상세조회 service test");
-		return addictionDao.selectAddictionOne(userId, addictionId);
+	public AddictionDetail getAddictionDetail(String userId, int addictionId) {
+		Addiction addiction = addictionDao.selectAddictionOne(userId, addictionId);
+		List<Badge> badges = addictionDao.selectBadge(addictionId);
+		return new AddictionDetail(addiction, badges);
 	}
 	
 	// 삭제
@@ -46,6 +48,12 @@ public class AddictionServiceImpl implements AddictionService{
 		return addictionDao.deleteAddiction(addictionId);
 	}
 
+	// 뱃지 생성
+	@Override
+	public int createBadge(int addictionId) {
+		
+		return 0;
+	}
 
 
 	

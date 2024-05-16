@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ssafy.model.dto.Addiction;
+import com.ssafy.model.dto.AddictionDetail;
 import com.ssafy.model.service.AddictionService;
 
 import jakarta.servlet.http.HttpSession;
@@ -65,14 +66,14 @@ public class AddictionController {
 		// 세션에 저장된 로그인 정보 아이디 가져오기
 		String userId = (String) session.getAttribute("loginUser");
 		
-		Addiction addiction = addictionService.getAddictionDetail(userId, addictionId);
+		AddictionDetail addictionDetail = addictionService.getAddictionDetail(userId, addictionId);
+				
+		System.out.println("상세조회 " + addictionDetail);
 		
-		System.out.println("상세조회 " + addiction);
-		
-		if(addiction == null) {
+		if(addictionDetail == null) {
 			return new ResponseEntity<>("해당 항목이 존재하지 않습니다.", HttpStatus.NO_CONTENT);
 		}else {
-			return new ResponseEntity<>(addiction, HttpStatus.OK);
+			return new ResponseEntity<>(addictionDetail, HttpStatus.OK);
 		}
 	}
 	

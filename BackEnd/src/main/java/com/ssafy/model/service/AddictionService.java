@@ -3,6 +3,7 @@ package com.ssafy.model.service;
 import java.util.List;
 
 import com.ssafy.model.dto.Addiction;
+import com.ssafy.model.dto.AddictionDetail;
 
 public interface AddictionService {
 	// 생성
@@ -12,9 +13,12 @@ public interface AddictionService {
 	public List<Addiction> getAddictionList(String userId);
 	
 	// 상세 조회
-	public Addiction getAddictionDetail(String userId, int addictionId);
+	public AddictionDetail getAddictionDetail(String userId, int addictionId);
 	
 	// 삭제
 	public int removeAddiction(int addictionId);
+	
+	// 뱃지 생성
+	public int createBadge(int addictionId);
 
 }
