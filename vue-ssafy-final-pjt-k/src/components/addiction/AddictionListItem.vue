@@ -1,5 +1,5 @@
 <template>
-  <li @click="showDetail" id="addiction-item">
+  <li id="addiction-item">
     <div id="item-top">
       <div id="item-title">
         <img src="@/assets/addiction/icons/alcohol.png" alt="alcohol" />
