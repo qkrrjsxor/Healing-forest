@@ -27,8 +27,54 @@
         </div>
       </div>
       <div id="addiction-badge">
-        <p>획득한 뱃지</p>
-        <p>뱃지 이미지가 들어갑니다.</p>
+        <div id="badge-title">
+          <h2>획득한 뱃지</h2>
+          <span id="badge-num">15</span>
+        </div>
+        <ul id="badge-list">
+          <li>
+            <img src="@/assets/addiction/badges/badge_1.png" alt="badge_1" />
+          </li>
+          <li>
+            <img src="@/assets/addiction/badges/badge_2.png" alt="badge_2" />
+          </li>
+          <li>
+            <img src="@/assets/addiction/badges/badge_3.png" alt="badge_3" />
+          </li>
+          <li>
+            <img src="@/assets/addiction/badges/badge_4.png" alt="badge_4" />
+          </li>
+          <li>
+            <img src="@/assets/addiction/badges/badge_5.png" alt="badge_5" />
+          </li>
+          <li>
+            <img src="@/assets/addiction/badges/badge_6.png" alt="badge_6" />
+          </li>
+          <li>
+            <img src="@/assets/addiction/badges/badge_7.png" alt="badge_7" />
+          </li>
+          <li>
+            <img src="@/assets/addiction/badges/badge_10.png" alt="badge_10" />
+          </li>
+          <li>
+            <img src="@/assets/addiction/badges/badge_14.png" alt="badge_14" />
+          </li>
+          <li>
+            <img src="@/assets/addiction/badges/badge_20.png" alt="badge_20" />
+          </li>
+          <li>
+            <img src="@/assets/addiction/badges/badge_30.png" alt="badge_30" />
+          </li>
+          <li>
+            <img src="@/assets/addiction/badges/badge_50.png" alt="badge_50" />
+          </li>
+          <li>
+            <img src="@/assets/addiction/badges/badge_70.png" alt="badge_70" />
+          </li>
+          <li>
+            <img src="@/assets/addiction/badges/badge_70.png" alt="badge_100" />
+          </li>
+        </ul>
       </div>
     </div>
   </div>
@@ -125,7 +171,7 @@ onUnmounted(() => {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1.5rem;
+  gap: 2rem;
 
   margin: 3rem auto;
 
@@ -222,6 +268,7 @@ onUnmounted(() => {
     color: #dddbd9;
     font-weight: 700;
     font-size: medium;
+    cursor: pointer;
   }
 }
 
@@ -239,14 +286,45 @@ onUnmounted(() => {
   gap: 2rem;
 
   width: 80%;
-  margin: 0 auto;
   padding: 2rem;
-  background-color: #7a8579;
-  border-radius: 1rem;
+  /* background-color: #7a8579; */
 
+  h2,
   p {
     margin: 0;
   }
+}
+
+#badge-title {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+}
+
+#badge-num {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 2.5rem;
+  height: 2.5rem;
+  background-color: #84a063;
+  border-radius: 50%;
+
+  color: white;
+  font-weight: 700;
+}
+
+#badge-list {
+  display: flex;
+  /* justify-content: center; */
+  align-items: flex-end;
+  flex-wrap: wrap;
+  gap: 3rem;
+
+  padding: 2rem 5rem;
+
+  /* background-color: aquamarine; */
 }
 
 /* 스크롤바 제거 */
@@ -305,6 +383,12 @@ onUnmounted(() => {
     p {
       justify-self: auto;
     }
+  }
+}
+
+@media (max-width: 468px) {
+  #badge-list {
+    justify-content: center;
   }
 }
 </style>
