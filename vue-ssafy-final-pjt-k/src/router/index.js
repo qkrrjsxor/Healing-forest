@@ -6,6 +6,7 @@ import AddictionView from "@/views/AddictionView.vue";
 import RankView from "@/views/RankView.vue";
 import AddictionList from "@/components/addiction/AddictionList.vue";
 import AddictionCreate from "@/components/addiction/AddictionCreate.vue";
+import AddictionDetail from "@/components/addiction/AddictionDetail.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -42,6 +43,11 @@ const router = createRouter({
           path: "create",
           name: "addictionCreate",
           component: AddictionCreate,
+        },
+        {
+          path: ":id",
+          name: "addictionDetail",
+          component: AddictionDetail,
         },
       ],
     },

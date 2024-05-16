@@ -1,5 +1,5 @@
 <template>
-  <li id="addiction-item">
+  <li @click="showDetail" id="addiction-item">
     <div id="item-top">
       <div id="item-title">
         <img src="@/assets/addiction/icons/alcohol.png" alt="alcohol" />
@@ -76,6 +76,9 @@ const progressWidth = computed(() => {
   );
   return `${percentage}%`;
 });
+
+// 디테일 페이지로 이동
+const showDetail = () => {};
 
 let intervalId;
 
