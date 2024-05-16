@@ -5,17 +5,18 @@
         <div id="input-set">
           <h2>어떤 중독을 끊고 싶으신가요?</h2>
           <input type="text" v-model="addiction.title" placeholder="중독 입력" />
-      
+
           <h2>목표 일 수를 입력해주세요.</h2>
-          <input type="number" v-model="addiction.targetTime" placeholder="1 ~ 100 까지의 숫자를 입력할 수 있습니다." min="1" max="100"/>
-      
+          <input type="number" v-model="addiction.targetTime" placeholder="1 ~ 100 까지의 숫자를 입력할 수 있습니다." min="1"
+            max="100" />
+
           <h2>아이콘을 선택해주세요</h2>
           <select v-model="addiction.iconPath">
             <option disabled value="">아이콘을 선택해주세요</option>
             <option v-for="icon in icons" :key="icon" :value="icon">{{ icon }}</option>
           </select>
         </div>
-    
+
         <div id="button-set">
           <button type="button" @click="goList">목록으로</button>
           <button type="submit">시작</button>
@@ -70,10 +71,11 @@ const submitAddiction = () => {
 #input-set {
   display: flex;
   flex-direction: column;
-  
+
 }
 
-input, select {
+input,
+select {
   width: 100%;
   padding: 1rem 1.5rem;
   border: 3px solid #B6C2A9;
