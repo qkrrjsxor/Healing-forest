@@ -58,7 +58,7 @@ SELECT * FROM addiction_list;
 SELECT * FROM badge;
 
 SELECT * FROM badge
-WHERE user_id = 'ssafy' AND addiction_id = 1;
+WHERE addiction_id = 1;
 
 SELECT * 
 FROM addiction_list AS a 

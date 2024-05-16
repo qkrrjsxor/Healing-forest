@@ -30,5 +30,11 @@
 		DELETE FROM addiction_list
 		WHERE addiction_id = #{addictionId}
 	</delete>
+	
+	<!-- 뱃지 조회 -->
+	<select id="selectBadge" parameterType="int" resultType="Badge">
+		SELECT * FROM badge
+		WHERE addiction_id = #{addictionId};
+	</select>
 </mapper>
   
