@@ -107,6 +107,7 @@ onUnmounted(() => {
   border-radius: 1.5rem;
 
   color: #384427;
+  cursor: pointer;
 }
 
 #item-top {
