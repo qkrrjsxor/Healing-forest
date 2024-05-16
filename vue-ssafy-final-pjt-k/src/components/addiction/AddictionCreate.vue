@@ -10,7 +10,7 @@
           <input type="number" v-model="addiction.targetTime" placeholder="1 ~ 100 까지의 숫자를 입력할 수 있습니다." min="1" max="100"/>
       
           <h2>아이콘을 선택해주세요</h2>
-          <select v-model="addiction.icon">
+          <select v-model="addiction.iconPath">
             <option disabled value="">아이콘을 선택해주세요</option>
             <option v-for="icon in icons" :key="icon" :value="icon">{{ icon }}</option>
           </select>
@@ -36,7 +36,7 @@ const store = useAddictionStore();
 const addiction = ref({
   title: "",
   targetTime: "",
-  icon: "",
+  iconPath: "",
 })
 
 const icons = ref(['Icon1', 'Icon2', 'Icon3']); // Replace with actual icons
