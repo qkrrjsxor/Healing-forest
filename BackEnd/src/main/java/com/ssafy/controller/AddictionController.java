@@ -60,7 +60,21 @@ public class AddictionController {
 	}
 	
 	// 상세 조회
-	
+	@GetMapping("/addiction/{addictionId}")
+	public ResponseEntity<?> getAddictionDetail(@PathVariable("addictionId") int addictionId, HttpSession session){
+		// 세션에 저장된 로그인 정보 아이디 가져오기
+		String userId = (String) session.getAttribute("loginUser");
+		
+		Addiction addiction = addictionService.getAddictionDetail(userId, addictionId);
+		
+		System.out.println("상세조회 " + addiction);
+		
+		if(addiction == null) {
+			return new ResponseEntity<>("해당 항목이 존재하지 않습니다.", HttpStatus.NO_CONTENT);
+		}else {
+			return new ResponseEntity<>(addiction, HttpStatus.OK);
+		}
+	}
 	
 	// 삭제
 	@DeleteMapping("/addiction/{addictionId}")
