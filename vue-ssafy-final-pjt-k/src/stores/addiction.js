@@ -23,12 +23,12 @@ export const useAddictionStore = defineStore("addiction", () => {
 
   // 2. 중독 리스트 등록
   const submitAddiction = (addiction) => {
-    console.log("test")
+    console.log("test");
     axios({
       url: `${ADDICTION_REST_API}/addiction`,
       method: "POST",
       withCredentials: true,
-      data: addiction
+      data: addiction,
     })
       .then((res) => {
         console.log(res.data);
