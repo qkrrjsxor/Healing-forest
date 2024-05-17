@@ -48,7 +48,20 @@ VALUES ('ssafy', '알코올', 10, DATE_ADD(now(), INTERVAL target_time DAY), 'ic
         ('ssafy2', '핸드폰', 5, DATE_ADD(now(), INTERVAL target_time DAY), 'icon_path');
 
 INSERT INTO `badge` (user_id, addiction_id, badge_date, badge_score, badge_img_url)
-VALUES ('ssafy', '1', 10, 100, 'URL'),
+VALUES ('ssafy', '1', 1, 10, 'URL'),
+		('ssafy', '1', 2, 20, 'URL'),
+		('ssafy', '1', 3, 30, 'URL'),
+		('ssafy', '1', 4, 40, 'URL'),
+		('ssafy', '1', 5, 50, 'URL'),
+		('ssafy', '1', 6, 60, 'URL'),
+		('ssafy', '1', 7, 70, 'URL'),
+		('ssafy', '1', 10, 100, 'URL'),
+		('ssafy', '1', 14, 140, 'URL'),
+		('ssafy', '1', 20, 200, 'URL'),
+		('ssafy', '1', 30, 300, 'URL'),
+		('ssafy', '1', 50, 500, 'URL'),
+		('ssafy', '1', 70, 700, 'URL'),
+		('ssafy', '1', 100, 1000, 'URL'),
 		('ssafy', '1', 20, 200, 'URL'),
 		('ssafy', '2', 1, 10, 'URL'),
 		('ssafy2', '3', 1, 10, 'URL');
