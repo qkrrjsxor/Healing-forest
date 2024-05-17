@@ -37,6 +37,8 @@ CREATE TABLE `badge`(
     ON DELETE CASCADE
 );
 
+-- dummy data
+
 INSERT INTO `user` (user_id, password, nickname)
 VALUES ('ssafy', 'ssafy', '싸피'),
 		('ssafy2', 'ssafy2', '싸피2');
@@ -66,6 +68,8 @@ VALUES ('ssafy', '1', 1, 10, 'URL'),
 		('ssafy', '2', 1, 10, 'URL'),
 		('ssafy2', '3', 1, 10, 'URL');
             
+-- test code
+
 SELECT * FROM user;
 SELECT * FROM addiction_list;
 SELECT * FROM badge;
