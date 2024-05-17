@@ -8,6 +8,7 @@
             type="text"
             v-model="addiction.title"
             placeholder="목표 항목을 입력해주세요."
+            autofocus
           />
         </div>
 
@@ -138,6 +139,19 @@ const goList = () => {
 
 // 등록
 const submitAddiction = () => {
+  // 모든 항목 필수 선택하도록
+  if (!addiction.value.title) {
+    alert("목표 항목을 입력해주세요.");
+    return;
+  }
+  if (!addiction.value.targetTime) {
+    alert("목표 일수를 입력해주세요.");
+    return;
+  }
+  if (!selectedIcon.value) {
+    alert("아이콘을 선택해주세요.");
+    return;
+  }
   store.submitAddiction(addiction.value);
   router.push({ name: "addictionList" });
 };

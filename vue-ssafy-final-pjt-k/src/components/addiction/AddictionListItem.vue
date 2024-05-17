@@ -2,7 +2,7 @@
   <li @click="showDetail(addiction.addictionId)" id="addiction-item">
     <div id="item-top">
       <div id="item-title">
-        <img src="@/assets/addiction/icons/alcohol.png" alt="alcohol" />
+        <img :src="getIconImage(addiction.iconPath)" alt="alcohol" />
         <h3>{{ addiction.title }}</h3>
       </div>
       <div id="item-progress">
@@ -40,6 +40,15 @@ dayjs.extend(duration);
 const props = defineProps({
   addiction: Object,
 });
+
+// 이미지 동적 경로 적용
+const images = import.meta.glob("@/assets/addiction/icons/*.png", {
+  eager: true,
+});
+
+const getIconImage = (filePath) => {
+  return images[filePath]?.default || "";
+};
 
 const startToCurrent = ref("");
 const startToEnd = ref("");

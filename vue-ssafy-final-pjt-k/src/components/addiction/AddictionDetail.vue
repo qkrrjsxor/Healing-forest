@@ -6,7 +6,7 @@
           <div id="icon-title">
             <img
               id="icon"
-              src="@/assets/addiction/icons/alcohol.png"
+              :src="getIconImage(addictionItem.addiction.iconPath)"
               alt="alcohol"
             />
             <p>{{ addictionItem.addiction.title }}</p>
@@ -108,16 +108,22 @@ const formatDuration = (milliseconds) => {
 };
 
 // 이미지 동적 경로
-// 이미지 파일 로드 (모든 파일 미리 가져오도록 설정)
-const images = import.meta.glob("@/assets/addiction/badges/*.png", {
+// 아이콘
+const iconImages = import.meta.glob("@/assets/addiction/icons/*.png", {
   eager: true,
 });
+const getIconImage = (filePath) => {
+  return iconImages[filePath]?.default || "";
+};
 
-// 이미지 경로 가져오기
+// 뱃지
+const badgeImages = import.meta.glob("@/assets/addiction/badges/*.png", {
+  eager: true,
+});
 const getBadgeImage = (fileName) => {
   const key = `/src/assets/addiction/badges/${fileName}`;
-  if (images[key]) {
-    return images[key].default;
+  if (badgeImages[key]) {
+    return badgeImages[key].default;
   } else {
     console.error(`Image not found: ${fileName}`);
     return "";
@@ -169,7 +175,6 @@ onUnmounted(() => {
 
   width: 80%;
   padding: 2rem;
-  /* background-color: #7a8579; */
   border-radius: 1rem;
 }
 
@@ -201,9 +206,11 @@ onUnmounted(() => {
   border: 20px solid #d1d3d2;
 }
 
-/* #icon {
-  width: 2.2rem;
-} */
+#icon {
+  width: 50%;
+  height: 50%;
+  object-fit: cover;
+}
 
 #addiction-info {
   display: flex;
@@ -268,7 +275,6 @@ onUnmounted(() => {
 
   width: 80%;
   padding: 2rem;
-  /* background-color: #7a8579; */
 
   h2,
   p {

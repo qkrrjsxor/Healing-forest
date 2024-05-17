@@ -44,10 +44,10 @@ VALUES ('ssafy', 'ssafy', '싸피'),
 		('ssafy2', 'ssafy2', '싸피2');
 
 INSERT INTO `addiction_list` (user_id, title, target_time, end_time, icon_path)
-VALUES ('ssafy', '알코올', 10, DATE_ADD(now(), INTERVAL target_time DAY), 'icon_path'),
-		('ssafy', '담배', 1, DATE_ADD(now(), INTERVAL target_time DAY), 'icon_path'),
-        ('ssafy2', '담배', 2, DATE_ADD(now(), INTERVAL target_time DAY), 'icon_path'),
-        ('ssafy2', '핸드폰', 5, DATE_ADD(now(), INTERVAL target_time DAY), 'icon_path');
+VALUES ('ssafy', '알코올', 10, DATE_ADD(now(), INTERVAL target_time DAY), '/src/assets/addiction/icons/Alcohol.png'),
+		('ssafy', '담배', 1, DATE_ADD(now(), INTERVAL target_time DAY), '/src/assets/addiction/icons/Smoke.png'),
+        ('ssafy2', '담배', 2, DATE_ADD(now(), INTERVAL target_time DAY), '/src/assets/addiction/icons/Smoke.png'),
+        ('ssafy2', '핸드폰', 5, DATE_ADD(now(), INTERVAL target_time DAY), '/src/assets/addiction/icons/Phone.png');
 
 INSERT INTO `badge` (user_id, addiction_id, badge_date, badge_score, badge_img_url)
 VALUES ('ssafy', '1', 1, 10, 'URL'),

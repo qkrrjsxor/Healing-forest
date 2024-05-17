@@ -29,7 +29,6 @@ export const useAddictionStore = defineStore("addiction", () => {
 
   // 2. 중독 리스트 등록
   const submitAddiction = (addiction) => {
-    console.log("test");
     axios({
       url: `${ADDICTION_REST_API}/addiction`,
       method: "POST",
@@ -37,8 +36,8 @@ export const useAddictionStore = defineStore("addiction", () => {
       data: addiction,
     })
       .then((res) => {
-        console.log(res.data);
         addictionCreate.value = res.data;
+        getAddictionList(); // 항목 추가하면, 최신 리스트 가져오기
       })
       .catch((err) => {
         console.log(err);
