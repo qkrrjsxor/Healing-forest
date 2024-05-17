@@ -70,13 +70,34 @@ const navigate = () => {
 
   #login {
     font-size: medium;
+    padding: 1rem 3rem;
+    bottom: 5rem;
   }
 }
 
 @media (max-width: 768px) {
   #login {
     font-size: small;
-    padding: 1rem 3rem;
+    padding: 1rem 2.5rem;
+  }
+}
+
+@media (max-height: 700px) {
+  #login {
+    font-size: small;
+    padding: 1rem 2.5rem;
+    bottom: 3rem;
+  }
+}
+
+@media (max-height: 500px) {
+  #home {
+    font-size: large;
+  }
+
+  #login {
+    padding: 1rem 2rem;
+    bottom: 1rem;
   }
 }
 </style>

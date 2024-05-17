@@ -29,8 +29,13 @@
       <div id="addiction-badge">
         <div id="badge-title">
           <h2>획득한 뱃지</h2>
-          <span id="badge-num">15</span>
+          <span v-if="addictionItem.badges.length > 0" id="badge-num"
+            >{{ addictionItem.badges.length }}
+          </span>
         </div>
+        <p id="no-badge" v-if="addictionItem.badges.length === 0">
+          아직 획득한 뱃지가 없습니다.
+        </p>
         <ul id="badge-list">
           <li v-for="badge in addictionItem.badges" :key="badge.id">
             <img
@@ -286,6 +291,10 @@ onUnmounted(() => {
   display: flex;
   align-items: center;
   gap: 0.7rem;
+
+  h2 {
+    color: #352f26;
+  }
 }
 
 #badge-num {
@@ -300,6 +309,11 @@ onUnmounted(() => {
 
   color: white;
   font-weight: 700;
+}
+
+#no-badge {
+  padding: 1rem;
+  color: #573f2c;
 }
 
 #badge-list {
