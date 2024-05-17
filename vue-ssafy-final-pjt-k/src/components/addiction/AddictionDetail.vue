@@ -32,47 +32,11 @@
           <span id="badge-num">15</span>
         </div>
         <ul id="badge-list">
-          <li>
-            <img src="@/assets/addiction/badges/badge_1.png" alt="badge_1" />
-          </li>
-          <li>
-            <img src="@/assets/addiction/badges/badge_2.png" alt="badge_2" />
-          </li>
-          <li>
-            <img src="@/assets/addiction/badges/badge_3.png" alt="badge_3" />
-          </li>
-          <li>
-            <img src="@/assets/addiction/badges/badge_4.png" alt="badge_4" />
-          </li>
-          <li>
-            <img src="@/assets/addiction/badges/badge_5.png" alt="badge_5" />
-          </li>
-          <li>
-            <img src="@/assets/addiction/badges/badge_6.png" alt="badge_6" />
-          </li>
-          <li>
-            <img src="@/assets/addiction/badges/badge_7.png" alt="badge_7" />
-          </li>
-          <li>
-            <img src="@/assets/addiction/badges/badge_10.png" alt="badge_10" />
-          </li>
-          <li>
-            <img src="@/assets/addiction/badges/badge_14.png" alt="badge_14" />
-          </li>
-          <li>
-            <img src="@/assets/addiction/badges/badge_20.png" alt="badge_20" />
-          </li>
-          <li>
-            <img src="@/assets/addiction/badges/badge_30.png" alt="badge_30" />
-          </li>
-          <li>
-            <img src="@/assets/addiction/badges/badge_50.png" alt="badge_50" />
-          </li>
-          <li>
-            <img src="@/assets/addiction/badges/badge_70.png" alt="badge_70" />
-          </li>
-          <li>
-            <img src="@/assets/addiction/badges/badge_70.png" alt="badge_100" />
+          <li v-for="badge in addictionItem.badges" :key="badge.id">
+            <img
+              :src="getBadgeImage(`badge_${badge.badgeDate}.png`)"
+              alt="badge"
+            />
           </li>
         </ul>
       </div>
@@ -81,11 +45,11 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted } from "vue";
-import { useRoute } from "vue-router";
 import { useAddictionStore } from "@/stores/addiction";
 import dayjs from "dayjs";
 import duration from "dayjs/plugin/duration";
+import { onMounted, onUnmounted, ref } from "vue";
+import { useRoute } from "vue-router";
 
 // 플러그인 등록
 dayjs.extend(duration);
@@ -141,6 +105,23 @@ const formatDuration = (milliseconds) => {
   const minutes = duration.minutes();
   const seconds = duration.seconds();
   return `${days}일 ${hours}시간 ${minutes}분 ${seconds}초`;
+};
+
+// 이미지 동적 경로
+// 이미지 파일 로드 (모든 파일 미리 가져오도록 설정)
+const images = import.meta.glob("@/assets/addiction/badges/*.png", {
+  eager: true,
+});
+
+// 이미지 경로 가져오기
+const getBadgeImage = (fileName) => {
+  const key = `/src/assets/addiction/badges/${fileName}`;
+  if (images[key]) {
+    return images[key].default;
+  } else {
+    console.error(`Image not found: ${fileName}`);
+    return "";
+  }
 };
 
 let intervalId;
@@ -317,14 +298,11 @@ onUnmounted(() => {
 
 #badge-list {
   display: flex;
-  /* justify-content: center; */
   align-items: flex-end;
   flex-wrap: wrap;
   gap: 3rem;
 
   padding: 2rem 5rem;
-
-  /* background-color: aquamarine; */
 }
 
 /* 스크롤바 제거 */
