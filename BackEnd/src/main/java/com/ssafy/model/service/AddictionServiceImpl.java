@@ -104,7 +104,7 @@ public class AddictionServiceImpl implements AddictionService{
         List<Badge> badgeList = addictionDao.selectBadge(addictionId);
         
         for(Badge badge : badgeList) {
-        	
+        	int badgeTime = badge.getBadgeDate();
         }
 		return 0;
 	}
