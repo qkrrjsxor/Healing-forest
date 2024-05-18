@@ -36,5 +36,12 @@
 		SELECT * FROM badge
 		WHERE addiction_id = #{addictionId};
 	</select>
+	
+	<!-- targetTime 업데이트 -->
+	<update id="updateAddiction">
+		UPDATE addiction_list
+		SET target_time = #{targetTime}
+		WHERE addiction_id = #{addictionId};
+	</update>
 </mapper>
   

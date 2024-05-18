@@ -41,6 +41,13 @@ public class AddictionServiceImpl implements AddictionService{
 		return new AddictionDetail(addiction, badges);
 	}
 	
+	// 업데이트
+	@Override
+	public int updateAddiction(int addictionId, int targetTime) {
+		
+		return addictionDao.updateAddiction(addictionId, targetTime);
+	}
+	
 	// 삭제
 	@Override
 	public int removeAddiction(int addictionId) {
@@ -54,6 +61,7 @@ public class AddictionServiceImpl implements AddictionService{
 		
 		return 0;
 	}
+
 
 
 	

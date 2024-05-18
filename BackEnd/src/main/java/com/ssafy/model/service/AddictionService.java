@@ -15,6 +15,9 @@ public interface AddictionService {
 	// 상세 조회
 	public AddictionDetail getAddictionDetail(String userId, int addictionId);
 	
+	// 업데이트
+	public int updateAddiction(int addictionId, int targetTime);
+	
 	// 삭제
 	public int removeAddiction(int addictionId);
 	
