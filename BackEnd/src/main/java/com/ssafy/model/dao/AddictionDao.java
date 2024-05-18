@@ -19,8 +19,12 @@ public interface AddictionDao {
 	public Addiction selectAddictionOne(@Param("userId") String userId, @Param("addictionId") int addictionId);
 	// 뱃지 조회
 	public List<Badge> selectBadge(int addictionId);
+
+	// 업데이트
+	public int updateAddiction(@Param("addictionId") int addictionId, @Param("targetTime") int targetTime);
 	
 	// 삭제
 	public int deleteAddiction(int addictionId);
+
 
 }
