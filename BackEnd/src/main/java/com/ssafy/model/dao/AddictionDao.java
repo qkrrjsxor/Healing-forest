@@ -16,7 +16,7 @@ public interface AddictionDao {
 	public List<Addiction> selectAddictionList(String userId);
 
 	// 상세 조회
-	public Addiction selectAddictionOne(@Param("userId") String userId, @Param("addictionId") int addictionId);
+	public Addiction selectAddictionOne(@Param("addictionId") int addictionId);
 	// 뱃지 조회
 	public List<Badge> selectBadge(int addictionId);
 

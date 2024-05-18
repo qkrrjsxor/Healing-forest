@@ -22,7 +22,7 @@
 	<!-- 상세 조회 -->
 	<select id="selectAddictionOne" resultType="Addiction">
 		SELECT * FROM addiction_list
-		WHERE user_id = #{userId} AND addiction_id = #{addictionId}
+		WHERE addiction_id = #{addictionId}
 	</select>
 	
 	<!-- 삭제 -->
