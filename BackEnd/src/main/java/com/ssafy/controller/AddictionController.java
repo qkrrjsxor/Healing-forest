@@ -66,9 +66,9 @@ public class AddictionController {
 	@GetMapping("/addiction/{addictionId}")
 	public ResponseEntity<?> getAddictionDetail(@PathVariable("addictionId") int addictionId, HttpSession session){
 		// 세션에 저장된 로그인 정보 아이디 가져오기
-		String userId = (String) session.getAttribute("loginUser");
+//		String userId = (String) session.getAttribute("loginUser");
 		
-		AddictionDetail addictionDetail = addictionService.getAddictionDetail(userId, addictionId);
+		AddictionDetail addictionDetail = addictionService.getAddictionDetail(addictionId);
 				
 		System.out.println("상세조회 " + addictionDetail);
 		

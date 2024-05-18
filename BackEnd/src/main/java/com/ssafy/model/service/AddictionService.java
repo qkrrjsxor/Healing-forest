@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.ssafy.model.dto.Addiction;
 import com.ssafy.model.dto.AddictionDetail;
+import com.ssafy.model.dto.Badge;
 
 public interface AddictionService {
 	// 생성
@@ -13,7 +14,7 @@ public interface AddictionService {
 	public List<Addiction> getAddictionList(String userId);
 	
 	// 상세 조회
-	public AddictionDetail getAddictionDetail(String userId, int addictionId);
+	public AddictionDetail getAddictionDetail(int addictionId);
 	
 	// 업데이트
 	public int updateAddiction(int addictionId, int targetTime);
@@ -23,5 +24,8 @@ public interface AddictionService {
 	
 	// 뱃지 생성
 	public int createBadge(int addictionId);
+	
+	// 뱃지 조회
+	public List<Badge> selectBadge(int addictionId);
 
 }
