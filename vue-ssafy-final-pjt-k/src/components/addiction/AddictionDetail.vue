@@ -4,12 +4,39 @@
       <div id="addiction-item">
         <div id="addiction-main">
           <div id="icon-title">
+            <svg width="100" height="100" viewBox="0 0 100 100">
+              <circle
+                cx="50"
+                cy="50"
+                r="45"
+                fill="transparent"
+                stroke="#d1d3d2"
+                stroke-width="10"
+                stroke-dasharray="282.74"
+                stroke-dashoffset="0"
+                transform="rotate(-90 50 50)"
+              />
+              <circle
+                cx="50"
+                cy="50"
+                r="45"
+                fill="transparent"
+                stroke="#84a063"
+                stroke-width="10"
+                stroke-dasharray="282.74"
+                :stroke-dashoffset="
+                  282.74 - 282.74 * Math.min(startToCurrent / startToEnd, 1)
+                "
+                transform="rotate(-90 50 50)"
+              />
+            </svg>
             <img
-              id="icon"
               :src="getIconImage(addictionItem.addiction.iconPath)"
-              alt="alcohol"
+              alt="icon"
             />
-            <p>{{ addictionItem.addiction.title }}</p>
+            <p>
+              {{ addictionItem.addiction.title }}
+            </p>
           </div>
           <p>{{ ((startToCurrent / startToEnd) * 100).toFixed(1) }}%</p>
         </div>
@@ -21,7 +48,7 @@
             <p>{{ restTime }}</p>
           </div>
           <div id="button-set">
-            <button>목표 변경하기</button>
+            <button @click="updateTarget">목표 변경하기</button>
             <button>도전 종료하기</button>
           </div>
         </div>
@@ -50,6 +77,7 @@
 </template>
 
 <script setup>
+import router from "@/router";
 import { useAddictionStore } from "@/stores/addiction";
 import dayjs from "dayjs";
 import duration from "dayjs/plugin/duration";
@@ -95,8 +123,12 @@ const updateCurrentTime = () => {
   enduredTime.value = formatDuration(startToNow);
 
   const nowToEnd = endTime.diff(now);
-  currentToEnd.value = dayjs.duration(nowToEnd).asDays();
-  restTime.value = formatDuration(nowToEnd);
+  if (nowToEnd <= 0) {
+    restTime.value = "목표 달성!";
+  } else {
+    currentToEnd.value = dayjs.duration(nowToEnd).asDays();
+    restTime.value = formatDuration(nowToEnd);
+  }
 
   const targetTime = endTime.diff(startTime);
   startToEnd.value = dayjs.duration(targetTime).asDays();
@@ -133,6 +165,11 @@ const getBadgeImage = (fileName) => {
     console.error(`Image not found: ${fileName}`);
     return "";
   }
+};
+
+// 수정
+const updateTarget = () => {
+  router.push(`update/${addictionId}`);
 };
 
 let intervalId;
@@ -198,23 +235,33 @@ onUnmounted(() => {
 }
 
 #icon-title {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 0.3rem;
+  position: relative;
+  width: 12rem;
+  height: 12rem;
 
-  width: 5rem;
-  height: 5rem;
-  padding: 2rem;
-  border-radius: 50%;
-  border: 20px solid #d1d3d2;
-}
+  svg {
+    position: absolute;
+    top: 0;
+    left: 0;
 
-#icon {
-  width: 50%;
-  height: 50%;
-  object-fit: cover;
+    width: 100%;
+    height: 100%;
+  }
+
+  img {
+    position: absolute;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 27%;
+  }
+
+  p {
+    position: absolute;
+    top: 65%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
 }
 
 #addiction-info {

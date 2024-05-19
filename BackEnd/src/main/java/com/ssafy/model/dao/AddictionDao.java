@@ -19,6 +19,7 @@ public interface AddictionDao {
 
 	// 상세 조회
 	public Addiction selectAddictionOne(@Param("addictionId") int addictionId);
+	
 	// 뱃지 조회
 	public List<Badge> selectBadge(int addictionId);
 	// 뱃지 생성

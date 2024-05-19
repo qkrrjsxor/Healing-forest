@@ -1,12 +1,13 @@
-import { createRouter, createWebHistory } from "vue-router";
-import HomeView from "@/views/HomeView.vue";
-import LoginView from "@/views/LoginView.vue";
-import SignupView from "@/views/SignupView.vue";
-import AddictionView from "@/views/AddictionView.vue";
-import RankView from "@/views/RankView.vue";
-import AddictionList from "@/components/addiction/AddictionList.vue";
 import AddictionCreate from "@/components/addiction/AddictionCreate.vue";
 import AddictionDetail from "@/components/addiction/AddictionDetail.vue";
+import AddictionList from "@/components/addiction/AddictionList.vue";
+import AddictionUpdate from "@/components/addiction/AddictionUpdate.vue";
+import AddictionView from "@/views/AddictionView.vue";
+import HomeView from "@/views/HomeView.vue";
+import LoginView from "@/views/LoginView.vue";
+import RankView from "@/views/RankView.vue";
+import SignupView from "@/views/SignupView.vue";
+import { createRouter, createWebHistory } from "vue-router";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -48,6 +49,11 @@ const router = createRouter({
           path: ":id",
           name: "addictionDetail",
           component: AddictionDetail,
+        },
+        {
+          path: "update/:id",
+          name: "addictionUpdate",
+          component: AddictionUpdate,
         },
       ],
     },

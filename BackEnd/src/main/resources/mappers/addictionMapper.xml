@@ -17,6 +17,7 @@
 	<select id="selectAddictionList" parameterType="String" resultType="Addiction">
 		SELECT * FROM addiction_list
 		WHERE user_id = #{userId}
+		ORDER BY start_time DESC
 	</select>
 	
 	<!-- 상세 조회 -->
@@ -45,7 +46,7 @@
 	<!-- targetTime 업데이트 -->
 	<update id="updateAddiction">
 		UPDATE addiction_list
-		SET target_time = #{targetTime}
+		SET target_time = #{targetTime}, end_time = DATE_ADD(start_time, INTERVAL #{targetTime} DAY) 
 		WHERE addiction_id = #{addictionId};
 	</update>
 </mapper>

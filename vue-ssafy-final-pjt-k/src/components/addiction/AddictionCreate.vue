@@ -179,7 +179,7 @@ const submitAddiction = () => {
 #input-set {
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 2.5rem;
 
   padding: 2rem;
 
