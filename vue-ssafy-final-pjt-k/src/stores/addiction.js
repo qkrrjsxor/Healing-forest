@@ -63,11 +63,29 @@ export const useAddictionStore = defineStore("addiction", () => {
     }
   };
 
+  // 4. 수정
+  const updateAddiction = async (id, targetTime) => {
+    try {
+      const res = await axios({
+        url: `${ADDICTION_REST_API}/addiction/${id}`,
+        method: "PUT",
+        withCredentials: true,
+        data: { targetTime },
+      });
+      if (res.data) {
+        await getAddictionItem(id);
+      }
+    } catch (err) {
+      console.error("addiction 업데이트 중 오류 발생: ", err);
+    }
+  };
+
   return {
     addictionList,
     addictionItem,
     getAddictionList,
     submitAddiction,
     getAddictionItem,
+    updateAddiction,
   };
 });
