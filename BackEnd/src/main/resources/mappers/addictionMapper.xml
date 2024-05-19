@@ -38,6 +38,11 @@
 		WHERE addiction_id = #{addictionId};
 	</select>
 	
+	<insert id="insertBadge" >
+		INSERT INTO badge (user_id, addiction_id, badge_date, badge_score, badge_img_url)
+		VALUES (#{userId}, #{addictionId}, #{date}, #{date}*10, "URL")
+	</insert>
+	
 	<!-- targetTime 업데이트 -->
 	<update id="updateAddiction">
 		UPDATE addiction_list
