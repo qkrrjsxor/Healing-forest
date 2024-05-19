@@ -14,7 +14,7 @@ public interface AddictionService {
 	public List<Addiction> getAddictionList(String userId);
 	
 	// 상세 조회
-	public AddictionDetail getAddictionDetail(int addictionId);
+	public AddictionDetail getAddictionDetail(String userId, int addictionId);
 	
 	// 업데이트
 	public int updateAddiction(int addictionId, int targetTime);
@@ -23,7 +23,7 @@ public interface AddictionService {
 	public int removeAddiction(int addictionId);
 	
 	// 뱃지 생성
-	public int createBadge(int addictionId);
+	public int createBadge(String userId, int addictionId);
 	
 	// 뱃지 조회
 	public List<Badge> selectBadge(int addictionId);
