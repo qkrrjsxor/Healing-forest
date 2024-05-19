@@ -40,30 +40,12 @@ public class AddictionServiceImpl implements AddictionService{
 
 	// 상세 조회
 	@Override
-	public AddictionDetail getAddictionDetail(int addictionId) {
+	public AddictionDetail getAddictionDetail(String userId, int addictionId) {
+
+		createBadge(userId, addictionId);
 		Addiction addiction = addictionDao.selectAddictionOne(addictionId);
 		List<Badge> badges = addictionDao.selectBadge(addictionId);
 		
-		// 현재 날짜 가져오기
-        LocalDateTime nowTime = LocalDateTime.now();
-        
-        // addiction id의 start time
-        Date temp = addictionDao.selectAddictionOne(addictionId).getStartTime();
-        // Date를 Instant로 변환
-        Instant instant = temp.toInstant();
-        // Instant를 시스템 기본 시간대를 기준으로 LocalDateTime로 변환
-        LocalDateTime localDateTime = instant.atZone(ZoneId.systemDefault()).toLocalDateTime();
-        // 한국 시간에 맞게 9시간 빼주기
-        LocalDateTime startTime = localDateTime.minusHours(9);
-        
-        // 두 시간 사이의 차이를 Duration 객체로 계산
-        Duration duration = Duration.between(startTime, nowTime);
-        long hours = duration.toHours();
-        
-        System.out.println("now : " + nowTime);
-        System.out.println("start : " + startTime);
-        
-        System.out.println(hours);
 		return new AddictionDetail(addiction, badges);
 	}
 	
@@ -83,13 +65,16 @@ public class AddictionServiceImpl implements AddictionService{
 
 	// 뱃지 생성
 	@Override
-	public int createBadge(int addictionId) {
+	public int createBadge(String userId, int addictionId) {
+		
+		int[] badgeTimeList = {1, 2, 3, 4, 5, 6, 7, 10, 14, 20, 30, 50, 70, 100};
 		
 		// 현재 날짜 가져오기
         LocalDateTime nowTime = LocalDateTime.now();
         
         // addiction id의 start time
-        Date temp = addictionDao.selectAddictionOne(addictionId).getStartTime();
+        Addiction addiction = addictionDao.selectAddictionOne(addictionId);
+        Date temp = addiction.getStartTime();
         // Date를 Instant로 변환
         Instant instant = temp.toInstant();
         // Instant를 시스템 기본 시간대를 기준으로 LocalDateTime로 변환
@@ -100,13 +85,41 @@ public class AddictionServiceImpl implements AddictionService{
         // 두 시간 사이의 차이를 Duration 객체로 계산
         Duration duration = Duration.between(startTime, nowTime);
         long hours = duration.toHours();
+        long daysPassed = duration.toDays();
         
+        int targetTime = addiction.getTargetTime();
         List<Badge> badgeList = addictionDao.selectBadge(addictionId);
         
-        for(Badge badge : badgeList) {
-        	int badgeTime = badge.getBadgeDate();
+        // 뱃지 생성 조건
+        if(badgeList.size() == 0) {
+        	for(int date : badgeTimeList) {
+        		if(date > targetTime) {
+        			break;
+        		}
+        		if(daysPassed < date) {
+        			break;
+        		}
+        		addictionDao.insertBadge(userId, addictionId, date);
+        		System.out.println(date+" 뱃지 생성");
+        	}
+        }else {
+        	int lastBadgeDate = badgeList.get(badgeList.size()-1).getBadgeDate();
+
+        	for(int date : badgeTimeList) {
+        		if(date <= lastBadgeDate) {
+        			continue;
+        		}
+        		if(date > targetTime) {
+        			break;
+        		}
+        		if(daysPassed < date) {
+        			break;
+        		}
+        		addictionDao.insertBadge(userId, addictionId, date);
+        		System.out.println(date+" 뱃지 생성");
+        	}
         }
-		return 0;
+        return 1;
 	}
 
 	// 뱃지 조회
