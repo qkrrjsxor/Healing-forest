@@ -151,6 +151,7 @@ onUnmounted(() => {
   height: 0.7rem;
   background-color: #eaeceb;
   border-radius: 0.5rem;
+  overflow: hidden;
 }
 
 #progress-bar {
