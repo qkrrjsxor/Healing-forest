@@ -60,6 +60,14 @@ public class AddictionServiceImpl implements AddictionService{
 	@Override
 	public int removeAddiction(int addictionId) {
 
+//		// 외래키 조건 때문에 뱃지 먼저 삭제해야 함
+//		List<Badge> badgeList = addictionDao.selectBadge(addictionId);
+//		
+//		for(Badge badge : badgeList) {
+//			addictionDao.deleteBadge(badge.getBadgeId());
+//			System.out.println("뱃지 삭제 : " + badge.getBadgeId());
+//		}
+		System.out.println("중독 리스트 삭제 : " + addictionId);
 		return addictionDao.deleteAddiction(addictionId);
 	}
 

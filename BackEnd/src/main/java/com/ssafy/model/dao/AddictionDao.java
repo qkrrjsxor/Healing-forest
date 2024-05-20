@@ -24,6 +24,8 @@ public interface AddictionDao {
 	public List<Badge> selectBadge(int addictionId);
 	// 뱃지 생성
 	public void insertBadge(@Param("userId") String userId, @Param("addictionId") int addictionId, @Param("date") int date );
+	// 뱃지 삭제
+	public void deleteBadge(int badgeId);
 
 	// 업데이트
 	public int updateAddiction(@Param("addictionId") int addictionId, @Param("targetTime") int targetTime);
@@ -33,6 +35,7 @@ public interface AddictionDao {
 	
 	// 아이콘 수정
 	public int updateIconAddiction(@Param("addictionId") int addictionId, @Param("iconPath") String iconPath);
+
 
 
 
