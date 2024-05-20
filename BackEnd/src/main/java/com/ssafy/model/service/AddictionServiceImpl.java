@@ -130,6 +130,12 @@ public class AddictionServiceImpl implements AddictionService{
 		return badgeList;
 	}
 
+	// 아이콘 수정
+	@Override
+	public int updateIconAddiction(int addictionId, String iconPath) {
+		return addictionDao.updateIconAddiction(addictionId, iconPath);
+	}
+
 
 
 	

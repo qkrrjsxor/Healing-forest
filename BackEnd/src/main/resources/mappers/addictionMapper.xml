@@ -49,5 +49,12 @@
 		SET target_time = #{targetTime}, end_time = DATE_ADD(start_time, INTERVAL #{targetTime} DAY) 
 		WHERE addiction_id = #{addictionId};
 	</update>
+	
+	<!-- iconPath 업데이트 -->
+	<update id="updateIconAddiction">
+		UPDATE addiction_list
+		SET icon_path = #{iconPath}
+		WHERE addiction_id = #{addictionId};
+	</update>
 </mapper>
   
