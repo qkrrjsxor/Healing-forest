@@ -41,7 +41,7 @@
 
 <script setup>
 import { useAddictionStore } from "@/stores/addiction";
-import { ref, nextTick, onMounted } from "vue";
+import { ref, nextTick, onMounted, computed, watch } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import Alert from "../common/Alert.vue";
 import { useAlertStore } from "@/stores/alert";
@@ -56,9 +56,8 @@ const targetTime = ref("");
 const addictionId = route.params.id;
 
 // 해당 addiction 시작일 정보 가져오기
-const addictionItem = store.addictionItem;
-const startTime = new Date(addictionItem.addiction.startTime);
-startTime.setHours(startTime.getHours() - 9); // 9시간 빼기
+let addictionItem = computed(() => store.addictionItem);
+let formattedStartTime = ref(""); // formatDate 함수 이용해 시작일 담을 값
 
 // 원하는 형식으로 변환하는 함수
 function formatDate(date) {
@@ -71,11 +70,27 @@ function formatDate(date) {
     second: "numeric",
     hour12: true,
   };
-
   return new Intl.DateTimeFormat("ko-KR", options).format(date);
 }
 
-const formattedStartTime = formatDate(startTime);
+// 일단 해당 addictionItem 정보 가져와
+onMounted(async () => {
+  await store.getAddictionItem(addictionId);
+  targetTimeInputRef.value.focus();
+});
+
+// addictionItem 변경 감지
+watch(
+  addictionItem,
+  (newValue) => {
+    if (newValue.addiction.startTime) {
+      const startTime = new Date(addictionItem.value.addiction.startTime);
+      startTime.setHours(startTime.getHours() - 9); // 9시간 빼기
+      formattedStartTime.value = formatDate(startTime); // 시작일 형식으로 변환해서 값에 담기
+    }
+  },
+  { immediate: true }
+);
 
 // 목표 일수 입력 제한
 const validateTargetTime = (e) => {
@@ -109,10 +124,6 @@ const updateAddiction = async () => {
   await store.updateAddiction(addictionId, targetTime.value);
   router.push(`/addiction/${route.params.id}`);
 };
-
-onMounted(() => {
-  targetTimeInputRef.value.focus();
-});
 </script>
 
 <style scoped>
