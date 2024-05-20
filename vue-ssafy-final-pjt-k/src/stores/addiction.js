@@ -81,6 +81,22 @@ export const useAddictionStore = defineStore("addiction", () => {
     }
   };
 
+  // 5. 삭제
+  const deleteAddiction = async (addictionId) => {
+    try {
+      const res = await axios({
+        url: `${ADDICTION_REST_API}/addiction/${addictionId}`,
+        method: "DELETE",
+        withCredentials: true,
+      });
+      if (res.data) {
+        await getAddictionList();
+      }
+    } catch (err) {
+      console.log("삭제 과정 중 error 발생: ", err);
+    }
+  };
+
   return {
     addictionList,
     addictionItem,
@@ -88,5 +104,6 @@ export const useAddictionStore = defineStore("addiction", () => {
     submitAddiction,
     getAddictionItem,
     updateAddiction,
+    deleteAddiction,
   };
 });

@@ -49,7 +49,17 @@
           </div>
           <div id="button-set">
             <button @click="updateTarget">목표 변경하기</button>
-            <button>도전 종료하기</button>
+            <button @click="openModal(`deleteAddiction/${addictionId}`)">
+              도전 종료하기
+            </button>
+            <Modal
+              :id="`deleteAddiction/${addictionId}`"
+              :addictionId="`${addictionId}`"
+              class="deleteModal"
+            >
+              <p>정말 도전을 종료하시겠습니까?</p>
+              <p>획득한 뱃지가 모두 회수됩니다.</p>
+            </Modal>
           </div>
         </div>
       </div>
@@ -77,18 +87,21 @@
 </template>
 
 <script setup>
-import router from "@/router";
-import { useAddictionStore } from "@/stores/addiction";
 import dayjs from "dayjs";
 import duration from "dayjs/plugin/duration";
 import { onMounted, onUnmounted, ref } from "vue";
+import router from "@/router";
 import { useRoute } from "vue-router";
+import { useAddictionStore } from "@/stores/addiction";
+import { useModalStore } from "@/stores/modal";
+import Modal from "@/components/common/Modal.vue";
 
 // 플러그인 등록
 dayjs.extend(duration);
 
 const route = useRoute();
 const store = useAddictionStore();
+const modalStore = useModalStore();
 
 const addictionItem = ref({
   addiction: {},
@@ -172,6 +185,11 @@ const updateTarget = () => {
   router.push(`update/${addictionId}`);
 };
 
+// 삭제 모달
+const openModal = (id) => {
+  modalStore.showModal(id, addictionId);
+};
+
 let intervalId;
 
 // 비동기 처리
@@ -188,6 +206,15 @@ onUnmounted(() => {
 </script>
 
 <style scoped>
+.deleteModal {
+  p {
+    margin-top: 0;
+    color: #f6e8da;
+    font-weight: 700;
+    font-size: medium;
+  }
+}
+
 #item-container {
   display: flex;
   flex-direction: column;
@@ -435,6 +462,12 @@ onUnmounted(() => {
 @media (max-width: 468px) {
   #badge-list {
     justify-content: center;
+  }
+
+  .deleteModal {
+    p {
+      font-size: small;
+    }
   }
 }
 </style>

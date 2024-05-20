@@ -32,7 +32,7 @@ CREATE TABLE `badge`(
     `badge_date` INT NOT NULL,
     `badge_score` INT NOT NULL,
     `badge_img_url` varchar(255) NOT NULL,
-    CONSTRAINT `badge_user_fk` FOREIGN KEY(`user_id`) REFERENCES `addiction_list`(`user_id`),
+    CONSTRAINT `badge_user_fk` FOREIGN KEY(`user_id`) REFERENCES `user`(`user_id`),
     CONSTRAINT `badge_addiction_fk` FOREIGN KEY(`addiction_id`) REFERENCES `addiction_list`(`addiction_id`)
     ON DELETE CASCADE
 );
@@ -85,4 +85,9 @@ WHERE a.user_id = 'ssafy' AND a.addiction_id = 1 ;
 
 UPDATE addiction_list
 SET start_time = DATE_SUB(NOW(), INTERVAL 100 DAY)
-WHERE user_id = 'ssafy' AND title = '알코올';
+WHERE user_id = 'ssafy' AND addiction_id = 1;
+
+UPDATE addiction_list
+SET start_time = DATE_SUB(NOW(), INTERVAL 5 DAY)
+WHERE user_id = 'ssafy' AND addiction_id = 2;
+
