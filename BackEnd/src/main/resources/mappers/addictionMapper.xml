@@ -17,13 +17,44 @@
 	<select id="selectAddictionList" parameterType="String" resultType="Addiction">
 		SELECT * FROM addiction_list
 		WHERE user_id = #{userId}
+		ORDER BY start_time DESC
 	</select>
 	
+	<!-- 상세 조회 -->
+	<select id="selectAddictionOne" resultType="Addiction">
+		SELECT * FROM addiction_list
+		WHERE addiction_id = #{addictionId}
+	</select>
 	
 	<!-- 삭제 -->
 	<delete id="deleteAddiction" parameterType="Integer">
 		DELETE FROM addiction_list
 		WHERE addiction_id = #{addictionId}
 	</delete>
+	
+	<!-- 뱃지 조회 -->
+	<select id="selectBadge" parameterType="int" resultType="Badge">
+		SELECT * FROM badge
+		WHERE addiction_id = #{addictionId};
+	</select>
+	
+	<insert id="insertBadge" >
+		INSERT INTO badge (user_id, addiction_id, badge_date, badge_score, badge_img_url)
+		VALUES (#{userId}, #{addictionId}, #{date}, #{date}*10, "URL")
+	</insert>
+	
+	<!-- targetTime 업데이트 -->
+	<update id="updateAddiction">
+		UPDATE addiction_list
+		SET target_time = #{targetTime}, end_time = DATE_ADD(start_time, INTERVAL #{targetTime} DAY) 
+		WHERE addiction_id = #{addictionId};
+	</update>
+	
+	<!-- iconPath 업데이트 -->
+	<update id="updateIconAddiction">
+		UPDATE addiction_list
+		SET icon_path = #{iconPath}
+		WHERE addiction_id = #{addictionId};
+	</update>
 </mapper>
   

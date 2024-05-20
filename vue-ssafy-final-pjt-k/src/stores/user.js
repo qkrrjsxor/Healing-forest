@@ -19,8 +19,17 @@ export const useUserStore = defineStore("user", () => {
       data: user,
     })
       .then((res) => {
-        loginUser.value = res.data.nickname;
-        sessionStorage.setItem("loginUser", res.data.nickname);
+        loginUser.value = {
+          userId: res.data.userId,
+          nickname: res.data.nickname,
+        };
+        sessionStorage.setItem(
+          "loginUser",
+          JSON.stringify({
+            userId: res.data.userId,
+            nickname: res.data.nickname,
+          })
+        );
         router.push({ name: "addictionList" });
       })
       .catch((err) => {

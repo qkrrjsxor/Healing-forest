@@ -32,7 +32,7 @@
     <img
       v-if="showImage"
       id="login-image"
-      src="@/assets/signup_login.jpg"
+      src="@/assets/signup-login.jpg"
       alt="login-image"
     />
   </div>
