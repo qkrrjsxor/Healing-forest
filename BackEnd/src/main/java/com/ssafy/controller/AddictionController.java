@@ -105,4 +105,19 @@ public class AddictionController {
 			return new ResponseEntity<>("존재하지 않는 리스트입니다.", HttpStatus.BAD_REQUEST);
 		}
 	}
+	
+	// 업데이트
+	@PutMapping("/addiction/icon/{addictionId}")
+	public ResponseEntity<?> updateIconAddiction(@PathVariable("addictionId") int addictionId, @RequestBody Addiction addiction){
+		
+		String iconPath = addiction.getIconPath();
+		int result = addictionService.updateIconAddiction(addictionId, iconPath);
+		
+		System.out.println("icon update test");
+		if(result ==1) {
+			return new ResponseEntity<>("업데이트 성공", HttpStatus.OK);
+		}else {
+			return new ResponseEntity<>("업데이트 실패", HttpStatus.BAD_REQUEST);
+		}
+	}
 }

@@ -27,5 +27,8 @@ public interface AddictionService {
 	
 	// 뱃지 조회
 	public List<Badge> selectBadge(int addictionId);
+	
+	// 아이콘 수정
+	public int updateIconAddiction(int addictionId, String iconPath);
 
 }

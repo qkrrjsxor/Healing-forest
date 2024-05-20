@@ -30,6 +30,9 @@ public interface AddictionDao {
 	
 	// 삭제
 	public int deleteAddiction(int addictionId);
+	
+	// 아이콘 수정
+	public int updateIconAddiction(@Param("addictionId") int addictionId, @Param("iconPath") String iconPath);
 
 
 
