@@ -1,26 +1,32 @@
 import { defineStore } from "pinia";
-import { ref } from "vue";
+import { reactive } from "vue";
 
 export const useModalStore = defineStore("modal", () => {
   // state
-  const isVisible = ref(false);
-  const modalContent = ref(null);
+  const modals = reactive({});
 
   // action
-  const showModal = (content) => {
-    modalContent.value = content;
-    isVisible.value = true;
+  const showModal = (id, content) => {
+    if (!modals[id]) {
+      modals[id] = {
+        isVisible: false,
+        content: null,
+      };
+    }
+    modals[id].content = content;
+    modals[id].isVisible = true;
   };
 
-  const closeModal = () => {
-    modalContent.value = null;
-    isVisible.value = false;
+  const closeModal = (id) => {
+    if (modals[id]) {
+      modals[id].isVisible = false;
+      modals[id].content = null;
+    }
   };
 
   return {
-    isVisible,
-    modalContent,
-    modalContent,
-    isVisible,
+    modals,
+    showModal,
+    closeModal,
   };
 });
