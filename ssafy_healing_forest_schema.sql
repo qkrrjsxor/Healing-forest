@@ -82,3 +82,7 @@ FROM addiction_list AS a
 	LEFT JOIN badge AS b 
 		ON a.user_id = b.user_id AND a.addiction_id = b.addiction_id
 WHERE a.user_id = 'ssafy' AND a.addiction_id = 1 ;
+
+UPDATE addiction_list
+SET start_time = DATE_SUB(NOW(), INTERVAL 100 DAY)
+WHERE user_id = 'ssafy' AND title = '알코올';

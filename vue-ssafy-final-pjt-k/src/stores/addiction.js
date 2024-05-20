@@ -73,7 +73,8 @@ export const useAddictionStore = defineStore("addiction", () => {
         data: { targetTime },
       });
       if (res.data) {
-        await getAddictionItem(id);
+        await getAddictionItem(id); // 상세 페이지 갱신
+        await getAddictionList(); // 전체 조회 페이지 갱신
       }
     } catch (err) {
       console.error("addiction 업데이트 중 오류 발생: ", err);
