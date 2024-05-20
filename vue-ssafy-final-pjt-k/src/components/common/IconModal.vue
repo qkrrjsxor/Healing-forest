@@ -40,10 +40,10 @@
 </template>
 
 <script setup>
-import { ref, computed } from "vue";
-import { useModalStore } from "@/stores/modal";
 import { useAddictionStore } from "@/stores/addiction";
 import { useAlertStore } from "@/stores/alert";
+import { useModalStore } from "@/stores/modal";
+import { computed, ref } from "vue";
 import Alert from "./Alert.vue";
 
 const store = useAddictionStore();
@@ -141,6 +141,8 @@ const updateIcon = async () => {
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
+
+  overflow: scroll;
 }
 
 .modal-content {
@@ -228,6 +230,17 @@ const updateIcon = async () => {
   button:last-child {
     background-color: #b6c2a9;
   }
+}
+
+/* 스크롤바 제거 */
+.modal-overlay::-webkit-scrollbar {
+  display: none; /* Chrome, Edge, and Safari */
+}
+.modal-overlay {
+  scrollbar-width: none; /* Firefox */
+}
+.modal-overlay {
+  -ms-overflow-style: none; /* IE11 */
 }
 
 /* media query */
