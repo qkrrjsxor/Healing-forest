@@ -137,11 +137,11 @@ const updateCurrentTime = () => {
 // 시간 실시간으로 보여주기 위한 format
 const formatDuration = (milliseconds) => {
   const duration = dayjs.duration(milliseconds);
-  const days = duration.days();
+  const totalDays = Math.floor(duration.asDays()); // 총 일 수 계산
   const hours = duration.hours();
   const minutes = duration.minutes();
   const seconds = duration.seconds();
-  return `${days}일 ${hours}시간 ${minutes}분 ${seconds}초`;
+  return `${totalDays}일 ${hours}시간 ${minutes}분 ${seconds}초`;
 };
 
 // 이미지 동적 경로
