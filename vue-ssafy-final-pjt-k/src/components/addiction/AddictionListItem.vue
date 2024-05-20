@@ -135,9 +135,10 @@ onUnmounted(() => {
   }
 
   h3 {
-    width: 5rem;
+    width: 6rem;
     overflow: hidden;
     text-overflow: ellipsis;
+    white-space: nowrap;
   }
 }
 
@@ -197,6 +198,7 @@ onUnmounted(() => {
     flex-direction: column;
 
     h3 {
+      width: 5rem;
       text-align: center;
       margin: 0 auto;
     }
