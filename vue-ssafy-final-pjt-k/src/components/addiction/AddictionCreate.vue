@@ -1,6 +1,7 @@
 <template>
   <div id="form-container">
     <form @submit.prevent="submitAddiction" id="addiction-form">
+      <Alert id="alert" />
       <div id="input-set">
         <div>
           <h2>어떤 중독을 끊고 싶으신가요?</h2>
@@ -8,7 +9,7 @@
             type="text"
             v-model="addiction.title"
             placeholder="목표 항목을 입력해주세요."
-            autofocus
+            ref="titleInputRef"
           />
         </div>
 
@@ -20,6 +21,7 @@
             placeholder="1 ~ 100 까지의 숫자를 입력할 수 있습니다."
             min="1"
             max="100"
+            ref="targetTimeInputRef"
             @input="validateTargetTime"
           />
         </div>
@@ -64,11 +66,14 @@
 
 <script setup>
 import { useAddictionStore } from "@/stores/addiction";
-import { ref } from "vue";
+import { useAlertStore } from "@/stores/alert";
+import { nextTick, onMounted, ref } from "vue";
 import { useRouter } from "vue-router";
+import Alert from "../common/Alert.vue";
 
 const router = useRouter();
 const store = useAddictionStore();
+const alertStore = useAlertStore();
 
 const addiction = ref({
   title: "",
@@ -137,24 +142,37 @@ const goList = () => {
   router.push({ name: "addictionList" });
 };
 
+const titleInputRef = ref(null);
+const targetTimeInputRef = ref(null);
+
 // 등록
 const submitAddiction = () => {
   // 모든 항목 필수 선택하도록
   if (!addiction.value.title) {
-    alert("목표 항목을 입력해주세요.");
+    alertStore.setAlert("목표 항목을 입력해주세요.", "warning");
+    nextTick(() => {
+      titleInputRef.value.focus();
+    });
     return;
   }
   if (!addiction.value.targetTime) {
-    alert("목표 일수를 입력해주세요.");
+    alertStore.setAlert("목표 일수를 입력해주세요.", "warning");
+    nextTick(() => {
+      targetTimeInputRef.value.focus();
+    });
     return;
   }
   if (!selectedIcon.value) {
-    alert("아이콘을 선택해주세요.");
+    alertStore.setAlert("아이콘을 선택해주세요.", "warning");
     return;
   }
   store.submitAddiction(addiction.value);
   router.push({ name: "addictionList" });
 };
+
+onMounted(() => {
+  titleInputRef.value.focus();
+});
 </script>
 
 <style scoped>
@@ -167,6 +185,8 @@ const submitAddiction = () => {
 }
 
 #addiction-form {
+  position: relative;
+
   display: flex;
   flex-direction: column;
   gap: 3rem;
@@ -174,6 +194,12 @@ const submitAddiction = () => {
   width: 60%;
   padding: 3rem 2rem;
   overflow: scroll;
+}
+
+#alert {
+  position: absolute;
+  top: 2rem;
+  right: 4rem;
 }
 
 #input-set {
@@ -221,7 +247,6 @@ input::placeholder {
   display: flex;
   gap: 2rem;
   flex-wrap: wrap;
-  /* background-color: #352f26; */
   padding: 2rem;
 }
 
@@ -284,9 +309,23 @@ button:last-child {
   }
 }
 
+@media (max-width: 870px) {
+  #addiction-form {
+    position: inherit;
+  }
+
+  #alert {
+    top: 6rem;
+  }
+}
+
 @media (max-width: 768px) {
   #addiction-form {
     width: 75%;
+  }
+
+  #alert {
+    position: inherit;
   }
 
   #input-set {
@@ -309,6 +348,12 @@ button:last-child {
       margin: 0 auto;
       font-size: small;
     }
+  }
+}
+
+@media (max-height: 730px) {
+  #alert {
+    position: inherit;
   }
 }
 </style>

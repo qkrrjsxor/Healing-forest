@@ -427,6 +427,7 @@ onUnmounted(() => {
     width: 90%;
     p {
       justify-self: auto;
+      font-size: small;
     }
   }
 }
