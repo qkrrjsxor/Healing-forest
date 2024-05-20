@@ -17,31 +17,31 @@ export const useAddictionStore = defineStore("addiction", () => {
 
   // actions
   // 1. 전체 조회
-  const getAddictionList = () => {
-    axios
-      .get(`${ADDICTION_REST_API}/addiction`, {
+  const getAddictionList = async () => {
+    try {
+      const res = await axios.get(`${ADDICTION_REST_API}/addiction`, {
         withCredentials: true,
-      })
-      .then((res) => {
-        addictionList.value = res.data;
       });
+      addictionList.value = res.data;
+    } catch (err) {
+      console.error("addictionList 전체 조회 중 오류: ", err);
+    }
   };
 
   // 2. 중독 리스트 등록
-  const submitAddiction = (addiction) => {
-    axios({
-      url: `${ADDICTION_REST_API}/addiction`,
-      method: "POST",
-      withCredentials: true,
-      data: addiction,
-    })
-      .then((res) => {
-        addictionCreate.value = res.data;
-        getAddictionList(); // 항목 추가하면, 최신 리스트 가져오기
-      })
-      .catch((err) => {
-        console.log(err);
+  const submitAddiction = async (addiction) => {
+    try {
+      const res = await axios({
+        url: `${ADDICTION_REST_API}/addiction`,
+        method: "POST",
+        withCredentials: true,
+        data: addiction,
       });
+      addictionCreate.value = res.data;
+      await getAddictionList(); // 항목 추가하면, 최신 리스트 가져오기
+    } catch (error) {
+      console.log(err);
+    }
   };
 
   // 3. 상세 조회 - 비동기 처리
@@ -97,6 +97,25 @@ export const useAddictionStore = defineStore("addiction", () => {
     }
   };
 
+  // 6. 아이콘 수정
+  const updateIcon = async (id, iconPath) => {
+    try {
+      const res = await axios({
+        url: `${ADDICTION_REST_API}/addiction/icon/${id}`,
+        method: "PUT",
+        withCredentials: true,
+        data: { iconPath },
+      });
+      if (res.data) {
+        addictionItem.value.addiction.iconPath = iconPath;
+        await getAddictionItem(id); // 상세 페이지 갱신
+        await getAddictionList(); // 전체 조회 페이지 갱신
+      }
+    } catch (err) {
+      console.error("addiction 아이콘 업데이트 중 오류 발생: ", err);
+    }
+  };
+
   return {
     addictionList,
     addictionItem,
@@ -105,5 +124,6 @@ export const useAddictionStore = defineStore("addiction", () => {
     getAddictionItem,
     updateAddiction,
     deleteAddiction,
+    updateIcon,
   };
 });
