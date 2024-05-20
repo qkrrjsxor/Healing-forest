@@ -2,6 +2,7 @@
   <div id="form-container">
     <div id="update-box">
       <form @submit.prevent="updateAddiction" id="update-form">
+        <Alert id="alert" />
         <div id="target-input">
           <h2>변경할 목표 일 수를 입력해주세요.</h2>
           <input
@@ -9,6 +10,8 @@
             v-model="targetTime"
             placeholder="1 ~ 100 까지의 숫자를 입력할 수 있습니다."
             @input="validateTargetTime"
+            ref="targetTimeInputRef"
+            autofocus
           />
         </div>
 
@@ -38,12 +41,16 @@
 
 <script setup>
 import { useAddictionStore } from "@/stores/addiction";
-import { ref } from "vue";
+import { ref, nextTick, onMounted } from "vue";
 import { useRoute, useRouter } from "vue-router";
+import Alert from "../common/Alert.vue";
+import { useAlertStore } from "@/stores/alert";
 
 const route = useRoute();
 const router = useRouter();
+
 const store = useAddictionStore();
+const alertStore = useAlertStore();
 
 const targetTime = ref("");
 const addictionId = route.params.id;
@@ -88,15 +95,24 @@ const goBack = () => {
   router.back();
 };
 
+const targetTimeInputRef = ref(null);
+
 // 수정
 const updateAddiction = async () => {
   if (!targetTime.value) {
-    alert("목표 일수를 입력해주세요.");
+    alertStore.setAlert("목표 일수를 입력해주세요.", "warning");
+    nextTick(() => {
+      targetTimeInputRef.value.focus();
+    });
     return;
   }
   await store.updateAddiction(addictionId, targetTime.value);
   router.push(`/addiction/${route.params.id}`);
 };
+
+onMounted(() => {
+  targetTimeInputRef.value.focus();
+});
 </script>
 
 <style scoped>
@@ -109,6 +125,9 @@ const updateAddiction = async () => {
 }
 
 #update-box {
+  position: relative;
+  /* background-color: #352f26; */
+
   display: flex;
   flex-direction: column;
   gap: 7rem;
@@ -124,6 +143,12 @@ const updateAddiction = async () => {
   gap: 1rem;
 
   padding-top: 0;
+}
+
+#alert {
+  position: absolute;
+  top: 2rem;
+  right: 4rem;
 }
 
 #target-input {
@@ -219,6 +244,17 @@ button:last-child {
 }
 
 /* media query */
+@media (max-width: 1111px) {
+  #update-box {
+    position: inherit;
+  }
+
+  #alert {
+    position: inherit;
+    margin: 0 2rem;
+  }
+}
+
 @media (max-width: 1024px) {
   #update-box {
     width: 70%;
@@ -233,6 +269,10 @@ button:last-child {
 
   #update-form {
     gap: 2rem;
+  }
+
+  #alert {
+    margin: 1rem 0;
   }
 
   #target-input {
@@ -260,6 +300,16 @@ button:last-child {
       width: 50%;
       font-size: small;
     }
+  }
+}
+
+@media (max-height: 600px) {
+  #update-box {
+    position: inherit;
+  }
+
+  #alert {
+    position: inherit;
   }
 }
 </style>
