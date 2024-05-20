@@ -315,7 +315,7 @@ button:last-child {
   }
 
   #alert {
-    top: 6rem;
+    top: 10rem;
   }
 }
 
@@ -348,6 +348,16 @@ button:last-child {
       margin: 0 auto;
       font-size: small;
     }
+  }
+}
+
+@media (max-height: 870px) {
+  #addiction-form {
+    position: inherit;
+  }
+
+  #alert {
+    top: 6rem;
   }
 }
 
