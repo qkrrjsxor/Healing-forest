@@ -133,6 +133,12 @@ onUnmounted(() => {
   img {
     height: 2rem;
   }
+
+  h3 {
+    width: 5rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 }
 
 #item-progress {
@@ -183,6 +189,17 @@ onUnmounted(() => {
 @media (max-width: 768px) {
   #addiction-item {
     font-size: small;
+    padding: 2rem 4rem;
+    width: 90%;
+  }
+
+  #item-title {
+    flex-direction: column;
+
+    h3 {
+      text-align: center;
+      margin: 0 auto;
+    }
   }
 
   #item-progress {
