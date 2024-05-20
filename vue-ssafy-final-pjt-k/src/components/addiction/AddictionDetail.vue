@@ -30,13 +30,23 @@
                 transform="rotate(-90 50 50)"
               />
             </svg>
-            <img
-              :src="getIconImage(addictionItem.addiction.iconPath)"
-              alt="icon"
-            />
-            <p>
-              {{ addictionItem.addiction.title }}
-            </p>
+            <div
+              id="icon-update"
+              @click="openModal(`updateIcon/${addictionId}`)"
+            >
+              <img
+                :src="getIconImage(addictionItem.addiction.iconPath)"
+                alt="icon"
+              />
+              <p>
+                {{ addictionItem.addiction.title }}
+              </p>
+            </div>
+            <IconModal
+              :id="`updateIcon/${addictionId}`"
+              :addictionId="`${addictionId}`"
+            >
+            </IconModal>
           </div>
           <p>{{ ((startToCurrent / startToEnd) * 100).toFixed(1) }}%</p>
         </div>
@@ -52,14 +62,14 @@
             <button @click="openModal(`deleteAddiction/${addictionId}`)">
               도전 종료하기
             </button>
-            <Modal
+            <DeleteModal
               :id="`deleteAddiction/${addictionId}`"
               :addictionId="`${addictionId}`"
               class="deleteModal"
             >
               <p>정말 도전을 종료하시겠습니까?</p>
               <p>획득한 뱃지가 모두 회수됩니다.</p>
-            </Modal>
+            </DeleteModal>
           </div>
         </div>
       </div>
@@ -94,7 +104,8 @@ import router from "@/router";
 import { useRoute } from "vue-router";
 import { useAddictionStore } from "@/stores/addiction";
 import { useModalStore } from "@/stores/modal";
-import Modal from "@/components/common/Modal.vue";
+import DeleteModal from "@/components/common/DeleteModal.vue";
+import IconModal from "@/components/common/IconModal.vue";
 
 // 플러그인 등록
 dayjs.extend(duration);
@@ -180,7 +191,7 @@ const getBadgeImage = (fileName) => {
   }
 };
 
-// 수정
+// 수정 - 목표 일수
 const updateTarget = () => {
   router.push(`update/${addictionId}`);
 };
@@ -277,6 +288,7 @@ onUnmounted(() => {
 
   img {
     position: absolute;
+
     top: 45%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -294,6 +306,10 @@ onUnmounted(() => {
     overflow: hidden;
     text-overflow: ellipsis;
   }
+}
+
+#icon-update {
+  cursor: pointer;
 }
 
 #addiction-info {
