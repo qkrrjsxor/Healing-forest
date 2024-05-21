@@ -1,26 +1,29 @@
 <template>
   <ul id="comment-list">
     <CommentListItem
-      v-for="(comment, index) in allComment"
+      v-for="(comment, index) in store.allComment"
       :key="comment.commentId"
       :comment="comment"
       :index="index"
-      :total="allComment.length"
+      :total="store.allComment.length"
+      :loginUser="props.loginUser"
     />
   </ul>
 </template>
 
 <script setup>
-import { ref, onMounted } from "vue";
-import CommentListItem from "./CommentListItem.vue";
 import { useCommunityStore } from "@/stores/community";
+import { onMounted } from "vue";
+import CommentListItem from "./CommentListItem.vue";
 
 const store = useCommunityStore();
 
-const allComment = ref([]);
+const props = defineProps({
+  loginUser: Object,
+});
 
 onMounted(async () => {
-  allComment.value = await store.getAllComment();
+  await store.getAllComment();
 });
 </script>
 

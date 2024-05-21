@@ -52,14 +52,15 @@ export const useCommunityStore = defineStore("community", () => {
   // 4. 댓글 - 등록
   const addComment = async (comment) => {
     try {
-      const res = await axios({
+      await axios({
         url: `${COMMUNITY_REST_API}/comment`,
         method: "POST",
         withCredentials: true,
+        headers: { "Content-Type": "text/plain" }, // 단순 문자열 타입 설정
         data: comment,
       });
-      await getAllComment(); // 항목 추가하면, 최신 리스트 가져오기
-    } catch (error) {
+      await getAllComment(); // 댓글 추가 후 리스트 갱신
+    } catch (err) {
       console.log(err);
     }
   };
@@ -67,6 +68,7 @@ export const useCommunityStore = defineStore("community", () => {
   return {
     topThreeUsers,
     myScore,
+    allComment,
     getTopRank,
     getMyRank,
     getAllComment,

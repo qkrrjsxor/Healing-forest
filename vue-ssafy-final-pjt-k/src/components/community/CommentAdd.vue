@@ -8,7 +8,7 @@
           alt="profile-icon"
         />
       </picture>
-      <p>ssafy</p>
+      <p>{{ props.loginUser.nickname }}</p>
     </div>
     <form id="user-comment" @submit.prevent="addComment">
       <input type="text" :value="content" @input="setContent" />
@@ -23,13 +23,19 @@ import { ref } from "vue";
 
 const store = useCommunityStore();
 
+const props = defineProps({
+  loginUser: Object,
+});
+
 const content = ref("");
+
 const setContent = (e) => {
   content.value = e.target.value;
 };
 
-const addComment = () => {
-  store.addComment(content.value);
+const addComment = async () => {
+  await store.addComment(content.value);
+  content.value = "";
 };
 </script>
 

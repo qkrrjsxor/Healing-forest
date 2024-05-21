@@ -1,16 +1,23 @@
 <template>
   <div id="comment-container">
     <div id="comment-box">
-      <CommentAdd />
+      <CommentAdd :loginUser="loginUser" />
       <div id="line" />
-      <CommentList />
+      <CommentList :loginUser="loginUser" />
     </div>
   </div>
 </template>
 
 <script setup>
+import { onMounted, ref } from "vue";
 import CommentAdd from "./CommentAdd.vue";
 import CommentList from "./CommentList.vue";
+
+const loginUser = ref({});
+
+onMounted(() => {
+  loginUser.value = JSON.parse(sessionStorage.getItem("loginUser"));
+});
 </script>
 
 <style scoped>
