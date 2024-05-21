@@ -2,6 +2,7 @@
   <div id="container">
     <section id="login-section">
       <div id="login-form-box">
+        <Alert id="alert" />
         <h2>Log In</h2>
         <form @submit.prevent="submitLogin" id="login-form">
           <div id="input-set">
@@ -42,6 +43,7 @@
 import { useUserStore } from "@/stores/user";
 import { ref, watchEffect } from "vue";
 import { useRouter } from "vue-router";
+import Alert from "@/components/common/Alert.vue";
 
 const router = useRouter();
 const store = useUserStore();
@@ -84,7 +86,6 @@ const submitLogin = () => {
   display: flex;
   height: 100vh;
   width: 100vw;
-  overflow: hidden;
 }
 
 #login-section {
@@ -102,6 +103,8 @@ const submitLogin = () => {
 }
 
 #login-form-box {
+  position: relative;
+
   display: flex;
   flex-direction: column;
   gap: 4rem;
@@ -109,6 +112,14 @@ const submitLogin = () => {
   width: 50%;
   min-width: 400px;
   padding: 2rem;
+}
+
+#alert {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, -150%);
+  width: 85%;
 }
 
 #login-form {
@@ -184,6 +195,12 @@ a {
 
   button {
     font-size: small;
+  }
+}
+
+@media (max-height: 768px) {
+  #alert {
+    transform: translate(-50%, -100%);
   }
 }
 </style>
