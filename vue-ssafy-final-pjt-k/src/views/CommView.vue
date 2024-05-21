@@ -1,17 +1,31 @@
 <template>
-  <div>
-    <h1 id="comm">Community 준비중입니다.</h1>
+  <div id="container">
+    <Rank />
+    <Comment />
   </div>
 </template>
 
-<script setup></script>
+<script setup>
+import Comment from "@/components/community/Comment.vue";
+import Rank from "@/components/community/Rank.vue";
+</script>
 
 <style scoped>
-#comm {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+#container {
+  margin: 0 auto;
+  background-color: #eaeceb;
 
-  height: calc(100vh - 6.2rem);
+  overflow: scroll;
+}
+
+/* 스크롤바 제거 */
+#container::-webkit-scrollbar {
+  display: none; /* Chrome, Edge, and Safari */
+}
+#container {
+  scrollbar-width: none; /* Firefox */
+}
+#container {
+  -ms-overflow-style: none; /* IE11 */
 }
 </style>
