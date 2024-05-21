@@ -36,9 +36,17 @@ public class CommunityServiceImpl implements CommunityService {
 	
 	// 댓글 생성
 	@Override
-	public int createComment(String userId, String content) {
+	public Comment createComment(String userId, String comment) {
 		
-		return communityDao.insertComment(userId, content);
+		// 댓글 객체 생성
+		Comment newComment = new Comment();
+		newComment.setUserId(userId);
+		newComment.setContent(comment);
+		
+		int commentId = communityDao.insertComment(newComment);
+		newComment.setCommentId(commentId);
+		
+		return newComment;
 	}
 
 	// 댓글 조회

@@ -17,7 +17,7 @@
         </p>
         <p>{{ timeSincePosted }}</p>
       </div>
-      <div id="button-div">
+      <div id="button-div" v-if="props.loginUser.userId === comment.userId">
         <button>수정</button> |
         <button>삭제</button>
       </div>
@@ -26,13 +26,13 @@
 </template>
 
 <script setup>
-import { computed } from "vue";
-import { onMounted, onUnmounted, ref } from "vue";
+import { computed, onMounted, onUnmounted, ref } from "vue";
 
 const props = defineProps({
   comment: Object,
   index: Number,
   total: Number,
+  loginUser: Object,
 });
 
 // 현재 시간
@@ -171,6 +171,7 @@ onUnmounted(() => {
 
   #user-comment {
     display: flex;
+    align-items: flex-end;
     width: 100%;
   }
 }
@@ -192,6 +193,7 @@ onUnmounted(() => {
   }
 
   #user-comment {
+    position: relative;
     flex-direction: column;
   }
 
@@ -200,7 +202,8 @@ onUnmounted(() => {
   }
 
   #button-div {
-    align-self: flex-end;
+    position: absolute;
+    bottom: 0;
   }
 }
 </style>

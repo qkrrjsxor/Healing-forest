@@ -14,7 +14,7 @@ public interface CommunityService {
 	public int getMyScore(String userId);
 	
 	// 댓글 등록
-	public int createComment(String userId, String content);
+	public Comment createComment(String userId, String comment);
 	
 	// 댓글 전체 조회
 	public List<Comment> getCommentAll();
