@@ -65,6 +65,21 @@ export const useCommunityStore = defineStore("community", () => {
     }
   };
 
+  // 5. 댓글 - 수정
+  const updateComment = async (commentId, content) => {
+    try {
+      await axios({
+        url: `${COMMUNITY_REST_API}/comment/${commentId}`,
+        method: "PUT",
+        withCredentials: true,
+        data: { content },
+      });
+      await getAllComment(); // 댓글 수정 후 리스트 갱신
+    } catch (err) {
+      console.error("댓글 수정 중 오류: ", err);
+    }
+  };
+
   return {
     topThreeUsers,
     myScore,
@@ -73,5 +88,6 @@ export const useCommunityStore = defineStore("community", () => {
     getMyRank,
     getAllComment,
     addComment,
+    updateComment,
   };
 });
