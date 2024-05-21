@@ -8,6 +8,8 @@ export const useCommunityStore = defineStore("community", () => {
   // state
   const topThreeUsers = ref([]);
   const myScore = ref(0);
+  const myRank = ref(0);
+  const userCount = ref(0);
 
   const allComment = ref([]);
 
@@ -30,7 +32,9 @@ export const useCommunityStore = defineStore("community", () => {
       const res = await axios.get(`${COMMUNITY_REST_API}/myscore`, {
         withCredentials: true,
       });
-      myScore.value = res.data;
+      myScore.value = res.data.myScore;
+      myRank.value = res.data.myRank;
+      userCount.value = res.data.userCount;
     } catch (err) {
       console.err("My Rank 조회 중 오류: ", err);
     }
@@ -84,6 +88,8 @@ export const useCommunityStore = defineStore("community", () => {
     topThreeUsers,
     myScore,
     allComment,
+    myRank,
+    userCount,
     getTopRank,
     getMyRank,
     getAllComment,
