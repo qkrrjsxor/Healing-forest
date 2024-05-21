@@ -11,7 +11,7 @@
       <p>{{ props.loginUser.nickname }}</p>
     </div>
     <form id="user-comment" @submit.prevent="addComment">
-      <input type="text" :value="content" @input="setContent" />
+      <input type="text" :value="content" @input="setContent" maxlength="100" />
       <button type="submit">등록</button>
     </form>
   </div>

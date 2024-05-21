@@ -12,13 +12,22 @@
     </div>
     <div id="user-comment">
       <div id="comment-div">
-        <p>
+        <p v-if="isOriginalComment">
           {{ comment.content }}
         </p>
+        <input
+          v-else
+          v-model="editedComment"
+          @keyup.enter="showEditDiv"
+          maxlength="100"
+        />
         <p>{{ timeSincePosted }}</p>
       </div>
       <div id="button-div" v-if="props.loginUser.userId === comment.userId">
-        <button>수정</button> |
+        <button @click="showEditDiv">
+          {{ isOriginalComment ? "수정" : "완료" }}
+        </button>
+        |
         <button>삭제</button>
       </div>
     </div>
@@ -26,6 +35,7 @@
 </template>
 
 <script setup>
+import { useCommunityStore } from "@/stores/community";
 import { computed, onMounted, onUnmounted, ref } from "vue";
 
 const props = defineProps({
@@ -34,6 +44,26 @@ const props = defineProps({
   total: Number,
   loginUser: Object,
 });
+
+const store = useCommunityStore();
+
+const isOriginalComment = ref(true);
+const editedComment = ref(props.comment.content);
+
+// 댓글 수정
+const showEditDiv = async () => {
+  // 편집 모드 일 때만 댓글을 수정하도록
+  if (!isOriginalComment.value) {
+    const trimmedComment = editedComment.value.trim();
+    if (trimmedComment !== "") {
+      await store.updateComment(props.comment.commentId, trimmedComment);
+      props.comment.content = trimmedComment;
+    } else {
+      editedComment.value = props.comment.content; // 빈 값으로 수정한 경우, 기존 값 그대로 유지
+    }
+  }
+  isOriginalComment.value = !isOriginalComment.value;
+};
 
 // 현재 시간
 const now = ref(new Date());
