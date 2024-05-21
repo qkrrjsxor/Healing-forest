@@ -18,5 +18,5 @@
         WHERE user_id = #{userId}
     </select>
 
-
+	<!-- 유저 정보 검색 -->
 </mapper>

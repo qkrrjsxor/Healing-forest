@@ -28,9 +28,21 @@ public class UserController {
 
 	// 회원가입
 	@PostMapping("/signup")
-	public ResponseEntity<?> signup(@ModelAttribute User user) {
-		userService.signup(user);
-		return new ResponseEntity<User>(user, HttpStatus.OK);
+	public ResponseEntity<?> signup(@RequestBody User user) {
+		int result = 0;
+		try {
+			
+			result = userService.signup(user);
+		} catch (Exception e) {
+			return new ResponseEntity<String>("이미 존재하는 아이디입니다.", HttpStatus.BAD_REQUEST);
+		}
+		
+		
+		if(result == 1) {
+			return new ResponseEntity<User>(user, HttpStatus.OK);			
+		}else {
+			return new ResponseEntity<>("회원가입 실패", HttpStatus.BAD_REQUEST);
+		}
 	}
 
 	// 2. 로그인
@@ -39,10 +51,10 @@ public class UserController {
 		User loginUser = userService.login(user.getUserId());
 
 		if (loginUser == null) {
-			return new ResponseEntity<String>("해당 유저는 존재하지 않습니다.", HttpStatus.NOT_FOUND);
+			return new ResponseEntity<String>("존재하지 않는 아이디입니다.", HttpStatus.NOT_FOUND);
 		} else {
 			if (!user.getPassword().equals(loginUser.getPassword())) {
-				return new ResponseEntity<String>("비밀 번호가 틀렸습니다.", HttpStatus.UNAUTHORIZED);
+				return new ResponseEntity<String>("비밀번호가 틀렸습니다.", HttpStatus.UNAUTHORIZED);
 			} else {
 				session.setAttribute("loginUser", loginUser.getUserId());
 				System.out.println(session.getAttribute("loginUser"));

@@ -49,9 +49,42 @@ export const useUserStore = defineStore("user", () => {
       router.push({ name: "home" });
     });
   };
+
+  // 3) 회원가입 요청
+  const submitSignup = async (userId, password, nickname) => {
+    const alertStore = useAlertStore();
+    const signupData = {
+      userId,
+      password,
+      nickname,
+    };
+    try {
+      const res = await axios({
+        url: `${USER_REST_API}/signup`,
+        method: "POST",
+        withCredentials: true,
+        data: signupData,
+      });
+      // 성공 시 로그인 페이지로 리다이렉트
+      alert("회원가입에 성공했습니다. 로그인 해주세요.");
+      router.push({ name: "login" });
+      // alertStore.setAlert(
+      //   "회원가입에 성공했습니다. 로그인 해주세요.",
+      //   "signup"
+      // );
+    } catch (err) {
+      if (err.response) {
+        alertStore.setAlert(err.response.data, "signup");
+      } else {
+        alertStore.setAlert("서버 연결이 끊어졌습니다.", "signup");
+      }
+    }
+  };
+
   return {
     loginUser,
     submitLogin,
     submitLogout,
+    submitSignup,
   };
 });
