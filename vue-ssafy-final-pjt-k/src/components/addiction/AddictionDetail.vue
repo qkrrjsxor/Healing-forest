@@ -97,15 +97,15 @@
 </template>
 
 <script setup>
-import dayjs from "dayjs";
-import duration from "dayjs/plugin/duration";
-import { onMounted, onUnmounted, ref } from "vue";
-import router from "@/router";
-import { useRoute } from "vue-router";
-import { useAddictionStore } from "@/stores/addiction";
-import { useModalStore } from "@/stores/modal";
 import DeleteModal from "@/components/common/DeleteModal.vue";
 import IconModal from "@/components/common/IconModal.vue";
+import router from "@/router";
+import { useAddictionStore } from "@/stores/addiction";
+import { useModalStore } from "@/stores/modal";
+import dayjs from "dayjs";
+import duration from "dayjs/plugin/duration";
+import { onMounted, onUnmounted, ref, watch } from "vue";
+import { useRoute } from "vue-router";
 
 // 플러그인 등록
 dayjs.extend(duration);
@@ -214,6 +214,14 @@ onMounted(async () => {
 onUnmounted(() => {
   clearInterval(intervalId);
 });
+
+// 상태 변화 감지
+watch(
+  () => store.addictionItem,
+  (newItem) => {
+    addictionItem.value = newItem;
+  }
+);
 </script>
 
 <style scoped>
