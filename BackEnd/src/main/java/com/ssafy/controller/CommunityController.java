@@ -47,6 +47,7 @@ public class CommunityController {
 	public ResponseEntity<?> getMyScore(HttpSession session) {
 		String userId = (String) session.getAttribute("loginUser");
 		
+		// map 객체로 json 형식 넘겨주기 : myScore, myRank, userCount
 		Map<String, Integer> myRank = communityService.getMyRank(userId);
 		
 		return new ResponseEntity<>(myRank, HttpStatus.OK);

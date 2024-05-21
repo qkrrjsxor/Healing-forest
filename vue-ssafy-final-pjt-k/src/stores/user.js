@@ -68,12 +68,10 @@ export const useUserStore = defineStore("user", () => {
       // 성공 시 로그인 페이지로 리다이렉트
       alert("회원가입에 성공했습니다. 로그인 해주세요.");
       router.push({ name: "login" });
-      // alertStore.setAlert(
-      //   "회원가입에 성공했습니다. 로그인 해주세요.",
-      //   "signup"
-      // );
+
     } catch (err) {
       if (err.response) {
+        // console.log(err.response)
         alertStore.setAlert(err.response.data, "signup");
       } else {
         alertStore.setAlert("서버 연결이 끊어졌습니다.", "signup");
