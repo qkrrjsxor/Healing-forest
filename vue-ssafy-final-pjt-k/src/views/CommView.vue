@@ -1,13 +1,13 @@
 <template>
   <div>
-    <h1 id="rank">RANK 준비중입니다.</h1>
+    <h1 id="comm">Community 준비중입니다.</h1>
   </div>
 </template>
 
 <script setup></script>
 
 <style scoped>
-#rank {
+#comm {
   display: flex;
   justify-content: center;
   align-items: center;
