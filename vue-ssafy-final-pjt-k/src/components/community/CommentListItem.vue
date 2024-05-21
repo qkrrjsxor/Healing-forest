@@ -1,5 +1,5 @@
 <template>
-  <li id="comment-item">
+  <li id="comment-item" :class="{ borderBottom: index + 1 !== total }">
     <div id="user-name">
       <picture id="profile-box">
         <img
@@ -8,12 +8,12 @@
           alt="profile-icon"
         />
       </picture>
-      <p>ssafy</p>
+      <p>{{ comment.userId }}</p>
     </div>
     <div id="user-comment">
       <div id="comment-div">
         <p>
-          comment입니다.comment입니다.comment입니다.comment입니다.comment입니다.comment입니다.comment입니다.comment입니다.comment입니다.comment입니다.comment입니다.comment입니다.comment입니다.comment입니다.comment입니다.
+          {{ comment.content }}
         </p>
         <p>1분 전</p>
       </div>
@@ -25,14 +25,20 @@
   </li>
 </template>
 
-<script setup></script>
+<script setup>
+const props = defineProps({
+  comment: Object,
+  index: Number,
+  total: Number,
+});
+</script>
 
 <style scoped>
 #comment-item {
   display: flex;
   justify-content: space-between;
+  align-items: flex-start;
   gap: 1rem;
-
   padding: 1rem 2rem;
 }
 
@@ -69,15 +75,17 @@
 #user-comment {
   display: flex;
   align-items: flex-start;
+  justify-content: space-between;
 
   width: 85%;
-  /* background-color: aliceblue; */
 }
 
 #comment-div {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+
+  width: 85%;
 
   p {
     margin: 0;
@@ -87,6 +95,8 @@
 #comment-div p:first-child {
   color: #352f26;
   font-size: medium;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
 #comment-div p:last-child {
@@ -108,6 +118,11 @@
   }
 }
 
+.borderBottom {
+  /* border-bottom: 1px solid #eaeceb; */
+  border-bottom: 1px solid #b6c2a9;
+}
+
 /* media query */
 @media (max-width: 1124px) {
   #comment-item {
@@ -118,6 +133,12 @@
   #user-comment {
     display: flex;
     width: 100%;
+  }
+}
+
+@media (max-width: 1024px) {
+  #comment-div {
+    width: 80%;
   }
 }
 
@@ -133,6 +154,10 @@
 
   #user-comment {
     flex-direction: column;
+  }
+
+  #comment-div {
+    width: 100%;
   }
 
   #button-div {
