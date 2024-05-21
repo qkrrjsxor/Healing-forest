@@ -8,8 +8,10 @@
           :to="{ name: 'addictionList' }"
           >LIST</RouterLink
         >
-        <RouterLink :class="{ active: isActiveRank }" :to="{ name: 'rank' }"
-          >RANK</RouterLink
+        <RouterLink
+          :class="{ active: isActiveComm }"
+          :to="{ name: 'community' }"
+          >COMM</RouterLink
         >
       </div>
       <picture @click="submitLogout" id="profile-box">
@@ -32,8 +34,8 @@ const store = useUserStore();
 const isActiveList = computed(() => {
   return route.name?.includes("addiction");
 });
-const isActiveRank = computed(() => {
-  return route.name?.includes("rank");
+const isActiveComm = computed(() => {
+  return route.name?.includes("community");
 });
 
 // 홈으로

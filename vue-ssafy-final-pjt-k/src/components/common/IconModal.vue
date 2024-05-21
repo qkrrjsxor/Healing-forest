@@ -140,7 +140,7 @@ const updateIcon = async () => {
 
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.3);
 
   overflow: scroll;
 }
@@ -155,7 +155,7 @@ const updateIcon = async () => {
 
   padding: 3rem;
 
-  background: #d1d3d2;
+  background-color: #b6c2a9;
   border: none;
   border-radius: 1rem;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -175,7 +175,7 @@ const updateIcon = async () => {
 
   width: 100%;
   padding: 1rem 1.5rem;
-  border: 3px solid #b6c2a9;
+  border: 3px solid #84a063;
   border-radius: 1rem;
 
   color: #352f26;
@@ -185,6 +185,7 @@ const updateIcon = async () => {
 #selected-icon {
   display: flex;
   justify-content: space-between;
+  font-weight: 700;
 }
 
 #select-icons {
@@ -220,6 +221,7 @@ const updateIcon = async () => {
     border-radius: 0.5rem;
     border: none;
 
+    font-weight: 700;
     cursor: pointer;
   }
 
@@ -228,7 +230,7 @@ const updateIcon = async () => {
   }
 
   button:last-child {
-    background-color: #b6c2a9;
+    background-color: #84a063;
   }
 }
 

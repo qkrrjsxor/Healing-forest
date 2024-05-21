@@ -5,9 +5,9 @@ import AddictionUpdate from "@/components/addiction/AddictionUpdate.vue";
 import AddictionView from "@/views/AddictionView.vue";
 import HomeView from "@/views/HomeView.vue";
 import LoginView from "@/views/LoginView.vue";
-import RankView from "@/views/RankView.vue";
 import SignupView from "@/views/SignupView.vue";
 import { createRouter, createWebHistory } from "vue-router";
+import CommView from "@/views/CommView.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -58,9 +58,9 @@ const router = createRouter({
       ],
     },
     {
-      path: "/rank",
-      name: "rank",
-      component: RankView,
+      path: "/community",
+      name: "community",
+      component: CommView,
     },
   ],
 });
