@@ -20,14 +20,19 @@
 	</select>
 	
 	<!-- 댓글 등록 -->
-    <insert id="insertComment">
+	<!-- insert 태그는 일반적으로 삽입된 행의 수만 반환하기 때문에 Comment 객체를 반환하기 위해 selectKey 추가 -->
+    <insert id="insertComment" useGeneratedKeys="true" keyProperty="commentId">
         INSERT INTO comment(user_id, content)
         VALUES(#{userId}, #{content})
+        <selectKey resultType="int" keyProperty="commentId" order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
     </insert>
     
     <!-- 댓글 조회 -->
     <select id="selectCommentAll" resultType="Comment">
         SELECT * FROM comment
+        ORDER BY create_date DESC
     </select>
 
 	<!-- 댓글 수정 -->
