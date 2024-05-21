@@ -21,7 +21,7 @@ public interface CommunityDao {
 	// 
 	
 	// 댓글 삽입
-	public int insertComment(@Param("userId") String userId, @Param("content") String content);
+	public int insertComment(Comment comment);
 
 	// 댓글 조회
 	public List<Comment> selectCommentAll();
