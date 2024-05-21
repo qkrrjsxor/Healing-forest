@@ -35,15 +35,19 @@ onMounted(() => {
 <style scoped>
 .alert {
   padding: 1rem;
-  border: 1px solid;
+  border: none;
   border-radius: 0.5rem;
+  font-size: medium;
 }
 
 .alert.warning {
   background-color: #7a8579;
   color: #eaeceb;
-  border-color: #7a8579;
-  font-size: medium;
+}
+
+.alert.login {
+  background-color: #9d8e03;
+  color: #eaeceb;
 }
 
 @media (max-width: 768px) {

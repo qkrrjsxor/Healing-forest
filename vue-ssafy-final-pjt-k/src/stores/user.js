@@ -2,6 +2,7 @@ import router from "@/router";
 import axios from "axios";
 import { defineStore } from "pinia";
 import { ref } from "vue";
+import { useAlertStore } from "./alert";
 
 const USER_REST_API = "http://localhost:8080/api-user";
 
@@ -11,30 +12,29 @@ export const useUserStore = defineStore("user", () => {
 
   // actions
   // 1) 로그인 요청
-  const submitLogin = (user) => {
-    axios({
-      url: `${USER_REST_API}/login`,
-      method: "POST",
-      withCredentials: true,
-      data: user,
-    })
-      .then((res) => {
-        loginUser.value = {
-          userId: res.data.userId,
-          nickname: res.data.nickname,
-        };
-        sessionStorage.setItem(
-          "loginUser",
-          JSON.stringify({
-            userId: res.data.userId,
-            nickname: res.data.nickname,
-          })
-        );
-        router.push({ name: "addictionList" });
-      })
-      .catch((err) => {
-        console.log(err);
+  const submitLogin = async (user) => {
+    const alertStore = useAlertStore();
+
+    try {
+      const res = await axios({
+        url: `${USER_REST_API}/login`,
+        method: "POST",
+        withCredentials: true,
+        data: user,
       });
+      loginUser.value = {
+        userId: res.data.userId,
+        nickname: res.data.nickname,
+      };
+      sessionStorage.setItem("loginUser", JSON.stringify(loginUser.value));
+      router.push({ name: "addictionList" });
+    } catch (err) {
+      if (err.response) {
+        alertStore.setAlert(err.response.data, "login");
+      } else {
+        alertStore.setAlert("서버 연결이 끊어졌습니다.", "login");
+      }
+    }
   };
 
   // 2) 로그아웃 요청
