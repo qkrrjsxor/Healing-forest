@@ -1,5 +1,5 @@
 <template>
-  <li id="comment-item">
+  <li id="comment-item" :class="{ borderBottom: index + 1 !== total }">
     <div id="user-name">
       <picture id="profile-box">
         <img
@@ -8,14 +8,14 @@
           alt="profile-icon"
         />
       </picture>
-      <p>ssafy</p>
+      <p>{{ comment.userId }}</p>
     </div>
     <div id="user-comment">
       <div id="comment-div">
         <p>
-          comment입니다.comment입니다.comment입니다.comment입니다.comment입니다.comment입니다.comment입니다.comment입니다.comment입니다.comment입니다.comment입니다.comment입니다.comment입니다.comment입니다.comment입니다.
+          {{ comment.content }}
         </p>
-        <p>1분 전</p>
+        <p>{{ timeSincePosted }}</p>
       </div>
       <div id="button-div">
         <button>수정</button> |
@@ -25,14 +25,59 @@
   </li>
 </template>
 
-<script setup></script>
+<script setup>
+import { computed } from "vue";
+import { onMounted, onUnmounted, ref } from "vue";
+
+const props = defineProps({
+  comment: Object,
+  index: Number,
+  total: Number,
+});
+
+// 현재 시간
+const now = ref(new Date());
+
+const updateInterval = 60000; // 1분 마다 업데이트
+
+// comment의 createDate와 현재 시간과의 차이 계산
+const timeSincePosted = computed(() => {
+  const seconds = Math.floor(
+    (now.value - new Date(props.comment.createDate)) / 1000
+  );
+  const minutes = Math.floor(seconds / 60);
+  if (minutes < 1) {
+    return "방금 전";
+  } else if (minutes < 60) {
+    return `${minutes}분 전`;
+  } else {
+    const hours = Math.floor(minutes / 60);
+    if (hours < 24) {
+      return `${hours}시간 전`;
+    } else {
+      const days = Math.floor(hours / 24);
+      return `${days}일 전`;
+    }
+  }
+});
+
+onMounted(() => {
+  setInterval(() => {
+    now.value = new Date();
+  }, updateInterval);
+});
+
+onUnmounted(() => {
+  clearInterval(updateInterval);
+});
+</script>
 
 <style scoped>
 #comment-item {
   display: flex;
   justify-content: space-between;
+  align-items: flex-start;
   gap: 1rem;
-
   padding: 1rem 2rem;
 }
 
@@ -69,15 +114,17 @@
 #user-comment {
   display: flex;
   align-items: flex-start;
+  justify-content: space-between;
 
   width: 85%;
-  /* background-color: aliceblue; */
 }
 
 #comment-div {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+
+  width: 85%;
 
   p {
     margin: 0;
@@ -87,6 +134,8 @@
 #comment-div p:first-child {
   color: #352f26;
   font-size: medium;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
 #comment-div p:last-child {
@@ -108,6 +157,11 @@
   }
 }
 
+.borderBottom {
+  /* border-bottom: 1px solid #eaeceb; */
+  border-bottom: 1px solid #b6c2a9;
+}
+
 /* media query */
 @media (max-width: 1124px) {
   #comment-item {
@@ -118,6 +172,12 @@
   #user-comment {
     display: flex;
     width: 100%;
+  }
+}
+
+@media (max-width: 1024px) {
+  #comment-div {
+    width: 80%;
   }
 }
 
@@ -133,6 +193,10 @@
 
   #user-comment {
     flex-direction: column;
+  }
+
+  #comment-div {
+    width: 100%;
   }
 
   #button-div {

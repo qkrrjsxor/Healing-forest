@@ -80,6 +80,19 @@ VALUES ('ssafy', '알코올','2024-05-10 09:00', 10, DATE_ADD(start_time, INTERV
 INSERT INTO comment (user_id, content)
 VALUES ('ssafy', 'test');
 
+INSERT INTO `comment` (`user_id`, `content`, `create_date`) VALUES
+('ssafy', 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', '2024-05-21 07:28:04'),
+('ssafy', 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', '2024-05-21 07:28:04'),
+('ssafy', 'This is a much longer comment designed to fill the entire varchar limit of one hundred characters', '2024-05-21 07:28:04'),
+('ssafy', 'This is a much longer comment designed to fill the entire varchar limit of one hundred characters. 1', '2024-05-21 07:28:04'),
+('ssafy2', 'This is a test comment. Let''s see how this goes.', '2024-05-21 07:28:04'),
+('ssafy2', 'This is a test comment. Let''s see how this goes.', '2024-05-21 07:28:04'),
+('ssafy2', 'This is a much longer comment designed to fill the entire varchar limit of one hundred characters..', '2024-05-21 07:28:04'),
+('ssafy3', 'Short comment.', '2024-05-21 07:28:04'),
+('ssafy3', 'This is a much longer comment designed to fill the entire varchar limit of one hundred characters. 2', '2024-05-21 07:28:04'),
+('ssafy3', 'Short comment.', '2024-05-21 07:28:04');
+
+
 -- test code
 
 SELECT * FROM user;
