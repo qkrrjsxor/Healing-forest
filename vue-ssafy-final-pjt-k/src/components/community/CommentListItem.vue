@@ -76,30 +76,6 @@ const showEditDiv = async () => {
   }
 };
 
-// 댓글 수정
-// const showEditDiv = async () => {
-//   // 편집 모드 일 때만 댓글을 수정하도록
-//   if (!isOriginalComment.value) {
-//     const trimmedComment = editedComment.value.trim();
-//     if (trimmedComment !== "") {
-//       await store.updateComment(props.comment.commentId, trimmedComment);
-//       props.comment.content = trimmedComment;
-//     } else {
-//       editedComment.value = props.comment.content; // 빈 값으로 수정한 경우, 기존 값 그대로 유지
-//     }
-//   } else {
-//     // 편집 모드로 전환되었을 때 autofocus
-//     isOriginalComment.value = !isOriginalComment.value;
-//     await nextTick(() => {
-//       if (updateInputRef.value) {
-//         updateInputRef.value.focus();
-//       }
-//     });
-//     return;
-//   }
-//   isOriginalComment.value = !isOriginalComment.value;
-// };
-
 // 현재 시간
 const now = ref(new Date());
 
