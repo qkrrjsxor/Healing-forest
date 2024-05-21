@@ -9,6 +9,8 @@ export const useCommunityStore = defineStore("community", () => {
   const topThreeUsers = ref([]);
   const myScore = ref(0);
 
+  const allComment = ref([]);
+
   // action
   // 1. 명예의 전당 (top 3 조회)
   const getTopRank = async () => {
@@ -40,9 +42,25 @@ export const useCommunityStore = defineStore("community", () => {
       const res = await axios.get(`${COMMUNITY_REST_API}/comment`, {
         withCredentials: true,
       });
+      allComment.value = res.data;
       return res.data;
     } catch (err) {
       console.log("댓글 전체 조회 중 error 발생", err);
+    }
+  };
+
+  // 4. 댓글 - 등록
+  const addComment = async (comment) => {
+    try {
+      const res = await axios({
+        url: `${COMMUNITY_REST_API}/comment`,
+        method: "POST",
+        withCredentials: true,
+        data: comment,
+      });
+      await getAllComment(); // 항목 추가하면, 최신 리스트 가져오기
+    } catch (error) {
+      console.log(err);
     }
   };
 
@@ -52,5 +70,6 @@ export const useCommunityStore = defineStore("community", () => {
     getTopRank,
     getMyRank,
     getAllComment,
+    addComment,
   };
 });

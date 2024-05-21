@@ -10,14 +10,28 @@
       </picture>
       <p>ssafy</p>
     </div>
-    <div id="user-comment">
-      <input type="text" />
-      <button>등록</button>
-    </div>
+    <form id="user-comment" @submit.prevent="addComment">
+      <input type="text" :value="content" @input="setContent" />
+      <button type="submit">등록</button>
+    </form>
   </div>
 </template>
 
-<script setup></script>
+<script setup>
+import { useCommunityStore } from "@/stores/community";
+import { ref } from "vue";
+
+const store = useCommunityStore();
+
+const content = ref("");
+const setContent = (e) => {
+  content.value = e.target.value;
+};
+
+const addComment = () => {
+  store.addComment(content.value);
+};
+</script>
 
 <style scoped>
 #add-container {
@@ -83,6 +97,7 @@
 
     color: white;
     font-weight: 600;
+    cursor: pointer;
   }
 }
 

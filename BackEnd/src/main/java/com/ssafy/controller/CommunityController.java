@@ -53,11 +53,11 @@ public class CommunityController {
 
 	// 댓글 등록
 	@PostMapping("/comment")
-	public ResponseEntity<?> createComment(@RequestBody Comment comment, HttpSession session) {
+	public ResponseEntity<?> createComment(@RequestBody String comment, HttpSession session) {
 		// login user 정보
 		String userId = (String) session.getAttribute("loginUser");
 
-		int result = communityService.createComment(userId, comment.getContent());
+		int result = communityService.createComment(userId, comment);
 
 		if (result == 1) {
 			return new ResponseEntity<>("댓글 등록 성공", HttpStatus.OK);
