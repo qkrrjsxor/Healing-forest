@@ -40,9 +40,9 @@ public class AddictionController {
 		
 		int result = addictionService.createAddiction(addiction);
 		
-		if(result ==1) {
+		if (result == 1) {
 			return new ResponseEntity<>(addiction, HttpStatus.OK);
-		}else {
+		} else {
 			return new ResponseEntity<>("생성 실패", HttpStatus.BAD_REQUEST);
 		}
 	}

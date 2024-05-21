@@ -18,21 +18,21 @@ import jakarta.servlet.http.HttpSession;
 @RestController
 @RequestMapping("/api-user")
 public class UserController {
-	
+
 	// 의존성
 	private UserService userService;
-	
+
 	public UserController(UserService userService) {
 		this.userService = userService;
 	}
-		
+
 	// 회원가입
 	@PostMapping("/signup")
-	public ResponseEntity<?> signup(@ModelAttribute User user){
+	public ResponseEntity<?> signup(@ModelAttribute User user) {
 		userService.signup(user);
 		return new ResponseEntity<User>(user, HttpStatus.OK);
 	}
-	
+
 	// 2. 로그인
 	@PostMapping("/login")
 	public ResponseEntity<?> logIn(@RequestBody User user, HttpSession session) {
@@ -50,7 +50,7 @@ public class UserController {
 			}
 		}
 	}
-	
+
 	// 3. 로그아웃
 	@GetMapping("/logout")
 	public ResponseEntity<String> logout(HttpSession session) {
@@ -60,6 +60,6 @@ public class UserController {
 		} else {
 			return new ResponseEntity<String>("로그인한 유저가 없습니다.", HttpStatus.UNAUTHORIZED);
 		}
-		
+
 	}
 }
