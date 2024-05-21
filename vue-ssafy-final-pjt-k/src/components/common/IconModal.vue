@@ -120,8 +120,11 @@ const closeModal = () => {
 const updateIcon = async () => {
   if (!addictionIconPath.value) {
     alertStore.setAlert("아이콘을 선택해주세요.", "warning");
+    return;
   }
   await store.updateIcon(props.addictionId, addictionIconPath.value);
+  selectedIcon.value = null; // 초기화
+  addictionIconPath.value = ""; // 초기화
   closeModal();
 };
 </script>
