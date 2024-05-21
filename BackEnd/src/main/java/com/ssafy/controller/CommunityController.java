@@ -1,6 +1,7 @@
 package com.ssafy.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -41,14 +42,15 @@ public class CommunityController {
 		return new ResponseEntity<>(ranker, HttpStatus.OK);
 	}
 
-	// 내 점수 조회
+	// 내 랭킹 조회
 	@GetMapping("/myscore")
 	public ResponseEntity<?> getMyScore(HttpSession session) {
 		String userId = (String) session.getAttribute("loginUser");
 		
-		int score = communityService.getMyScore(userId);
+		// map 객체로 json 형식 넘겨주기 : myScore, myRank, userCount
+		Map<String, Integer> myRank = communityService.getMyRank(userId);
 		
-		return new ResponseEntity<>(score, HttpStatus.OK);
+		return new ResponseEntity<>(myRank, HttpStatus.OK);
 	}
 
 	// 댓글 등록

@@ -3,6 +3,7 @@
     <img v-if="showImage" id="login-image" src="@/assets/signup-login.jpg" alt="login-image" />
     <section id="login-section">
       <div id="login-form-box">
+        <Alert id="alert" />
         <h2>Sign up</h2>
         <form id="login-form">
           <ul id="input-set">
@@ -34,9 +35,11 @@
 import { ref, watchEffect } from "vue";
 import { useRouter } from "vue-router";
 import { useUserStore } from "@/stores/user";
+import Alert from "@/components/common/Alert.vue";
 
 const showImage = ref(true);
 const store = useUserStore();
+const router = useRouter();
 
 // [반응형] 화면 리사이징 -> image 제거
 watchEffect(() => {
@@ -53,7 +56,6 @@ watchEffect(() => {
   };
 });
 
-const router = useRouter();
 // 홈으로
 const goHome = () => {
   router.push({ name: "home" });
@@ -74,17 +76,12 @@ const isValidateNickname = ref(true);
 
 const validateUserId = () => {
   isValidateId.value = userIdPattern.test(userId.value) ? true : false;
-  // console.log(isValidateId.value)
 }
 const validatePassword = () => {
   isValidatePassword.value = passwordPattern.test(password.value) ? true : false;
-  // console.log(isValidatePassword.value)
 };
 const validateNickname = (nickname) => {
-
   isValidateNickname.value = nicknamePattern.test(nickname) ? true : false;
-  // console.log(isValidateNickname.value)
-  // console.log(nickname)
 };
 
 const setNickname = (event) => {
@@ -222,6 +219,12 @@ a {
 
   button {
     font-size: small;
+  }
+}
+
+@media (max-height: 768px) {
+  #alert {
+    transform: translate(-50%, -100%);
   }
 }
 </style>
