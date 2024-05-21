@@ -15,6 +15,11 @@ public interface CommunityDao {
 	// 내 점수 조회
 	public int selectMyScore(@Param("userId") String userId);
 	
+	// 전체 유저의 점수 리스트 조회
+	public List<Integer> selectUserScore();
+	
+	// 
+	
 	// 댓글 삽입
 	public int insertComment(@Param("userId") String userId, @Param("content") String content);
 

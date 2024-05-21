@@ -35,7 +35,7 @@
         src="@/assets/community/rank/rank_my.png"
         alt="my-rank-icon"
       />
-      <p>{{ loginUserNickname }} 님, {{ myScore }}점 입니다!</p>
+      <p>{{ loginUserNickname }} 님, {{ myScore }}점으로 전체 {{ userCount }}명 중 {{ myRank }}위 입니다!</p>
     </div>
   </div>
 </template>
@@ -50,6 +50,8 @@ const topThreeUsers = ref([]);
 
 const showRank = ref(false);
 const myScore = ref(0);
+const myRank = ref(0);
+const userCount = ref(0);
 const loginUserNickname = ref("");
 
 // 나의 랭킹 조회
@@ -57,6 +59,8 @@ const showMyRank = async () => {
   showRank.value = !showRank.value;
   await store.getMyRank();
   myScore.value = store.myScore;
+  myRank.value = store.myRank;
+  userCount.value = store.userCount;
 };
 
 onMounted(async () => {

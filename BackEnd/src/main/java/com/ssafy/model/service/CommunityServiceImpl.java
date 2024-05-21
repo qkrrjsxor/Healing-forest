@@ -1,6 +1,8 @@
 package com.ssafy.model.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
@@ -27,11 +29,22 @@ public class CommunityServiceImpl implements CommunityService {
 		return ranker;
 	}
 	
-	// 내 점수 조회
+	// 내 점수, 랭킹 조회
 	@Override
-	public int getMyScore(String userId) {
+	public Map<String, Integer> getMyRank(String userId) {
 		int score = communityDao.selectMyScore(userId);
-		return score;
+		List<Integer> scoreList = communityDao.selectUserScore();
+		
+		int myRank = scoreList.indexOf(score)+1;
+		int userCount = scoreList.size();
+		
+		Map<String, Integer> myRankMap = new HashMap<>();
+		
+		myRankMap.put("myScore", score);
+		myRankMap.put("myRank", myRank);
+		myRankMap.put("userCount", userCount);
+		
+		return myRankMap;
 	}
 	
 	// 댓글 생성

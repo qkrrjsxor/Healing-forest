@@ -1,6 +1,7 @@
 package com.ssafy.model.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.ssafy.model.dto.Comment;
 import com.ssafy.model.dto.User;
@@ -11,7 +12,7 @@ public interface CommunityService {
 	public List<User> getRank();
 	
 	// 내 점수 조회
-	public int getMyScore(String userId);
+	public Map<String, Integer> getMyRank(String userId);
 	
 	// 댓글 등록
 	public int createComment(String userId, String content);

@@ -19,6 +19,12 @@
 		WHERE user_id = #{userId}
 	</select>
 	
+	<!-- 전체 점수 리스트 조회 내림차순 -->
+	<select id="selectUserScore" resultType="int">
+		SELECT user_score FROM user
+		ORDER BY user_score DESC
+	</select>
+	
 	<!-- 댓글 등록 -->
     <insert id="insertComment">
         INSERT INTO comment(user_id, content)
