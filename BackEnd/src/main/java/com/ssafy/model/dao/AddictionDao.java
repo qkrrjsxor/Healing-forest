@@ -13,30 +13,36 @@ public interface AddictionDao {
 
 	// 생성
 	public int insertAddiction(Addiction addiction);
-	
+
 	// 전체 조회
 	public List<Addiction> selectAddictionList(String userId);
 
 	// 상세 조회
 	public Addiction selectAddictionOne(@Param("addictionId") int addictionId);
-	
+
 	// 뱃지 조회
 	public List<Badge> selectBadge(int addictionId);
+	
+	// 사용자의 뱃지 전체 조회
+	public List<Badge> selectBadgeAll(String userId);
+
 	// 뱃지 생성
-	public void insertBadge(@Param("userId") String userId, @Param("addictionId") int addictionId, @Param("date") int date );
+	public void insertBadge(@Param("userId") String userId, @Param("addictionId") int addictionId,
+			@Param("date") int date);
+
 	// 뱃지 삭제
 	public void deleteBadge(int badgeId);
 
 	// 업데이트
 	public int updateAddiction(@Param("addictionId") int addictionId, @Param("targetTime") int targetTime);
-	
+
 	// 삭제
 	public int deleteAddiction(int addictionId);
-	
+
 	// 아이콘 수정
 	public int updateIconAddiction(@Param("addictionId") int addictionId, @Param("iconPath") String iconPath);
 
-
-
+	// 유저 점수 삽입
+	public int updateUserScore(@Param("userId") String userId, @Param("userScore") int userScore);
 
 }

@@ -38,6 +38,12 @@
 		WHERE addiction_id = #{addictionId};
 	</select>
 	
+	<!-- 사용자 뱃지 전체 조회 -->
+	<select id="selectBadgeAll" parameterType="String" resultType="Badge">
+		SELECT * FROM badge
+		WHERE user_id = #{userId}
+	</select>
+	
 	<!-- 뱃지 생성 -->
 	<insert id="insertBadge" >
 		INSERT INTO badge (user_id, addiction_id, badge_date, badge_score, badge_img_url)
@@ -62,6 +68,13 @@
 		UPDATE addiction_list
 		SET icon_path = #{iconPath}
 		WHERE addiction_id = #{addictionId};
+	</update>
+	
+	<!-- 유저 점수 업데이트 -->
+	<update id="updateUserScore">
+		UPDATE user
+		SET user_score = #{userScore}
+		WHERE user_id = #{userId}
 	</update>
 </mapper>
   

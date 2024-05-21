@@ -6,7 +6,7 @@ import com.ssafy.model.dto.User;
 public interface UserDao {
 	// 회원가입
 	public void insertUser(User user);
-	
+
 	// 로그인
 	public User selectUser(String userId);
 }
