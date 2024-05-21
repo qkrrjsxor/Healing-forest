@@ -15,7 +15,7 @@
         <p>
           {{ comment.content }}
         </p>
-        <p>1분 전</p>
+        <p>{{ timeSincePosted }}</p>
       </div>
       <div id="button-div">
         <button>수정</button> |
@@ -26,10 +26,49 @@
 </template>
 
 <script setup>
+import { computed } from "vue";
+import { onMounted, onUnmounted, ref } from "vue";
+
 const props = defineProps({
   comment: Object,
   index: Number,
   total: Number,
+});
+
+// 현재 시간
+const now = ref(new Date());
+
+const updateInterval = 60000; // 1분 마다 업데이트
+
+// comment의 createDate와 현재 시간과의 차이 계산
+const timeSincePosted = computed(() => {
+  const seconds = Math.floor(
+    (now.value - new Date(props.comment.createDate)) / 1000
+  );
+  const minutes = Math.floor(seconds / 60);
+  if (minutes < 1) {
+    return "방금 전";
+  } else if (minutes < 60) {
+    return `${minutes}분 전`;
+  } else {
+    const hours = Math.floor(minutes / 60);
+    if (hours < 24) {
+      return `${hours}시간 전`;
+    } else {
+      const days = Math.floor(hours / 24);
+      return `${days}일 전`;
+    }
+  }
+});
+
+onMounted(() => {
+  setInterval(() => {
+    now.value = new Date();
+  }, updateInterval);
+});
+
+onUnmounted(() => {
+  clearInterval(updateInterval);
 });
 </script>
 
