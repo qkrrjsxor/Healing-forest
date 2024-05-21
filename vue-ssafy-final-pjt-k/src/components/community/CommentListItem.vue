@@ -20,6 +20,7 @@
           v-model="editedComment"
           @keyup.enter="showEditDiv"
           maxlength="100"
+          ref="updateInputRef"
         />
         <p>{{ timeSincePosted }}</p>
       </div>
@@ -36,7 +37,7 @@
 
 <script setup>
 import { useCommunityStore } from "@/stores/community";
-import { computed, onMounted, onUnmounted, ref } from "vue";
+import { computed, nextTick, onMounted, onUnmounted, ref } from "vue";
 
 const props = defineProps({
   comment: Object,
@@ -49,6 +50,7 @@ const store = useCommunityStore();
 
 const isOriginalComment = ref(true);
 const editedComment = ref(props.comment.content);
+const updateInputRef = ref(null);
 
 // 댓글 수정
 const showEditDiv = async () => {
@@ -61,9 +63,42 @@ const showEditDiv = async () => {
     } else {
       editedComment.value = props.comment.content; // 빈 값으로 수정한 경우, 기존 값 그대로 유지
     }
+    isOriginalComment.value = !isOriginalComment.value;
+  } else {
+    // 편집 모드로 들어갈 때, autofocus
+    isOriginalComment.value = !isOriginalComment.value;
+
+    await nextTick(() => {
+      if (updateInputRef.value) {
+        updateInputRef.value.focus();
+      }
+    });
   }
-  isOriginalComment.value = !isOriginalComment.value;
 };
+
+// 댓글 수정
+// const showEditDiv = async () => {
+//   // 편집 모드 일 때만 댓글을 수정하도록
+//   if (!isOriginalComment.value) {
+//     const trimmedComment = editedComment.value.trim();
+//     if (trimmedComment !== "") {
+//       await store.updateComment(props.comment.commentId, trimmedComment);
+//       props.comment.content = trimmedComment;
+//     } else {
+//       editedComment.value = props.comment.content; // 빈 값으로 수정한 경우, 기존 값 그대로 유지
+//     }
+//   } else {
+//     // 편집 모드로 전환되었을 때 autofocus
+//     isOriginalComment.value = !isOriginalComment.value;
+//     await nextTick(() => {
+//       if (updateInputRef.value) {
+//         updateInputRef.value.focus();
+//       }
+//     });
+//     return;
+//   }
+//   isOriginalComment.value = !isOriginalComment.value;
+// };
 
 // 현재 시간
 const now = ref(new Date());
@@ -159,6 +194,13 @@ onUnmounted(() => {
   p {
     margin: 0;
   }
+
+  input {
+    border: none;
+    border-radius: 0.5rem;
+    padding: 0.5rem 1rem;
+    background-color: #eee8aa;
+  }
 }
 
 #comment-div p:first-child {
@@ -229,6 +271,9 @@ onUnmounted(() => {
 
   #comment-div {
     width: 100%;
+    p {
+      font-size: small;
+    }
   }
 
   #button-div {
