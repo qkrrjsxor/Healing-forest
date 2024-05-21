@@ -34,10 +34,23 @@ export const useCommunityStore = defineStore("community", () => {
     }
   };
 
+  // 3. 댓글 - 전체 조회
+  const getAllComment = async () => {
+    try {
+      const res = await axios.get(`${COMMUNITY_REST_API}/comment`, {
+        withCredentials: true,
+      });
+      return res.data;
+    } catch (err) {
+      console.log("댓글 전체 조회 중 error 발생", err);
+    }
+  };
+
   return {
     topThreeUsers,
     myScore,
     getTopRank,
     getMyRank,
+    getAllComment,
   };
 });

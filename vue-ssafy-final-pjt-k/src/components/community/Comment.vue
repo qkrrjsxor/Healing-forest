@@ -36,11 +36,12 @@ import CommentList from "./CommentList.vue";
 
   border-radius: 1rem;
   background-color: #fefffe;
-  /* background-color: beige; */
+  background-color: beige;
 }
 
 #line {
-  border: 1px solid #eaeceb;
+  /* border: 1px solid #b9b7b5; */
+  border: 1px solid #7a8579;
   margin-top: 2rem;
   margin-bottom: 1rem;
 }
