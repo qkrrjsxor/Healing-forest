@@ -4,13 +4,14 @@
       <div id="login-form-box">
         <Alert id="alert" />
         <h2>Log In</h2>
-        <form @submit.prevent="submitLogin" id="login-form">
+        <form id="login-form" @submit.prevent="submitLogin">
           <div id="input-set">
             <input
               v-model="loginUser.userId"
               type="text"
               placeholder="아이디를 입력해주세요."
               autocomplete="username"
+              ref="userIdInputRef"
               autofocus
             />
             <input
@@ -25,7 +26,7 @@
             <button type="submit">로그인</button>
           </div>
           <RouterLink :to="{ name: 'signup' }"
-            >아직 회원가입을 하지 않았나요?</RouterLink
+            >아직 회원가입을 하지 않으셨나요?</RouterLink
           >
         </form>
       </div>
@@ -40,10 +41,10 @@
 </template>
 
 <script setup>
-import { useUserStore } from "@/stores/user";
-import { ref, watchEffect } from "vue";
-import { useRouter } from "vue-router";
 import Alert from "@/components/common/Alert.vue";
+import { useUserStore } from "@/stores/user";
+import { onMounted, ref, watchEffect } from "vue";
+import { useRouter } from "vue-router";
 
 const router = useRouter();
 const store = useUserStore();
@@ -54,6 +55,8 @@ const loginUser = ref({
   userId: "",
   password: "",
 });
+
+const userIdInputRef = ref("");
 
 // [반응형] 화면 리사이징 -> image 제거
 watchEffect(() => {
@@ -79,13 +82,16 @@ const goHome = () => {
 const submitLogin = () => {
   store.submitLogin(loginUser.value);
 };
+
+onMounted(() => {
+  userIdInputRef.value.focus();
+});
 </script>
 
 <style scoped>
 #container {
   display: flex;
   height: 100vh;
-  width: 100vw;
 }
 
 #login-section {
@@ -94,8 +100,10 @@ const submitLogin = () => {
   justify-content: center;
 
   flex: 1;
+  overflow: scroll;
 
   h2 {
+    margin: 0;
     color: #9d8e03;
     font-weight: 800;
     font-size: xx-large;
@@ -109,9 +117,8 @@ const submitLogin = () => {
   flex-direction: column;
   gap: 4rem;
 
-  width: 50%;
-  min-width: 400px;
-  padding: 2rem;
+  padding-top: 2rem;
+  width: 60%;
 }
 
 #alert {
@@ -119,7 +126,7 @@ const submitLogin = () => {
   top: 0;
   left: 50%;
   transform: translate(-50%, -150%);
-  width: 85%;
+  width: 90%;
 }
 
 #login-form {
@@ -135,10 +142,9 @@ const submitLogin = () => {
 }
 
 input {
-  width: 100%;
   padding: 1rem 1.5rem;
   border: 3px solid #9d8e03;
-  border-radius: 20px;
+  border-radius: 1rem;
   box-sizing: border-box;
 
   color: #352f26;
@@ -147,7 +153,6 @@ input {
 
 #button-set {
   display: flex;
-  justify-content: center;
   gap: 1rem;
 
   width: 60%;
@@ -157,7 +162,8 @@ input {
 button {
   flex: 1;
   padding: 0.5rem 1rem;
-  border-radius: 20px;
+  border-radius: 1.2rem;
+
   font-weight: 700;
   font-size: medium;
   cursor: pointer;
@@ -183,12 +189,62 @@ a {
   font-weight: 700;
 }
 
+/* 스크롤바 제거 */
+#login-section::-webkit-scrollbar {
+  display: none; /* Chrome, Edge, and Safari */
+}
+#login-section {
+  scrollbar-width: none; /* Firefox */
+}
+#login-section {
+  -ms-overflow-style: none; /* IE11 */
+}
+
 /* media query */
+@media (max-width: 1280px) {
+  #login-form-box {
+    width: 80%;
+  }
+
+  input {
+    padding: 0.8rem 1rem;
+  }
+
+  #button-set {
+    width: 70%;
+  }
+}
+
 @media (max-width: 1024px) {
   #login-form-box {
     width: 60%;
+    min-width: 20rem;
   }
 
+  input {
+    padding: 1rem 1.5rem;
+  }
+
+  #alert {
+    font-size: small;
+  }
+}
+
+@media (max-width: 768px) {
+  input {
+    font-size: small;
+  }
+
+  #button-set {
+    width: 80%;
+
+    button {
+      font-size: small;
+    }
+  }
+}
+
+@media (max-height: 768px) {
   input {
     font-size: small;
   }
@@ -196,11 +252,10 @@ a {
   button {
     font-size: small;
   }
-}
 
-@media (max-height: 768px) {
   #alert {
     transform: translate(-50%, -100%);
+    font-size: small;
   }
 }
 </style>
