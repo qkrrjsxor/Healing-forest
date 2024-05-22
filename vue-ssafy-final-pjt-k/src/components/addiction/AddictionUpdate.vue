@@ -123,7 +123,7 @@ const targetTimeInputRef = ref(null);
 // 수정
 const updateAddiction = async () => {
   if (!targetTime.value) {
-    alertStore.setAlert("목표 일수를 입력해주세요.", "warning");
+    alertStore.setAlert("목표 일수를 입력해주세요.", "addiction");
     nextTick(() => {
       targetTimeInputRef.value.focus();
     });
@@ -140,12 +140,13 @@ const updateAddiction = async () => {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: calc(100vh - 3.5rem);
+
+  max-width: 1280px;
+  margin: 6rem auto;
 }
 
 #update-box {
   position: relative;
-  /* background-color: #352f26; */
 
   display: flex;
   flex-direction: column;
@@ -153,7 +154,6 @@ const updateAddiction = async () => {
 
   width: 60%;
   padding: 3rem 2rem;
-  overflow: scroll;
 }
 
 #update-form {
@@ -254,17 +254,6 @@ button:last-child {
   border: none;
   background-color: #b6c2a9;
   color: #eaeceb;
-}
-
-/* 스크롤바 제거 */
-#update-box::-webkit-scrollbar {
-  display: none; /* Chrome, Edge, and Safari */
-}
-#update-box {
-  scrollbar-width: none; /* Firefox */
-}
-#update-box {
-  -ms-overflow-style: none; /* IE11 */
 }
 
 /* media query */

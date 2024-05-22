@@ -123,7 +123,7 @@ onUnmounted(() => {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 3rem;
+  gap: 1rem;
 }
 
 #item-title {
@@ -204,8 +204,8 @@ onUnmounted(() => {
 @media (max-width: 768px) {
   #addiction-item {
     font-size: small;
-    padding: 2rem 4rem;
-    width: 90%;
+    padding: 2rem 3rem;
+    width: 100%;
   }
 
   #item-title {
@@ -217,10 +217,6 @@ onUnmounted(() => {
       font-size: small;
       margin: 0 auto;
     }
-  }
-
-  #item-progress {
-    width: 60%;
   }
 
   #progress-container,
