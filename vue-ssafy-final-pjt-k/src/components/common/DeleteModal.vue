@@ -1,12 +1,10 @@
 <template>
   <div v-if="modal.isVisible" class="modal-overlay" @click.self="closeModal">
     <div class="modal-content">
-      <div>
-        <slot> </slot>
-      </div>
+      <slot name="content"></slot>
       <div id="button-div">
-        <button @click="closeModal">취소</button>
-        <button @click="deleteAddiction">종료</button>
+        <button @click="closeModal">{{ buttonText.cancle }}</button>
+        <button @click="$emit('confirm')">{{ buttonText.confirm }}</button>
       </div>
     </div>
   </div>
@@ -14,13 +12,8 @@
 
 <script setup>
 import { computed } from "vue";
-import { useRouter } from "vue-router";
 import { useModalStore } from "@/stores/modal";
-import { useAddictionStore } from "@/stores/addiction";
 
-const router = useRouter();
-
-const store = useAddictionStore();
 const modalStore = useModalStore();
 
 const props = defineProps({
@@ -28,7 +21,7 @@ const props = defineProps({
     type: String,
     required: true,
   },
-  addictionId: {
+  modalType: {
     type: String,
     required: true,
   },
@@ -38,16 +31,21 @@ const modal = computed(
   () => modalStore.modals[props.id] || { isVisible: false, content: null }
 );
 
+// modalType에 따라 button text 분기
+const buttonText = computed(() => {
+  switch (props.modalType) {
+    case "addiction":
+      return { cancle: "취소", confirm: "종료" };
+    case "comment":
+      return { cancle: "아니오", confirm: "예" };
+    default:
+      return { cancle: "취소", confirm: "삭제" };
+  }
+});
+
 // 취소
 const closeModal = () => {
   modalStore.closeModal(props.id);
-};
-
-// 삭제
-const deleteAddiction = async () => {
-  await store.deleteAddiction(props.addictionId);
-  router.push({ name: "addictionList" });
-  closeModal();
 };
 </script>
 
@@ -74,7 +72,8 @@ const deleteAddiction = async () => {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
+  gap: 1rem;
 
   width: 40rem;
   max-width: 80%;
@@ -91,7 +90,6 @@ const deleteAddiction = async () => {
 #button-div {
   display: flex;
   gap: 1rem;
-  margin: 0 auto;
   width: 60%;
 
   button {
@@ -100,6 +98,7 @@ const deleteAddiction = async () => {
     border-radius: 0.5rem;
     border: none;
 
+    font-weight: 700;
     cursor: pointer;
   }
 

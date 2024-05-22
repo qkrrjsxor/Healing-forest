@@ -84,6 +84,22 @@ export const useCommunityStore = defineStore("community", () => {
     }
   };
 
+  // 6. 댓글 - 삭제
+  const deleteComment = async (commentId) => {
+    try {
+      const res = await axios({
+        url: `${COMMUNITY_REST_API}/comment/${commentId}`,
+        method: "DELETE",
+        withCredentials: true,
+      });
+      if (res.data) {
+        await getAllComment(); // 댓글 삭제 후 리스트 갱신
+      }
+    } catch (err) {
+      console.log("삭제 과정 중 error 발생: ", err);
+    }
+  };
+
   return {
     topThreeUsers,
     myScore,
@@ -95,5 +111,6 @@ export const useCommunityStore = defineStore("community", () => {
     getAllComment,
     addComment,
     updateComment,
+    deleteComment,
   };
 });

@@ -29,15 +29,30 @@
           {{ isOriginalComment ? "수정" : "완료" }}
         </button>
         |
-        <button>삭제</button>
+        <button @click="openModal(`deleteComment/${comment.commentId}`)">
+          삭제
+        </button>
+        <DeleteModal
+          :id="`deleteComment/${comment.commentId}`"
+          modalType="comment"
+          @confirm="deleteComment"
+        >
+          <template #content>
+            <div class="deleteModal">
+              <p>해당 댓글을 정말 삭제하시겠습니까?</p>
+            </div>
+          </template>
+        </DeleteModal>
       </div>
     </div>
   </li>
 </template>
 
 <script setup>
+import DeleteModal from "@/components/common/DeleteModal.vue";
 import { useCommunityStore } from "@/stores/community";
 import { computed, nextTick, onMounted, onUnmounted, ref } from "vue";
+import { useModalStore } from "@/stores/modal";
 
 const props = defineProps({
   comment: Object,
@@ -47,6 +62,7 @@ const props = defineProps({
 });
 
 const store = useCommunityStore();
+const modalStore = useModalStore();
 
 const isOriginalComment = ref(true);
 const editedComment = ref(props.comment.content);
@@ -102,6 +118,17 @@ const timeSincePosted = computed(() => {
   }
 });
 
+// 삭제 모달
+const openModal = (id) => {
+  const commentId = props.comment.commentId;
+  modalStore.showModal(id, commentId);
+};
+const deleteComment = async () => {
+  const commentId = props.comment.commentId;
+  await store.deleteComment(commentId);
+  modalStore.closeModal(`deleteComment/${commentId}`);
+};
+
 onMounted(() => {
   setInterval(() => {
     now.value = new Date();
@@ -114,6 +141,15 @@ onUnmounted(() => {
 </script>
 
 <style scoped>
+.deleteModal {
+  p {
+    margin-top: 0;
+    color: #f6e8da;
+    font-weight: 700;
+    font-size: medium;
+  }
+}
+
 #comment-item {
   display: flex;
   justify-content: space-between;
@@ -255,6 +291,14 @@ onUnmounted(() => {
   #button-div {
     position: absolute;
     bottom: 0;
+  }
+}
+
+@media (max-width: 468px) {
+  .deleteModal {
+    p {
+      font-size: small;
+    }
   }
 }
 </style>
