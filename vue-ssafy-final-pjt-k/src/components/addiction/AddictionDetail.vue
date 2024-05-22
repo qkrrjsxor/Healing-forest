@@ -64,11 +64,15 @@
             </button>
             <DeleteModal
               :id="`deleteAddiction/${addictionId}`"
-              :addictionId="`${addictionId}`"
-              class="deleteModal"
+              modalType="addiction"
+              @confirm="deleteAddiction"
             >
-              <p>정말 도전을 종료하시겠습니까?</p>
-              <p>획득한 뱃지가 모두 회수됩니다.</p>
+              <template #content>
+                <div class="deleteModal">
+                  <p>정말 도전을 종료하시겠습니까?</p>
+                  <p>획득한 뱃지가 모두 회수됩니다.</p>
+                </div>
+              </template>
             </DeleteModal>
           </div>
         </div>
@@ -99,18 +103,19 @@
 <script setup>
 import DeleteModal from "@/components/common/DeleteModal.vue";
 import IconModal from "@/components/common/IconModal.vue";
-import router from "@/router";
 import { useAddictionStore } from "@/stores/addiction";
 import { useModalStore } from "@/stores/modal";
 import dayjs from "dayjs";
 import duration from "dayjs/plugin/duration";
 import { onMounted, onUnmounted, ref, watch } from "vue";
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 
 // 플러그인 등록
 dayjs.extend(duration);
 
 const route = useRoute();
+const router = useRouter();
+
 const store = useAddictionStore();
 const modalStore = useModalStore();
 
@@ -199,6 +204,12 @@ const updateTarget = () => {
 // 삭제 모달
 const openModal = (id) => {
   modalStore.showModal(id, addictionId);
+};
+const deleteAddiction = async () => {
+  const addictionId = addictionItem.value.addiction.addictionId;
+  await store.deleteAddiction(addictionId);
+  router.push({ name: "addictionList" });
+  modalStore.closeModal(`deleteAddiction/${addictionId}`);
 };
 
 let intervalId;

@@ -35,7 +35,10 @@
         src="@/assets/community/rank/rank_my.png"
         alt="my-rank-icon"
       />
-      <p>{{ loginUserNickname }} 님, {{ myScore }}점으로 전체 {{ userCount }}명 중 {{ myRank }}위 입니다!</p>
+      <p>
+        {{ loginUserNickname }} 님, {{ myScore }}점으로 전체 {{ userCount }}명
+        중 {{ myRank }}위 입니다!
+      </p>
     </div>
   </div>
 </template>
@@ -170,6 +173,20 @@ onMounted(async () => {
 
   #my-rank {
     font-size: small;
+  }
+
+  #my-rank-result {
+    flex-direction: column;
+    gap: 1rem;
+
+    p {
+      padding-right: 0;
+      font-size: small;
+    }
+  }
+
+  #my-rank-icon {
+    width: 7rem;
   }
 }
 </style>
