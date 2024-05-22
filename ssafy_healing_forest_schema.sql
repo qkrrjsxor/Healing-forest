@@ -40,6 +40,7 @@ CREATE TABLE `badge`(
 CREATE TABLE `comment`(
 	`comment_id` INT AUTO_INCREMENT PRIMARY KEY,
     `user_id` varchar(100) NOT NULL,
+    `nickname` varchar(100) NOT NULL,
     `content` varchar(100) NOT NULL,
     `create_date` TIMESTAMP DEFAULT now(),
     CONSTRAINT `comment_user_fk` FOREIGN KEY(`user_id`) REFERENCES `user`(`user_id`)
@@ -58,17 +59,17 @@ VALUES ('ssafy', '알코올','2024-05-10 09:00', 10, DATE_ADD(start_time, INTERV
         ('ssafy2', '담배','2024-05-11 09:00',  2, DATE_ADD(start_time, INTERVAL target_time DAY), '/src/assets/addiction/icons/Smoke.png'),
         ('ssafy2', '핸드폰','2024-05-13 09:00',  5, DATE_ADD(start_time, INTERVAL target_time DAY), '/src/assets/addiction/icons/Phone.png');
 
-INSERT INTO `comment` (`user_id`, `content`, `create_date`) VALUES
-('ssafy', 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', '2024-05-21 07:28:04'),
-('ssafy', 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', '2024-05-21 07:28:04'),
-('ssafy', 'This is a much longer comment designed to fill the entire varchar limit of one hundred characters', '2024-05-21 07:28:04'),
-('ssafy', 'This is a much longer comment designed to fill the entire varchar limit of one hundred characters. 1', '2024-05-21 07:28:04'),
-('ssafy2', 'This is a test comment. Let''s see how this goes.', '2024-05-21 07:28:04'),
-('ssafy2', 'This is a test comment. Let''s see how this goes.', '2024-05-21 07:28:04'),
-('ssafy2', 'This is a much longer comment designed to fill the entire varchar limit of one hundred characters..', '2024-05-21 07:28:04'),
-('ssafy3', 'Short comment.', '2024-05-21 07:28:04'),
-('ssafy3', 'This is a much longer comment designed to fill the entire varchar limit of one hundred characters. 2', '2024-05-21 07:28:04'),
-('ssafy3', 'Short comment.', '2024-05-21 07:28:04');
+INSERT INTO `comment` (`user_id`, `nickname`, `content`, `create_date`) VALUES
+('ssafy', '싸피', 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', '2024-05-21 07:28:04'),
+('ssafy', '싸피', 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', '2024-05-21 07:28:04'),
+('ssafy', '싸피', 'This is a much longer comment designed to fill the entire varchar limit of one hundred characters', '2024-05-21 07:28:04'),
+('ssafy', '싸피', 'This is a much longer comment designed to fill the entire varchar limit of one hundred characters. 1', '2024-05-21 07:28:04'),
+('ssafy2', '싸피2','This is a test comment. Let''s see how this goes.', '2024-05-21 07:28:04'),
+('ssafy2', '싸피2', 'This is a test comment. Let''s see how this goes.', '2024-05-21 07:28:04'),
+('ssafy2', '싸피2','This is a much longer comment designed to fill the entire varchar limit of one hundred characters..', '2024-05-21 07:28:04'),
+('ssafy3', '싸피3','Short comment.', '2024-05-21 07:28:04'),
+('ssafy3', '싸피3','This is a much longer comment designed to fill the entire varchar limit of one hundred characters. 2', '2024-05-21 07:28:04'),
+('ssafy3', '싸피3','Short comment.', '2024-05-21 07:28:04');
 
 
 -- test code
