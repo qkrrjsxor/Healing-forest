@@ -56,13 +56,29 @@ const router = createRouter({
           component: AddictionUpdate,
         },
       ],
+      meta: { requiresAuth: true },
     },
     {
       path: "/community",
       name: "community",
       component: CommView,
+      meta: { requiresAuth: true },
     },
   ],
+});
+
+router.beforeEach((to, from, next) => {
+  const requiresAuth = to.matched.some((record) => record.meta.requiresAutj);
+  const loginUser = sessionStorage.getItem("loginUser");
+
+  if (requiresAuth && !loginUser) {
+    alert("로그인 후 이용 가능합니다.");
+    next({ name: "login" });
+  } else if (to.name === "login" && loginUser) {
+    next({ name: "home" });
+  } else {
+    next();
+  }
 });
 
 export default router;
