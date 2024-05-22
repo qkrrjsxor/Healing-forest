@@ -15,7 +15,7 @@ CREATE TABLE `user`(
 CREATE TABLE `addiction_list`(
 	`addiction_id` INT AUTO_INCREMENT PRIMARY KEY,
     `user_id` varchar(100) NOT NULL,
-	`title` varchar(100) NOT NULL,
+	`title` varchar(30) NOT NULL,
     `start_time` TIMESTAMP DEFAULT now(),
     `target_time` INT NOT NULL,
     `end_time` TIMESTAMP NULL,
@@ -57,28 +57,6 @@ VALUES ('ssafy', '알코올','2024-05-10 09:00', 10, DATE_ADD(start_time, INTERV
 		('ssafy', '담배','2024-05-12 09:00',  1, DATE_ADD(start_time, INTERVAL target_time DAY), '/src/assets/addiction/icons/Smoke.png'),
         ('ssafy2', '담배','2024-05-11 09:00',  2, DATE_ADD(start_time, INTERVAL target_time DAY), '/src/assets/addiction/icons/Smoke.png'),
         ('ssafy2', '핸드폰','2024-05-13 09:00',  5, DATE_ADD(start_time, INTERVAL target_time DAY), '/src/assets/addiction/icons/Phone.png');
-
--- INSERT INTO `badge` (user_id, addiction_id, badge_date, badge_score, badge_img_url)
--- VALUES ('ssafy', '1', 1, 10, 'URL'),
--- 		('ssafy', '1', 2, 20, 'URL'),
--- 		('ssafy', '1', 3, 30, 'URL'),
--- 		('ssafy', '1', 4, 40, 'URL'),
--- 		('ssafy', '1', 5, 50, 'URL'),
--- 		('ssafy', '1', 6, 60, 'URL'),
--- 		('ssafy', '1', 7, 70, 'URL'),
--- 		('ssafy', '1', 10, 100, 'URL'),
--- 		('ssafy', '1', 14, 140, 'URL'),
--- 		('ssafy', '1', 20, 200, 'URL'),
--- 		('ssafy', '1', 30, 300, 'URL'),
--- 		('ssafy', '1', 50, 500, 'URL'),
--- 		('ssafy', '1', 70, 700, 'URL'),
--- 		('ssafy', '1', 100, 1000, 'URL'),
--- 		('ssafy', '1', 20, 200, 'URL'),
--- 		('ssafy', '2', 1, 10, 'URL'),
--- 		('ssafy2', '3', 1, 10, 'URL');
-            
-INSERT INTO comment (user_id, content)
-VALUES ('ssafy', 'test');
 
 INSERT INTO `comment` (`user_id`, `content`, `create_date`) VALUES
 ('ssafy', 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', '2024-05-21 07:28:04'),

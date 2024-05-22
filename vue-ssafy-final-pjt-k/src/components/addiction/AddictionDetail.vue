@@ -311,8 +311,10 @@ watch(
 
     width: 5rem;
     text-align: center;
+
     overflow: hidden;
     text-overflow: ellipsis;
+    white-space: nowrap;
   }
 }
 
