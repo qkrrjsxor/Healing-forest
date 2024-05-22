@@ -15,7 +15,7 @@ public interface CommunityService {
 	public Map<String, Integer> getMyRank(String userId);
 	
 	// 댓글 등록
-	public Comment createComment(String userId, String comment);
+	public Comment createComment(String userId, String nickname, String comment);
 	
 	// 댓글 전체 조회
 	public List<Comment> getCommentAll();

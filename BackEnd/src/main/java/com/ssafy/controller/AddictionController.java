@@ -70,7 +70,7 @@ public class AddictionController {
 		
 		AddictionDetail addictionDetail = addictionService.getAddictionDetail(userId, addictionId);
 				
-		System.out.println("상세조회 " + addictionDetail);
+//		System.out.println("상세조회 " + addictionDetail);
 		
 		if(addictionDetail == null) {
 			return new ResponseEntity<>("해당 항목이 존재하지 않습니다.", HttpStatus.NO_CONTENT);

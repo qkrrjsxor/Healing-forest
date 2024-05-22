@@ -56,6 +56,7 @@ public class UserController {
 				return new ResponseEntity<String>("비밀번호가 틀렸습니다.", HttpStatus.UNAUTHORIZED);
 			} else {
 				session.setAttribute("loginUser", loginUser.getUserId());
+				session.setAttribute("nickname", loginUser.getNickname());	//nickname 추가
 				System.out.println(session.getAttribute("loginUser"));
 				return new ResponseEntity<User>(loginUser, HttpStatus.OK);
 			}
