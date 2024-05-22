@@ -5,14 +5,20 @@
       <div id="login-form-box">
         <Alert id="alert" />
         <h2>Sign up</h2>
-        <form id="login-form">
+        <form id="login-form" @submit.prevent="submitSignup">
           <ul id="input-set">
             <li>
               <input type="text" placeholder="아이디를 입력해주세요." v-model="userId" @input="validateUserId" autofocus />
               <p v-if="!isValidateId" class="validateAlert">아이디는 4~12자의 영문 대소문자와 숫자로 이루어져야 합니다.</p>
             </li>
             <li>
-              <input type="password" placeholder="비밀번호를 입력해주세요." v-model="password" @input="validatePassword" />
+              <div class="passwordInputBox">
+                <input :type="passwordFieldType" placeholder="비밀번호를 입력해주세요." v-model="password"
+                  @input="validatePassword" class="passwordInput" />
+                <span @click="togglePasswordVisibility" class="password-toggle">
+                  <img :src="passwordToggleIcon" alt="password-eye" width="24px">
+                </span>
+              </div>
               <p v-if="!isValidatePassword" class="validateAlert">비밀번호는 8자 이상으로, 영문, 숫자, 특수문자를 모두 포함해야 합니다.</p>
             </li>
             <li>
@@ -21,8 +27,8 @@
             </li>
           </ul>
           <div id="button-set">
-            <button @click="goHome">홈으로</button>
-            <button type="button" @click.prevent="submitSignup">회원가입</button>
+            <button type="button" @click="goHome">홈으로</button>
+            <button type="submit">회원가입</button>
           </div>
           <RouterLink :to="{ name: 'login' }">이미 회원이신가요?</RouterLink>
         </form>
@@ -32,7 +38,7 @@
 </template>
 
 <script setup>
-import { ref, watchEffect } from "vue";
+import { ref, watchEffect, computed } from "vue";
 import { useRouter } from "vue-router";
 import { useUserStore } from "@/stores/user";
 import Alert from "@/components/common/Alert.vue";
@@ -91,13 +97,26 @@ const setNickname = (event) => {
 
 // 회원가입 요청 submit
 const submitSignup = () => {
-  if (isValidateId.value && isValidatePassword.value && isValidateNickname.value && userId.value.trim() !== '') {
+  if (isValidateId.value && isValidatePassword.value && isValidateNickname.value && userId.value.trim() !== '' && password.value.trim() !== '' && nickname.value.trim() !== '') {
     console.log('submit')
     store.submitSignup(userId.value, password.value, nickname.value);
   } else {
     console.log('submit fail')
   }
 };
+
+// 패스워드 input 태그 type 변경 기능
+const passwordFieldType = ref('password');
+
+const togglePasswordVisibility = () => {
+  passwordFieldType.value = passwordFieldType.value === 'password' ? 'text' : 'password';
+}
+
+const passwordToggleIcon = computed(() => {
+  return passwordFieldType.value === 'password' ?
+    new URL('@/assets/visibility.png', import.meta.url).href : new URL('@/assets/visibility_off.png', import.meta.url).href;
+});
+
 </script>
 
 <style scoped>
@@ -123,6 +142,7 @@ const submitSignup = () => {
 }
 
 #login-form-box {
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: 4rem;
@@ -226,5 +246,24 @@ a {
   #alert {
     transform: translate(-50%, -100%);
   }
+}
+
+.passwordInputBox {
+  position: relative;
+}
+
+.passwordInput {
+  padding-right: 50px;
+}
+
+.password-toggle {
+  position: absolute;
+  top: 50%;
+  right: 20px;
+  transform: translateY(-44%);
+  cursor: pointer;
+  /* font-size: large; */
+  /* color: #5a5a5a;
+  font-weight: 700; */
 }
 </style>
