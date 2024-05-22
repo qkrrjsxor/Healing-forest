@@ -58,7 +58,9 @@ public class CommunityController {
 	public ResponseEntity<?> createComment(@RequestBody String comment, HttpSession session) {
 		// login user 정보
 		String userId = (String) session.getAttribute("loginUser");
-		Comment newComment = communityService.createComment(userId, comment);
+		String nickname = (String) session.getAttribute("nickname");
+		System.out.println(nickname);
+		Comment newComment = communityService.createComment(userId, nickname, comment);
 
 		if (newComment != null) {
 			return new ResponseEntity<Comment>(newComment, HttpStatus.OK);
