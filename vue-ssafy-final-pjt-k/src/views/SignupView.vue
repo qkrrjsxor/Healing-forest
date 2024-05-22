@@ -5,7 +5,7 @@
       <div id="login-form-box">
         <Alert id="alert" />
         <h2>Sign up</h2>
-        <form id="login-form">
+        <form id="login-form" @submit.prevent="submitSignup">
           <ul id="input-set">
             <li>
               <input type="text" placeholder="아이디를 입력해주세요." v-model="userId" @input="validateUserId" autofocus />
@@ -21,8 +21,8 @@
             </li>
           </ul>
           <div id="button-set">
-            <button @click="goHome">홈으로</button>
-            <button type="button" @click.prevent="submitSignup">회원가입</button>
+            <button type="button" @click="goHome">홈으로</button>
+            <button type="submit">회원가입</button>
           </div>
           <RouterLink :to="{ name: 'login' }">이미 회원이신가요?</RouterLink>
         </form>
@@ -123,6 +123,7 @@ const submitSignup = () => {
 }
 
 #login-form-box {
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: 4rem;
