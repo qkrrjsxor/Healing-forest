@@ -3,21 +3,27 @@
     <h1>명예의 전당</h1>
     <ul id="rank-list" v-if="topThreeUsers.length > 0">
       <li class="rank-item">
-        <img src="@/assets/community/rank/rank_2.png" alt="rank_2" />
+        <picture>
+          <img src="@/assets/community/rank/rank_2.png" alt="rank_2" />
+        </picture>
         <p>
           {{ topThreeUsers[1].nickname }} 님 |
           {{ topThreeUsers[1].userScore }} 점
         </p>
       </li>
       <li class="rank-item">
-        <img src="@/assets/community/rank/rank_1.png" alt="rank_1" />
+        <picture>
+          <img src="@/assets/community/rank/rank_1.png" alt="rank_1" />
+        </picture>
         <p>
           {{ topThreeUsers[0].nickname }} 님 |
           {{ topThreeUsers[0].userScore }} 점
         </p>
       </li>
       <li class="rank-item">
-        <img src="@/assets/community/rank/rank_3.png" alt="rank_3" />
+        <picture>
+          <img src="@/assets/community/rank/rank_3.png" alt="rank_3" />
+        </picture>
         <p>
           {{ topThreeUsers[2].nickname }} 님 |
           {{ topThreeUsers[2].userScore }} 점
@@ -111,8 +117,18 @@ onMounted(async () => {
   align-items: center;
   gap: 0.5rem;
 
+  width: 16rem;
+  height: 20rem;
+
+  picture {
+    width: 10rem;
+    height: 10rem;
+  }
+
   img {
-    width: 60%;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
   }
 
   p {
@@ -164,8 +180,18 @@ onMounted(async () => {
 }
 
 /* media query */
+@media (max-width: 950px) {
+  .rank-item {
+    width: 14rem;
+    height: 18rem;
+  }
+}
+
 @media (max-width: 768px) {
   .rank-item {
+    width: 12rem;
+    height: 16rem;
+
     p {
       font-size: small;
     }
@@ -187,6 +213,21 @@ onMounted(async () => {
 
   #my-rank-icon {
     width: 7rem;
+  }
+}
+
+@media (max-width: 700px) {
+  #rank-list {
+    margin: 0 auto;
+    gap: 1rem;
+
+    width: 90%;
+  }
+  .rank-item {
+    picture {
+      width: 7rem;
+      height: 7rem;
+    }
   }
 }
 </style>

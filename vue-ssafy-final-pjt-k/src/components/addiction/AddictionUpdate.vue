@@ -28,8 +28,14 @@
           <p>{{ `시작일: ${formattedStartTime}` }}</p>
           <p>
             {{
-              `현재 목표 일 수: ${addictionItem.addiction.targetTime}일 (시작일로부터 최대 100일까지 설정 가능합니다.)
+              `* 현재 목표 일 수: ${addictionItem.addiction.targetTime}일
+     
               `
+            }}
+          </p>
+          <p>
+            {{
+              `* 현재보다 더 높은 목표만 가능합니다. (시작일로부터 최대 100일까지 설정 가능)`
             }}
           </p>
         </div>
@@ -53,6 +59,8 @@ const store = useAddictionStore();
 const alertStore = useAlertStore();
 
 const targetTime = ref("");
+const originalTargetTime = ref("");
+
 const addictionId = route.params.id;
 
 // 해당 addiction 시작일 정보 가져오기
@@ -77,6 +85,7 @@ function formatDate(date) {
 onMounted(async () => {
   await store.getAddictionItem(addictionId);
   targetTimeInputRef.value.focus();
+  originalTargetTime.value = addictionItem.value.addiction.targetTime;
 });
 
 // addictionItem 변경 감지
@@ -95,9 +104,8 @@ watch(
 // 목표 일수 입력 제한
 const validateTargetTime = (e) => {
   const value = parseInt(e.target.value, 10);
-
-  if (value < 1) {
-    targetTime.value = 1;
+  if (value < originalTargetTime.value) {
+    targetTime.value = originalTargetTime.value;
   } else if (value > 100) {
     targetTime.value = 100;
   } else {
@@ -164,6 +172,7 @@ const updateAddiction = async () => {
 
 #target-input {
   padding: 2rem;
+  padding-left: 0;
 
   h2 {
     color: #384427;
@@ -214,6 +223,10 @@ const updateAddiction = async () => {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+}
+
+#info-ment p:first-child {
+  margin-bottom: 1rem;
 }
 
 #button-set {
@@ -289,18 +302,8 @@ button:last-child {
   #target-input {
     padding: 0;
 
-    h2 {
-      font-size: large;
-    }
-
     input {
       padding: 0.8rem 1.5rem;
-    }
-  }
-
-  #info-box {
-    p {
-      font-size: x-small;
     }
   }
 

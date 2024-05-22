@@ -55,6 +55,7 @@ const addComment = async () => {
   gap: 0.7rem;
 
   p {
+    width: 60%;
     margin: 0;
     color: #573f2c;
     font-size: medium;
@@ -108,7 +109,7 @@ const addComment = async () => {
 }
 
 /* media query */
-@media (max-width: 1124px) {
+@media (max-width: 1200px) {
   #user-comment {
     width: 80%;
     gap: 1rem;
@@ -122,11 +123,30 @@ const addComment = async () => {
     }
   }
 }
+
+@media (max-width: 930px) {
+  #user-comment {
+    input {
+      width: 80%;
+    }
+
+    button {
+      width: 20%;
+    }
+  }
+}
+
 @media (max-width: 778px) {
   #add-container {
     flex-direction: column;
     align-items: flex-start;
     gap: 1rem;
+  }
+
+  #user-name {
+    p {
+      width: auto;
+    }
   }
 
   #profile-box {

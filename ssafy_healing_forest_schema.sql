@@ -5,9 +5,9 @@ CREATE DATABASE ssafy_healing_forest;
 USE ssafy_healing_forest;
 
 CREATE TABLE `user`(
-	`user_id` varchar(100) NOT NULL PRIMARY KEY,
-    `password` varchar(100) NOT NULL,
-    `nickname` varchar(100) NOT NULL,
+	`user_id` varchar(20) NOT NULL PRIMARY KEY,
+    `password` varchar(30) NOT NULL,
+    `nickname` varchar(15) NOT NULL,
     `user_image_url` varchar(255) DEFAULT 'URL',
     `user_score` INT DEFAULT 0
 );
@@ -49,27 +49,27 @@ CREATE TABLE `comment`(
 -- dummy data
 
 INSERT INTO `user` (user_id, password, nickname)
-VALUES ('ssafy', 'ssafy', '싸피'),
-		('ssafy2', 'ssafy2', '싸피2'),
-        ('ssafy3', 'ssafy3', '싸피3');
+VALUES ('ssafyssafyssafyssafy', 'ssafy', '싸피싸피싸피싸피싸피싸피싸피싸'),
+		('ssafy2ssafy2ssafy2', 'ssafy2', 'amdkasdfkuasifo'),
+        ('ssafy3ssafy3ssafy333', 'ssafy3', '싸피싸피싸피싸피싸피싸피싸피싸');
 
 INSERT INTO `addiction_list` (user_id, title, start_time, target_time, end_time, icon_path)
-VALUES ('ssafy', '알코올','2024-05-10 09:00', 10, DATE_ADD(start_time, INTERVAL target_time DAY), '/src/assets/addiction/icons/Alcohol.png'),
-		('ssafy', '담배','2024-05-12 09:00',  1, DATE_ADD(start_time, INTERVAL target_time DAY), '/src/assets/addiction/icons/Smoke.png'),
-        ('ssafy2', '담배','2024-05-11 09:00',  2, DATE_ADD(start_time, INTERVAL target_time DAY), '/src/assets/addiction/icons/Smoke.png'),
-        ('ssafy2', '핸드폰','2024-05-13 09:00',  5, DATE_ADD(start_time, INTERVAL target_time DAY), '/src/assets/addiction/icons/Phone.png');
+VALUES ('ssafyssafyssafyssafy', '알코올','2024-05-10 09:00', 7, DATE_ADD(start_time, INTERVAL target_time DAY), '/src/assets/addiction/icons/Alcohol.png'),
+		('ssafyssafyssafyssafy', '담배','2024-05-12 09:00',  1, DATE_ADD(start_time, INTERVAL target_time DAY), '/src/assets/addiction/icons/Smoke.png'),
+        ('ssafy2ssafy2ssafy2', '담배','2024-05-11 09:00',  2, DATE_ADD(start_time, INTERVAL target_time DAY), '/src/assets/addiction/icons/Smoke.png'),
+        ('ssafy2ssafy2ssafy2', '핸드폰','2024-05-13 09:00',  5, DATE_ADD(start_time, INTERVAL target_time DAY), '/src/assets/addiction/icons/Phone.png');
 
 INSERT INTO `comment` (`user_id`, `nickname`, `content`, `create_date`) VALUES
-('ssafy', '싸피', 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', '2024-05-21 07:28:04'),
-('ssafy', '싸피', 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', '2024-05-21 07:28:04'),
-('ssafy', '싸피', 'This is a much longer comment designed to fill the entire varchar limit of one hundred characters', '2024-05-21 07:28:04'),
-('ssafy', '싸피', 'This is a much longer comment designed to fill the entire varchar limit of one hundred characters. 1', '2024-05-21 07:28:04'),
-('ssafy2', '싸피2','This is a test comment. Let''s see how this goes.', '2024-05-21 07:28:04'),
-('ssafy2', '싸피2', 'This is a test comment. Let''s see how this goes.', '2024-05-21 07:28:04'),
-('ssafy2', '싸피2','This is a much longer comment designed to fill the entire varchar limit of one hundred characters..', '2024-05-21 07:28:04'),
-('ssafy3', '싸피3','Short comment.', '2024-05-21 07:28:04'),
-('ssafy3', '싸피3','This is a much longer comment designed to fill the entire varchar limit of one hundred characters. 2', '2024-05-21 07:28:04'),
-('ssafy3', '싸피3','Short comment.', '2024-05-21 07:28:04');
+('ssafyssafyssafyssafy', '싸피', 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', '2024-05-21 07:28:04'),
+('ssafyssafyssafyssafy', '싸피', 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', '2024-05-21 07:28:04'),
+('ssafyssafyssafyssafy', '싸피', 'This is a much longer comment designed to fill the entire varchar limit of one hundred characters', '2024-05-21 07:28:04'),
+('ssafyssafyssafyssafy', '싸피', 'This is a much longer comment designed to fill the entire varchar limit of one hundred characters. 1', '2024-05-21 07:28:04'),
+('ssafy2ssafy2ssafy2', '싸피2','This is a test comment. Let''s see how this goes.', '2024-05-21 07:28:04'),
+('ssafy2ssafy2ssafy2', '싸피2', 'This is a test comment. Let''s see how this goes.', '2024-05-21 07:28:04'),
+('ssafy2ssafy2ssafy2', '싸피2','This is a much longer comment designed to fill the entire varchar limit of one hundred characters..', '2024-05-21 07:28:04'),
+('ssafy3ssafy3ssafy333', '싸피3','Short comment.', '2024-05-21 07:28:04'),
+('ssafy3ssafy3ssafy333', '싸피3','This is a much longer comment designed to fill the entire varchar limit of one hundred characters. 2', '2024-05-21 07:28:04'),
+('ssafy3ssafy3ssafy333', '싸피3','Short comment.', '2024-05-21 07:28:04');
 
 
 -- test code
