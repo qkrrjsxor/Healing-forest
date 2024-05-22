@@ -250,7 +250,9 @@ watch(
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: calc(100vh - 3.5rem);
+
+  max-width: 1280px;
+  margin: 0 auto;
 }
 
 #item-box {
@@ -259,11 +261,9 @@ watch(
   align-items: center;
   gap: 2rem;
 
-  margin: 3rem auto;
+  margin: 5rem auto;
 
   width: 100%;
-  height: 82vh;
-  overflow: scroll;
 }
 
 #addiction-item {
@@ -439,17 +439,6 @@ watch(
   gap: 3rem;
 
   padding: 2rem 5rem;
-}
-
-/* 스크롤바 제거 */
-#item-box::-webkit-scrollbar {
-  display: none; /* Chrome, Edge, and Safari */
-}
-#item-box {
-  scrollbar-width: none; /* Firefox */
-}
-#item-box {
-  -ms-overflow-style: none; /* IE11 */
 }
 
 /* media query */

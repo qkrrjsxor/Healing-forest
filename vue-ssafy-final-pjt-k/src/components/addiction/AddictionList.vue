@@ -34,11 +34,16 @@ onMounted(() => {
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: calc(100vh - 3.5rem);
+  gap: 5rem;
+
+  max-width: 1280px;
+  margin: 0 auto;
+
+  background-color: #eaeceb;
 }
 
 #add-addiction {
-  margin-top: 3rem;
+  margin-top: 5rem;
 }
 
 #addiction-list {
@@ -47,41 +52,15 @@ onMounted(() => {
   align-items: center;
   gap: 1.5rem;
 
-  margin: 3rem auto;
   padding: 0 5rem;
-
+  margin-bottom: 5rem;
   width: 80%;
-  height: 82vh;
-  overflow: scroll;
-}
-
-/* 스크롤바 제거 */
-#addiction-list::-webkit-scrollbar {
-  display: none; /* Chrome, Edge, and Safari */
-}
-#addiction-list {
-  scrollbar-width: none; /* Firefox */
-}
-#addiction-list {
-  -ms-overflow-style: none; /* IE11 */
 }
 
 /* media query */
-@media (max-width: 1024px) {
+@media (max-width: 768px) {
   #addiction-list {
-    width: 75%;
+    width: 70%;
   }
-}
-
-@media (max-width: 1768px) {
-  #addiction-list {
-    width: 65%;
-  }
-}
-
-#plusicon {
-  width: 50px;
-  margin-top: 3rem;
-  margin-left: 1rem;
 }
 </style>

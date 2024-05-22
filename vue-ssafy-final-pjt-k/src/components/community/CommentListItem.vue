@@ -164,6 +164,7 @@ onUnmounted(() => {
   gap: 0.5rem;
 
   p {
+    width: 10rem;
     margin: 0;
     color: #573f2c;
     font-size: medium;
@@ -193,7 +194,7 @@ onUnmounted(() => {
   align-items: flex-start;
   justify-content: space-between;
 
-  width: 85%;
+  width: 70%;
 }
 
 #comment-div {
@@ -247,22 +248,43 @@ onUnmounted(() => {
 }
 
 /* media query */
+@media (max-width: 1370px) {
+  #user-name {
+    p {
+      width: 8rem;
+    }
+  }
+
+  #user-comment {
+    width: 75%;
+  }
+}
 @media (max-width: 1124px) {
   #comment-item {
     flex-direction: column;
     gap: 0.5rem;
   }
 
+  #user-name {
+    p {
+      width: auto;
+    }
+  }
+
   #user-comment {
+    position: relative;
     display: flex;
-    align-items: flex-end;
     width: 100%;
   }
-}
 
-@media (max-width: 1024px) {
   #comment-div {
-    width: 80%;
+    width: 100%;
+  }
+
+  #button-div {
+    position: absolute;
+    bottom: 0;
+    right: 0;
   }
 }
 
@@ -276,22 +298,10 @@ onUnmounted(() => {
     padding: 1rem 0;
   }
 
-  #user-comment {
-    position: relative;
-    flex-direction: column;
-  }
-
   #comment-div {
-    width: 100%;
-
     p {
       font-size: small;
     }
-  }
-
-  #button-div {
-    position: absolute;
-    bottom: 0;
   }
 }
 
