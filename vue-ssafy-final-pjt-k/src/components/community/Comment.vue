@@ -40,6 +40,7 @@ onMounted(() => {
 
   width: 80%;
   padding: 2rem;
+  padding-bottom: 1rem;
 
   border-radius: 1rem;
   background-color: #fefffe;

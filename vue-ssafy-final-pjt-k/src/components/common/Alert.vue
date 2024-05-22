@@ -51,6 +51,11 @@ onMounted(() => {
   color: #eaeceb;
 }
 
+.alert.logout {
+  background-color: #7a8579;
+  color: #eaeceb;
+}
+
 .alert.signup {
   background-color: #9d8e03;
   color: #eaeceb;

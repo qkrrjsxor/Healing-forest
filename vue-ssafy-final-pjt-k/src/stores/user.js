@@ -38,26 +38,40 @@ export const useUserStore = defineStore("user", () => {
   };
 
   // 2) 로그아웃 요청
-  const submitLogout = () => {
-    axios({
-      url: `${USER_REST_API}/logout`,
-      method: "GET",
-      withCredentials: true,
-    }).then(() => {
+  const submitLogout = async () => {
+    const alertStore = useAlertStore();
+
+    try {
+      await axios({
+        url: `${USER_REST_API}/logout`,
+        method: "GET",
+        withCredentials: true,
+      });
       loginUser.value = null;
       sessionStorage.removeItem("loginUser");
-      router.push({ name: "home" });
-    });
+      alertStore.setAlert("로그아웃 되었습니다.", "logout");
+      setTimeout(() => {
+        router.push({ name: "home" });
+      }, 1000);
+    } catch (err) {
+      if (err.response) {
+        alertStore.setAlert(err.response.data, "logout");
+      } else {
+        alertStore.setAlert("서버 연결이 끊어졌습니다.", "logout");
+      }
+    }
   };
 
   // 3) 회원가입 요청
   const submitSignup = async (userId, password, nickname) => {
     const alertStore = useAlertStore();
+
     const signupData = {
       userId,
       password,
       nickname,
     };
+
     try {
       const res = await axios({
         url: `${USER_REST_API}/signup`,
@@ -65,13 +79,14 @@ export const useUserStore = defineStore("user", () => {
         withCredentials: true,
         data: signupData,
       });
-      // 성공 시 로그인 페이지로 리다이렉트
-      alert("회원가입에 성공했습니다. 로그인 해주세요.");
-      router.push({ name: "login" });
-
+      // 회원가입 성공 후 바로 로그인
+      if (res.status === 200) {
+        await submitLogin({ userId, password });
+      } else {
+        alertStore.setAlert("회원가입에 실패했습니다.", "signup");
+      }
     } catch (err) {
       if (err.response) {
-        // console.log(err.response)
         alertStore.setAlert(err.response.data, "signup");
       } else {
         alertStore.setAlert("서버 연결이 끊어졌습니다.", "signup");

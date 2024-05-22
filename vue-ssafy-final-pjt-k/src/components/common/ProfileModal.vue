@@ -29,13 +29,15 @@ const readyAlert = () => {
 };
 
 // 로그아웃
-const logout = () => {
-  store.submitLogout();
+const logout = async () => {
+  await store.submitLogout();
 };
 </script>
 
 <style scoped>
 #alert {
+  z-index: 9;
+
   position: absolute;
   top: 8rem;
 }
