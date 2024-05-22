@@ -9,6 +9,7 @@
             type="text"
             v-model="addiction.title"
             placeholder="목표 항목을 입력해주세요."
+            maxlength="30"
             ref="titleInputRef"
           />
         </div>
@@ -19,8 +20,6 @@
             type="number"
             v-model="addiction.targetTime"
             placeholder="1 ~ 100 까지의 숫자를 입력할 수 있습니다."
-            min="1"
-            max="100"
             ref="targetTimeInputRef"
             @input="validateTargetTime"
           />
