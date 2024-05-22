@@ -68,15 +68,15 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  const requiresAuth = to.matched.some((record) => record.meta.requiresAutj);
+  const requiresAuth = to.matched.some((record) => record.meta.requiresAuth);
   const loginUser = sessionStorage.getItem("loginUser");
 
-  if (requiresAuth && !loginUser) {
+  if (requiresAuth && !loginUser) { // 로그인 되어있지 않은 상태로 addiction, community 접속 할 때 -> alert 후 로그인 페이지로
     alert("로그인 후 이용 가능합니다.");
     next({ name: "login" });
-  } else if (to.name === "login" && loginUser) {
+  } else if ((to.name === "login" || to.name === "signup") && loginUser) {  // 로그인 되어있는 상태로 login, signup 접속 할 때 -> home으로
     next({ name: "home" });
-  } else {
+  } else {  
     next();
   }
 });
