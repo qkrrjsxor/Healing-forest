@@ -1,4 +1,5 @@
 <template>
+  <!-- <div></div> -->
   <div v-if="alertMessage" :class="['alert', alertType]" ref="alertRef">
     {{ alertMessage }}
   </div>
@@ -46,6 +47,11 @@ onMounted(() => {
 }
 
 .alert.login {
+  background-color: #9d8e03;
+  color: #eaeceb;
+}
+
+.alert.signup {
   background-color: #9d8e03;
   color: #eaeceb;
 }
