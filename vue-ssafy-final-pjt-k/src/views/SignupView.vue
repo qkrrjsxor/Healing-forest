@@ -1,6 +1,11 @@
 <template>
   <div id="container">
-    <img v-if="showImage" id="login-image" src="@/assets/signup-login.jpg" alt="login-image" />
+    <img
+      v-if="showImage"
+      id="login-image"
+      src="@/assets/signup-login.jpg"
+      alt="login-image"
+    />
     <section id="login-section">
       <div id="login-form-box">
         <Alert id="alert" />
@@ -8,22 +13,52 @@
         <form id="login-form" @submit.prevent="submitSignup">
           <ul id="input-set">
             <li>
-              <input type="text" placeholder="아이디를 입력해주세요." v-model="userId" @input="validateUserId" autofocus />
-              <p v-if="!isValidateId" class="validateAlert">아이디는 4~12자의 영문 대소문자와 숫자로 이루어져야 합니다.</p>
+              <input
+                type="text"
+                placeholder="아이디를 입력해주세요."
+                v-model="userId"
+                @input="validateUserId"
+                maxlength="20"
+                autofocus
+              />
+              <p v-if="!isValidateId" class="validateAlert">
+                아이디는 영어 소문자(최소 4자 이상)와 숫자로 이루어져야 합니다.
+              </p>
             </li>
             <li>
               <div class="passwordInputBox">
-                <input :type="passwordFieldType" placeholder="비밀번호를 입력해주세요." v-model="password"
-                  @input="validatePassword" class="passwordInput" />
+                <input
+                  :type="passwordFieldType"
+                  placeholder="비밀번호를 입력해주세요."
+                  v-model="password"
+                  @input="validatePassword"
+                  maxlength="30"
+                  class="passwordInput"
+                />
                 <span @click="togglePasswordVisibility" class="password-toggle">
-                  <img :src="passwordToggleIcon" alt="password-eye" width="24px">
+                  <img
+                    :src="passwordToggleIcon"
+                    alt="password-eye"
+                    width="24px"
+                  />
                 </span>
               </div>
-              <p v-if="!isValidatePassword" class="validateAlert">비밀번호는 8자 이상으로, 영문, 숫자, 특수문자를 모두 포함해야 합니다.</p>
+              <p v-if="!isValidatePassword" class="validateAlert">
+                비밀번호는 8자 이상으로, 영문, 숫자, 특수문자를 모두 포함해야
+                합니다.
+              </p>
             </li>
             <li>
-              <input type="text" placeholder="닉네임을 입력해주세요." :value="nickname" @input="setNickname" />
-              <p v-if="!isValidateNickname" class="validateAlert">닉네임은 2글자 이상이어야 합니다. </p>
+              <input
+                type="text"
+                placeholder="닉네임을 입력해주세요."
+                :value="nickname"
+                @input="setNickname"
+                maxlength="15"
+              />
+              <p v-if="!isValidateNickname" class="validateAlert">
+                닉네임은 2~15자로 설정해야 합니다.
+              </p>
             </li>
           </ul>
           <div id="button-set">
@@ -68,13 +103,14 @@ const goHome = () => {
 };
 
 // 정규식 조건
-const userIdPattern = /^[a-zA-Z0-9]{4,12}$/;  // 4~12 글자 사이, 영어 소문자, 대문자, 숫자만 가능
-const passwordPattern = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/; //8글자 이상, 영대문자, 소문자, 숫자, 특수문자 포함
+const userIdPattern = /^(?=(?:[^a-z]*[a-z]){4})[a-z0-9]{4,20}$/; // 4~20 글자 사이, 적어도 4자 이상의 영어 소문자, 숫자 가능
+const passwordPattern =
+  /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/; //8글자 이상, 영대문자, 소문자, 숫자, 특수문자 포함
 const nicknamePattern = /^.{2,}$/;
 
-const userId = ref('');
-const password = ref('');
-const nickname = ref('');
+const userId = ref("");
+const password = ref("");
+const nickname = ref("");
 
 const isValidateId = ref(true);
 const isValidatePassword = ref(true);
@@ -82,9 +118,11 @@ const isValidateNickname = ref(true);
 
 const validateUserId = () => {
   isValidateId.value = userIdPattern.test(userId.value) ? true : false;
-}
+};
 const validatePassword = () => {
-  isValidatePassword.value = passwordPattern.test(password.value) ? true : false;
+  isValidatePassword.value = passwordPattern.test(password.value)
+    ? true
+    : false;
 };
 const validateNickname = (nickname) => {
   isValidateNickname.value = nicknamePattern.test(nickname) ? true : false;
@@ -92,31 +130,39 @@ const validateNickname = (nickname) => {
 
 const setNickname = (event) => {
   nickname.value = event.target.value;
-  validateNickname(nickname.value)
-}
+  validateNickname(nickname.value);
+};
 
 // 회원가입 요청 submit
 const submitSignup = () => {
-  if (isValidateId.value && isValidatePassword.value && isValidateNickname.value && userId.value.trim() !== '' && password.value.trim() !== '' && nickname.value.trim() !== '') {
-    console.log('submit')
+  if (
+    isValidateId.value &&
+    isValidatePassword.value &&
+    isValidateNickname.value &&
+    userId.value.trim() !== "" &&
+    password.value.trim() !== "" &&
+    nickname.value.trim() !== ""
+  ) {
+    console.log("submit");
     store.submitSignup(userId.value, password.value, nickname.value);
   } else {
-    console.log('submit fail')
+    console.log("submit fail");
   }
 };
 
 // 패스워드 input 태그 type 변경 기능
-const passwordFieldType = ref('password');
+const passwordFieldType = ref("password");
 
 const togglePasswordVisibility = () => {
-  passwordFieldType.value = passwordFieldType.value === 'password' ? 'text' : 'password';
-}
+  passwordFieldType.value =
+    passwordFieldType.value === "password" ? "text" : "password";
+};
 
 const passwordToggleIcon = computed(() => {
-  return passwordFieldType.value === 'password' ?
-    new URL('@/assets/visibility.png', import.meta.url).href : new URL('@/assets/visibility_off.png', import.meta.url).href;
+  return passwordFieldType.value === "password"
+    ? new URL("@/assets/visibility.png", import.meta.url).href
+    : new URL("@/assets/visibility_off.png", import.meta.url).href;
 });
-
 </script>
 
 <style scoped>
