@@ -2,7 +2,11 @@
   <li id="comment-item" :class="{ borderBottom: index + 1 !== total }">
     <div id="user-name">
       <picture id="profile-box">
-        <img id="profile-img" src="@/assets/profile-icon.png" alt="profile-icon" />
+        <img
+          id="profile-img"
+          src="@/assets/auth/profile-icon.png"
+          alt="profile-icon"
+        />
       </picture>
       <p>{{ comment.nickname }}</p>
     </div>
@@ -11,7 +15,13 @@
         <p v-if="isOriginalComment">
           {{ comment.content }}
         </p>
-        <input v-else v-model="editedComment" @keyup.enter="showEditDiv" maxlength="100" ref="updateInputRef" />
+        <input
+          v-else
+          v-model="editedComment"
+          @keyup.enter="showEditDiv"
+          maxlength="100"
+          ref="updateInputRef"
+        />
         <p>{{ timeSincePosted }}</p>
       </div>
       <div id="button-div" v-if="props.loginUser.userId === comment.userId">
@@ -22,7 +32,11 @@
         <button @click="openModal(`deleteComment/${comment.commentId}`)">
           삭제
         </button>
-        <DeleteModal :id="`deleteComment/${comment.commentId}`" modalType="comment" @confirm="deleteComment">
+        <DeleteModal
+          :id="`deleteComment/${comment.commentId}`"
+          modalType="comment"
+          @confirm="deleteComment"
+        >
           <template #content>
             <div class="deleteModal">
               <p>해당 댓글을 정말 삭제하시겠습니까?</p>

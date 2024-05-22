@@ -6,20 +6,36 @@
         <h2>Log In</h2>
         <form @submit.prevent="submitLogin" id="login-form">
           <div id="input-set">
-            <input v-model="loginUser.userId" type="text" placeholder="아이디를 입력해주세요." autocomplete="username"
-              autofocus />
-            <input v-model="loginUser.password" type="password" placeholder="비밀번호를 입력해주세요."
-              autocomplete="current-password" />
+            <input
+              v-model="loginUser.userId"
+              type="text"
+              placeholder="아이디를 입력해주세요."
+              autocomplete="username"
+              autofocus
+            />
+            <input
+              v-model="loginUser.password"
+              type="password"
+              placeholder="비밀번호를 입력해주세요."
+              autocomplete="current-password"
+            />
           </div>
           <div id="button-set">
             <button type="button" @click="goHome">홈으로</button>
             <button type="submit">로그인</button>
           </div>
-          <RouterLink :to="{ name: 'signup' }">아직 회원가입을 하지 않았나요?</RouterLink>
+          <RouterLink :to="{ name: 'signup' }"
+            >아직 회원가입을 하지 않았나요?</RouterLink
+          >
         </form>
       </div>
     </section>
-    <img v-if="showImage" id="login-image" src="@/assets/signup-login.jpg" alt="login-image" />
+    <img
+      v-if="showImage"
+      id="login-image"
+      src="@/assets/auth/signup-login.jpg"
+      alt="login-image"
+    />
   </div>
 </template>
 

@@ -4,7 +4,7 @@
       <picture id="profile-box">
         <img
           id="profile-img"
-          src="@/assets/profile-icon.png"
+          src="@/assets/auth/profile-icon.png"
           alt="profile-icon"
         />
       </picture>

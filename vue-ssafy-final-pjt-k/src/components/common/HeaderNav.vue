@@ -15,7 +15,11 @@
         >
       </div>
       <picture @click="submitLogout" id="profile-box">
-        <img id="profile-img" src="@/assets/profile-icon.png" alt="profile" />
+        <img
+          id="profile-img"
+          src="@/assets/auth/profile-icon.png"
+          alt="profile"
+        />
       </picture>
     </div>
   </div>

@@ -3,7 +3,7 @@
     <img
       v-if="showImage"
       id="login-image"
-      src="@/assets/signup-login.jpg"
+      src="@/assets/auth/signup-login.jpg"
       alt="login-image"
     />
     <section id="login-section">
@@ -160,8 +160,8 @@ const togglePasswordVisibility = () => {
 
 const passwordToggleIcon = computed(() => {
   return passwordFieldType.value === "password"
-    ? new URL("@/assets/visibility.png", import.meta.url).href
-    : new URL("@/assets/visibility_off.png", import.meta.url).href;
+    ? new URL("@/assets/auth/visibility.png", import.meta.url).href
+    : new URL("@/assets/auth/visibility-off.png", import.meta.url).href;
 });
 </script>
 
