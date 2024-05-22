@@ -18,7 +18,7 @@ const alertRef = ref(null);
 
 // 해당 alert 위치로 scroll
 const scrollToAlert = () => {
-  if (alertRef.value) {
+  if (alertRef.value && alertType.value === "addiction") {
     alertRef.value.scrollIntoView({ behavior: "smooth" });
   }
 };
@@ -26,7 +26,7 @@ const scrollToAlert = () => {
 onMounted(() => {
   store.$subscribe((_, state) => {
     // alertMessage 설정될 때 scroll
-    if (state.message) {
+    if (state.message && state.type === "addiction") {
       nextTick(scrollToAlert);
     }
   });
@@ -41,7 +41,7 @@ onMounted(() => {
   font-size: medium;
 }
 
-.alert.warning {
+.alert.addiction {
   background-color: #7a8579;
   color: #eaeceb;
 }
@@ -56,8 +56,13 @@ onMounted(() => {
   color: #eaeceb;
 }
 
+.alert.mypage {
+  background-color: #7a8579;
+  color: #eaeceb;
+}
+
 @media (max-width: 768px) {
-  .alert.warning {
+  .alert.addiction {
     font-size: small;
   }
 }

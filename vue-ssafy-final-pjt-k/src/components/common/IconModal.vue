@@ -119,7 +119,7 @@ const closeModal = () => {
 // 아이콘 변경
 const updateIcon = async () => {
   if (!addictionIconPath.value) {
-    alertStore.setAlert("아이콘을 선택해주세요.", "warning");
+    alertStore.setAlert("아이콘을 선택해주세요.", "addiction");
     return;
   }
   await store.updateIcon(props.addictionId, addictionIconPath.value);
