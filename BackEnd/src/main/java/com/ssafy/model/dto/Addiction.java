@@ -10,12 +10,13 @@ public class Addiction {
 	private int targetTime;
 	private Date endTime;
 	private String iconPath;
-	private int addictionScore = 0; 	//default value
+	private int addictionScore = 0; // default value
 	private boolean success = false;
-	
-	public Addiction() {}
-	
-	// 중독 리스트 생성 시 
+
+	public Addiction() {
+	}
+
+	// 중독 리스트 생성 시
 	public Addiction(String userId, String title, int targetTime, String iconPath) {
 		this.userId = userId;
 		this.title = title;
@@ -23,9 +24,6 @@ public class Addiction {
 		this.iconPath = iconPath;
 	}
 
-	
-	
-	
 	public String getIconPath() {
 		return iconPath;
 	}
@@ -97,6 +95,5 @@ public class Addiction {
 	public void setSuccess(boolean success) {
 		this.success = success;
 	}
-	
-	
+
 }

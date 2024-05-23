@@ -1,7 +1,7 @@
 <template>
   <div id="form-container">
     <form @submit.prevent="submitAddiction" id="addiction-form">
-      <Alert id="alert" />
+      <Alert id="alert" componentId="AddictionCreate" />
       <div id="input-set">
         <div>
           <h2>어떤 중독을 끊고 싶으신가요?</h2>
@@ -9,6 +9,7 @@
             type="text"
             v-model="addiction.title"
             placeholder="목표 항목을 입력해주세요."
+            maxlength="30"
             ref="titleInputRef"
           />
         </div>
@@ -19,8 +20,6 @@
             type="number"
             v-model="addiction.targetTime"
             placeholder="1 ~ 100 까지의 숫자를 입력할 수 있습니다."
-            min="1"
-            max="100"
             ref="targetTimeInputRef"
             @input="validateTargetTime"
           />
@@ -149,21 +148,33 @@ const targetTimeInputRef = ref(null);
 const submitAddiction = () => {
   // 모든 항목 필수 선택하도록
   if (!addiction.value.title) {
-    alertStore.setAlert("목표 항목을 입력해주세요.", "warning");
+    alertStore.setAlert(
+      "목표 항목을 입력해주세요.",
+      "addiction",
+      "AddictionCreate"
+    );
     nextTick(() => {
       titleInputRef.value.focus();
     });
     return;
   }
   if (!addiction.value.targetTime) {
-    alertStore.setAlert("목표 일수를 입력해주세요.", "warning");
+    alertStore.setAlert(
+      "목표 일수를 입력해주세요.",
+      "addiction",
+      "AddictionCreate"
+    );
     nextTick(() => {
       targetTimeInputRef.value.focus();
     });
     return;
   }
   if (!selectedIcon.value) {
-    alertStore.setAlert("아이콘을 선택해주세요.", "warning");
+    alertStore.setAlert(
+      "아이콘을 선택해주세요.",
+      "addiction",
+      "AddictionCreate"
+    );
     return;
   }
   store.submitAddiction(addiction.value);
@@ -181,7 +192,9 @@ onMounted(() => {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: calc(100vh - 3.5rem);
+
+  max-width: 1280px;
+  margin: 5rem auto;
 }
 
 #addiction-form {
@@ -193,7 +206,6 @@ onMounted(() => {
 
   width: 60%;
   padding: 3rem 2rem;
-  overflow: scroll;
 }
 
 #alert {
@@ -289,17 +301,6 @@ button:last-child {
   border: none;
   background-color: #b6c2a9;
   color: #eaeceb;
-}
-
-/* 스크롤바 제거 */
-#addiction-form::-webkit-scrollbar {
-  display: none; /* Chrome, Edge, and Safari */
-}
-#addiction-form {
-  scrollbar-width: none; /* Firefox */
-}
-#addiction-form {
-  -ms-overflow-style: none; /* IE11 */
 }
 
 /* media query */

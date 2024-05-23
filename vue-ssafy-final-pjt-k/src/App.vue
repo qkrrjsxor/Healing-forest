@@ -1,5 +1,5 @@
 <template>
-  <div id="background">
+  <div>
     <HeaderNav v-if="!route.meta.hideHeader" />
     <RouterView />
   </div>
@@ -11,10 +11,3 @@ import HeaderNav from "@/components/common/HeaderNav.vue";
 import { useRoute } from "vue-router";
 const route = useRoute();
 </script>
-
-<style>
-#background {
-  background-color: #eaeceb;
-  height: 100vh;
-}
-</style>

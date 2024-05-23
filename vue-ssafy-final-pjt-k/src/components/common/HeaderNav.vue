@@ -8,32 +8,46 @@
           :to="{ name: 'addictionList' }"
           >LIST</RouterLink
         >
-        <RouterLink :class="{ active: isActiveRank }" :to="{ name: 'rank' }"
-          >RANK</RouterLink
+        <RouterLink
+          :class="{ active: isActiveComm }"
+          :to="{ name: 'community' }"
+          >COMM</RouterLink
         >
       </div>
-      <picture @click="submitLogout" id="profile-box">
-        <img id="profile-img" src="@/assets/profile-icon.png" alt="profile" />
+      <picture @click="toggleProfileModal" id="profile-box">
+        <img
+          id="profile-img"
+          src="@/assets/auth/profile-icon.png"
+          alt="profile"
+        />
       </picture>
+      <ProfileModal
+        v-show="showProfileModal"
+        id="profile"
+        class="profile-modal"
+        @close="toggleProfileModal"
+      />
     </div>
   </div>
 </template>
 
 <script setup>
-import { useUserStore } from "@/stores/user";
-import { computed } from "vue";
+import { useModalStore } from "@/stores/modal";
+import ProfileModal from "@/components/common/ProfileModal.vue";
+import { ref, computed, watch } from "vue";
 import { useRoute, useRouter } from "vue-router";
 
 const router = useRouter();
 const route = useRoute();
-const store = useUserStore();
+
+const modalStore = useModalStore();
 
 // 활성화 탭 처리
 const isActiveList = computed(() => {
   return route.name?.includes("addiction");
 });
-const isActiveRank = computed(() => {
-  return route.name?.includes("rank");
+const isActiveComm = computed(() => {
+  return route.name?.includes("community");
 });
 
 // 홈으로
@@ -41,13 +55,39 @@ const goHome = () => {
   router.push({ name: "home" });
 };
 
-// 로그아웃
-const submitLogout = () => {
-  store.submitLogout();
+// 프로필 모달
+const showProfileModal = ref(false);
+
+const toggleProfileModal = () => {
+  showProfileModal.value = !showProfileModal.value;
 };
+
+const openModal = (id) => {
+  modalStore.showModal(id, "profile");
+  setTimeout(() => {
+    showProfileModal.value = false; // 3초 후에는 자동으로 닫히도록
+  }, 3000);
+};
+const closeModal = (id) => {
+  modalStore.closeModal(id);
+};
+
+watch(showProfileModal, (newValue) => {
+  if (newValue) {
+    openModal("profile");
+  } else {
+    closeModal("profile");
+  }
+});
 </script>
 
 <style scoped>
+.profile-modal {
+  position: absolute;
+  top: 5rem;
+  right: 2rem;
+}
+
 #header-nav {
   display: flex;
   justify-content: space-between;
@@ -95,5 +135,12 @@ const submitLogout = () => {
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+@media (max-width: 768px) {
+  .profile-modal {
+    position: absolute;
+    right: 1rem;
+  }
 }
 </style>

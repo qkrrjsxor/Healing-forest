@@ -1,31 +1,36 @@
 <template>
-  <div v-if="alertMessage" :class="['alert', alertType]" ref="alertRef">
-    {{ alertMessage }}
+  <div
+    v-if="currentAlert && currentAlert.componentId === componentId"
+    :class="['alert', currentAlert.alertType]"
+    ref="alertRef"
+  >
+    {{ currentAlert.msg }}
   </div>
 </template>
 
 <script setup>
 import { useAlertStore } from "@/stores/alert";
-import { computed, nextTick, onMounted, ref } from "vue";
+import { computed, nextTick, onMounted, ref, watchEffect } from "vue";
+
+const props = defineProps({
+  componentId: String,
+});
 
 const store = useAlertStore();
-
-const alertMessage = computed(() => store.message);
-const alertType = computed(() => store.type);
+const currentAlert = computed(() => store.currentAlert);
 
 const alertRef = ref(null);
 
 // 해당 alert 위치로 scroll
 const scrollToAlert = () => {
-  if (alertRef.value) {
+  if (alertRef.value && currentAlert.value.alertType === "addiction") {
     alertRef.value.scrollIntoView({ behavior: "smooth" });
   }
 };
-
 onMounted(() => {
-  store.$subscribe((_, state) => {
+  watchEffect(() => {
     // alertMessage 설정될 때 scroll
-    if (state.message) {
+    if (currentAlert.value && currentAlert.value.alertType === "addiction") {
       nextTick(scrollToAlert);
     }
   });
@@ -35,19 +40,38 @@ onMounted(() => {
 <style scoped>
 .alert {
   padding: 1rem;
-  border: 1px solid;
+  border: none;
   border-radius: 0.5rem;
-}
-
-.alert.warning {
-  background-color: #7a8579;
-  color: #eaeceb;
-  border-color: #7a8579;
   font-size: medium;
 }
 
+.alert.addiction {
+  background-color: #7a8579;
+  color: #eaeceb;
+}
+
+.alert.login {
+  background-color: #9d8e03;
+  color: #eaeceb;
+}
+
+.alert.logout {
+  background-color: #7a8579;
+  color: #eaeceb;
+}
+
+.alert.signup {
+  background-color: #9d8e03;
+  color: #eaeceb;
+}
+
+.alert.mypage {
+  background-color: #7a8579;
+  color: #eaeceb;
+}
+
 @media (max-width: 768px) {
-  .alert.warning {
+  .alert.addiction {
     font-size: small;
   }
 }

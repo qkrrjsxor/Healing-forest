@@ -40,9 +40,9 @@ public class AddictionController {
 		
 		int result = addictionService.createAddiction(addiction);
 		
-		if(result ==1) {
+		if (result == 1) {
 			return new ResponseEntity<>(addiction, HttpStatus.OK);
-		}else {
+		} else {
 			return new ResponseEntity<>("생성 실패", HttpStatus.BAD_REQUEST);
 		}
 	}
@@ -70,7 +70,7 @@ public class AddictionController {
 		
 		AddictionDetail addictionDetail = addictionService.getAddictionDetail(userId, addictionId);
 				
-		System.out.println("상세조회 " + addictionDetail);
+//		System.out.println("상세조회 " + addictionDetail);
 		
 		if(addictionDetail == null) {
 			return new ResponseEntity<>("해당 항목이 존재하지 않습니다.", HttpStatus.NO_CONTENT);

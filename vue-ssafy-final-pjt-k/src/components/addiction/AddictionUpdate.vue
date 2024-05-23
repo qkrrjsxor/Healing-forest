@@ -2,7 +2,7 @@
   <div id="form-container">
     <div id="update-box">
       <form @submit.prevent="updateAddiction" id="update-form">
-        <Alert id="alert" />
+        <Alert id="alert" componentId="AddictionUpdate" />
         <div id="target-input">
           <h2>변경할 목표 일 수를 입력해주세요.</h2>
           <input
@@ -28,8 +28,14 @@
           <p>{{ `시작일: ${formattedStartTime}` }}</p>
           <p>
             {{
-              `현재 목표 일 수: ${addictionItem.addiction.targetTime}일 (시작일로부터 최대 100일까지 설정 가능합니다.)
+              `* 현재 목표 일 수: ${addictionItem.addiction.targetTime}일
+     
               `
+            }}
+          </p>
+          <p>
+            {{
+              `* 현재보다 더 높은 목표만 가능합니다. (시작일로부터 최대 100일까지 설정 가능)`
             }}
           </p>
         </div>
@@ -53,6 +59,8 @@ const store = useAddictionStore();
 const alertStore = useAlertStore();
 
 const targetTime = ref("");
+const originalTargetTime = ref("");
+
 const addictionId = route.params.id;
 
 // 해당 addiction 시작일 정보 가져오기
@@ -77,6 +85,7 @@ function formatDate(date) {
 onMounted(async () => {
   await store.getAddictionItem(addictionId);
   targetTimeInputRef.value.focus();
+  originalTargetTime.value = addictionItem.value.addiction.targetTime;
 });
 
 // addictionItem 변경 감지
@@ -95,9 +104,8 @@ watch(
 // 목표 일수 입력 제한
 const validateTargetTime = (e) => {
   const value = parseInt(e.target.value, 10);
-
-  if (value < 1) {
-    targetTime.value = 1;
+  if (value < originalTargetTime.value) {
+    targetTime.value = originalTargetTime.value;
   } else if (value > 100) {
     targetTime.value = 100;
   } else {
@@ -115,7 +123,11 @@ const targetTimeInputRef = ref(null);
 // 수정
 const updateAddiction = async () => {
   if (!targetTime.value) {
-    alertStore.setAlert("목표 일수를 입력해주세요.", "warning");
+    alertStore.setAlert(
+      "목표 일수를 입력해주세요.",
+      "addiction",
+      "AddictionUpdate"
+    );
     nextTick(() => {
       targetTimeInputRef.value.focus();
     });
@@ -132,12 +144,13 @@ const updateAddiction = async () => {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: calc(100vh - 3.5rem);
+
+  max-width: 1280px;
+  margin: 6rem auto;
 }
 
 #update-box {
   position: relative;
-  /* background-color: #352f26; */
 
   display: flex;
   flex-direction: column;
@@ -145,7 +158,6 @@ const updateAddiction = async () => {
 
   width: 60%;
   padding: 3rem 2rem;
-  overflow: scroll;
 }
 
 #update-form {
@@ -164,6 +176,7 @@ const updateAddiction = async () => {
 
 #target-input {
   padding: 2rem;
+  padding-left: 0;
 
   h2 {
     color: #384427;
@@ -216,6 +229,10 @@ const updateAddiction = async () => {
   gap: 0.5rem;
 }
 
+#info-ment p:first-child {
+  margin-bottom: 1rem;
+}
+
 #button-set {
   display: flex;
   justify-content: flex-end;
@@ -241,17 +258,6 @@ button:last-child {
   border: none;
   background-color: #b6c2a9;
   color: #eaeceb;
-}
-
-/* 스크롤바 제거 */
-#update-box::-webkit-scrollbar {
-  display: none; /* Chrome, Edge, and Safari */
-}
-#update-box {
-  scrollbar-width: none; /* Firefox */
-}
-#update-box {
-  -ms-overflow-style: none; /* IE11 */
 }
 
 /* media query */
@@ -289,18 +295,8 @@ button:last-child {
   #target-input {
     padding: 0;
 
-    h2 {
-      font-size: large;
-    }
-
     input {
       padding: 0.8rem 1.5rem;
-    }
-  }
-
-  #info-box {
-    p {
-      font-size: x-small;
     }
   }
 

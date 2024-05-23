@@ -35,6 +35,22 @@ public class AddictionServiceImpl implements AddictionService{
 	public List<Addiction> getAddictionList(String userId) {
 		List<Addiction> addictionList = addictionDao.selectAddictionList(userId);
 		
+		// 전체 조회시 뱃지 생성. 전체 중독 리스트에 대해 Id get 하며 createBadge
+		for(Addiction addiction : addictionList) {
+			
+			createBadge(userId, addiction.getAddictionId());
+		}
+		
+
+        // 뱃지 생성 후 score 등록하기
+        List<Badge> badgeList = addictionDao.selectBadgeAll(userId);
+        int score = 0;
+        
+        for(Badge badge : badgeList) {
+        	score += badge.getBadgeScore();
+        }
+        
+        addictionDao.updateUserScore(userId, score);
 		return addictionList;
 	}
 
@@ -42,7 +58,6 @@ public class AddictionServiceImpl implements AddictionService{
 	@Override
 	public AddictionDetail getAddictionDetail(String userId, int addictionId) {
 
-		createBadge(userId, addictionId);
 		Addiction addiction = addictionDao.selectAddictionOne(addictionId);
 		List<Badge> badges = addictionDao.selectBadge(addictionId);
 		
@@ -60,6 +75,7 @@ public class AddictionServiceImpl implements AddictionService{
 	@Override
 	public int removeAddiction(int addictionId) {
 
+		System.out.println("중독 리스트 삭제 : " + addictionId);
 		return addictionDao.deleteAddiction(addictionId);
 	}
 
@@ -119,6 +135,8 @@ public class AddictionServiceImpl implements AddictionService{
         		System.out.println(date+" 뱃지 생성");
         	}
         }
+        
+        
         return 1;
 	}
 

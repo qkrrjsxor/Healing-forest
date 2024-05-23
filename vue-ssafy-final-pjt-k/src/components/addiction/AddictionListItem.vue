@@ -123,6 +123,7 @@ onUnmounted(() => {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 1rem;
 }
 
 #item-title {
@@ -135,10 +136,7 @@ onUnmounted(() => {
   }
 
   h3 {
-    width: 6rem;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+    width: 10rem;
   }
 }
 
@@ -187,25 +185,38 @@ onUnmounted(() => {
 }
 
 /* media query */
+@media (max-width: 1300px) {
+  #item-title {
+    h3 {
+      font-size: large;
+    }
+  }
+}
+
+@media (max-width: 1024px) {
+  #item-title {
+    h3 {
+      font-size: medium;
+    }
+  }
+}
+
 @media (max-width: 768px) {
   #addiction-item {
     font-size: small;
-    padding: 2rem 4rem;
-    width: 90%;
+    padding: 2rem 3rem;
+    width: 100%;
   }
 
   #item-title {
     flex-direction: column;
+    align-items: flex-start;
 
     h3 {
-      width: 5rem;
-      text-align: center;
+      width: 8rem;
+      font-size: small;
       margin: 0 auto;
     }
-  }
-
-  #item-progress {
-    width: 60%;
   }
 
   #progress-container,
