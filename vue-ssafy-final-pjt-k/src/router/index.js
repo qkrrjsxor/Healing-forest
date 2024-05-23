@@ -8,6 +8,7 @@ import LoginView from "@/views/LoginView.vue";
 import SignupView from "@/views/SignupView.vue";
 import { createRouter, createWebHistory } from "vue-router";
 import CommView from "@/views/CommView.vue";
+import { useAlertStore } from "@/stores/alert";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -70,13 +71,16 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
   const requiresAuth = to.matched.some((record) => record.meta.requiresAuth);
   const loginUser = sessionStorage.getItem("loginUser");
+  const alertStore = useAlertStore();
 
-  if (requiresAuth && !loginUser) { // 로그인 되어있지 않은 상태로 addiction, community 접속 할 때 -> alert 후 로그인 페이지로
-    alert("로그인 후 이용 가능합니다.");
+  if (requiresAuth && !loginUser) {
+    // 로그인 되어있지 않은 상태로 addiction, community 접속 할 때 -> alert 후 로그인 페이지로
+    alertStore.setAlert("로그인이 필요합니다.", "login", "LoginView");
     next({ name: "login" });
-  } else if ((to.name === "login" || to.name === "signup") && loginUser) {  // 로그인 되어있는 상태로 login, signup 접속 할 때 -> home으로
-    next({ name: "home" });
-  } else {  
+  } else if ((to.name === "login" || to.name === "signup") && loginUser) {
+    // 로그인 되어있는 상태로 login, signup 접속 할 때 -> addictionList
+    next({ name: "addictionList" });
+  } else {
     next();
   }
 });

@@ -9,7 +9,7 @@
             type="number"
             v-model="targetTime"
             placeholder="1 ~ 100 까지의 숫자를 입력할 수 있습니다."
-            @input="validateTargetTime"
+            @blur="validateTargetTime"
             ref="targetTimeInputRef"
             autofocus
           />
@@ -101,16 +101,27 @@ watch(
   { immediate: true }
 );
 
-// 목표 일수 입력 제한
-const validateTargetTime = (e) => {
-  const value = parseInt(e.target.value, 10);
-  if (value < originalTargetTime.value) {
-    targetTime.value = originalTargetTime.value;
+// 목표 일수 입력 후 검증 (입력 필드를 벗어날 때 실행)
+const validateTargetTime = () => {
+  const value = parseInt(targetTime.value, 10);
+  if (isNaN(value) || value < originalTargetTime.value) {
+    alertStore.setAlert(
+      `목표 일수는 현재 목표 일수 ${originalTargetTime.value}일 보다 커야 합니다.`,
+      "addiction",
+      "AddictionUpdate"
+    );
+    targetTime.value = originalTargetTime.value; // 원래 값으로 설정
+    return false;
   } else if (value > 100) {
+    alertStore.setAlert(
+      `목표 일수는 100일 이하이어야 합니다.`,
+      "addiction",
+      "AddictionUpdate"
+    );
     targetTime.value = 100;
-  } else {
-    targetTime.value = value;
+    return false;
   }
+  return true;
 };
 
 // 취소
@@ -128,6 +139,12 @@ const updateAddiction = async () => {
       "addiction",
       "AddictionUpdate"
     );
+    nextTick(() => {
+      targetTimeInputRef.value.focus();
+    });
+    return;
+  }
+  if (!validateTargetTime()) {
     nextTick(() => {
       targetTimeInputRef.value.focus();
     });

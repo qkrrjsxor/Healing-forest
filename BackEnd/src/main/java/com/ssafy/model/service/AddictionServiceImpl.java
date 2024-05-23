@@ -116,7 +116,6 @@ public class AddictionServiceImpl implements AddictionService{
         			break;
         		}
         		addictionDao.insertBadge(userId, addictionId, date);
-        		System.out.println(date+" 뱃지 생성");
         	}
         }else {
         	int lastBadgeDate = badgeList.get(badgeList.size()-1).getBadgeDate();
@@ -132,11 +131,8 @@ public class AddictionServiceImpl implements AddictionService{
         			break;
         		}
         		addictionDao.insertBadge(userId, addictionId, date);
-        		System.out.println(date+" 뱃지 생성");
         	}
         }
-        
-        
         return 1;
 	}
 
