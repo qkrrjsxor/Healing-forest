@@ -1,7 +1,7 @@
 <template>
   <div id="form-container">
     <form @submit.prevent="submitAddiction" id="addiction-form">
-      <Alert id="alert" />
+      <Alert id="alert" componentId="AddictionCreate" />
       <div id="input-set">
         <div>
           <h2>어떤 중독을 끊고 싶으신가요?</h2>
@@ -148,21 +148,33 @@ const targetTimeInputRef = ref(null);
 const submitAddiction = () => {
   // 모든 항목 필수 선택하도록
   if (!addiction.value.title) {
-    alertStore.setAlert("목표 항목을 입력해주세요.", "addiction");
+    alertStore.setAlert(
+      "목표 항목을 입력해주세요.",
+      "addiction",
+      "AddictionCreate"
+    );
     nextTick(() => {
       titleInputRef.value.focus();
     });
     return;
   }
   if (!addiction.value.targetTime) {
-    alertStore.setAlert("목표 일수를 입력해주세요.", "addiction");
+    alertStore.setAlert(
+      "목표 일수를 입력해주세요.",
+      "addiction",
+      "AddictionCreate"
+    );
     nextTick(() => {
       targetTimeInputRef.value.focus();
     });
     return;
   }
   if (!selectedIcon.value) {
-    alertStore.setAlert("아이콘을 선택해주세요.", "addiction");
+    alertStore.setAlert(
+      "아이콘을 선택해주세요.",
+      "addiction",
+      "AddictionCreate"
+    );
     return;
   }
   store.submitAddiction(addiction.value);

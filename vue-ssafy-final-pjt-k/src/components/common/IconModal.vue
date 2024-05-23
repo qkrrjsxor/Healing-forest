@@ -1,7 +1,7 @@
 <template>
   <div v-if="modal.isVisible" class="modal-overlay" @click.self="closeModal">
     <form @submit.prevent="updateIcon" class="modal-content">
-      <Alert id="alert" />
+      <Alert id="alert" componentId="IconModal" />
       <div>
         <h2>아이콘을 선택해주세요.</h2>
         <div id="select-div" @click="toggleDropdown">
@@ -119,7 +119,7 @@ const closeModal = () => {
 // 아이콘 변경
 const updateIcon = async () => {
   if (!addictionIconPath.value) {
-    alertStore.setAlert("아이콘을 선택해주세요.", "addiction");
+    alertStore.setAlert("아이콘을 선택해주세요.", "addiction", "IconModal");
     return;
   }
   await store.updateIcon(props.addictionId, addictionIconPath.value);

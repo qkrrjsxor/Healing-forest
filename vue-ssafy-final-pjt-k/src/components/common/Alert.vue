@@ -1,32 +1,36 @@
 <template>
-  <!-- <div></div> -->
-  <div v-if="alertMessage" :class="['alert', alertType]" ref="alertRef">
-    {{ alertMessage }}
+  <div
+    v-if="currentAlert && currentAlert.componentId === componentId"
+    :class="['alert', currentAlert.alertType]"
+    ref="alertRef"
+  >
+    {{ currentAlert.msg }}
   </div>
 </template>
 
 <script setup>
 import { useAlertStore } from "@/stores/alert";
-import { computed, nextTick, onMounted, ref } from "vue";
+import { computed, nextTick, onMounted, ref, watchEffect } from "vue";
+
+const props = defineProps({
+  componentId: String,
+});
 
 const store = useAlertStore();
-
-const alertMessage = computed(() => store.message);
-const alertType = computed(() => store.type);
+const currentAlert = computed(() => store.currentAlert);
 
 const alertRef = ref(null);
 
 // 해당 alert 위치로 scroll
 const scrollToAlert = () => {
-  if (alertRef.value && alertType.value === "addiction") {
+  if (alertRef.value && currentAlert.value.alertType === "addiction") {
     alertRef.value.scrollIntoView({ behavior: "smooth" });
   }
 };
-
 onMounted(() => {
-  store.$subscribe((_, state) => {
+  watchEffect(() => {
     // alertMessage 설정될 때 scroll
-    if (state.message && state.type === "addiction") {
+    if (currentAlert.value && currentAlert.value.alertType === "addiction") {
       nextTick(scrollToAlert);
     }
   });
