@@ -68,7 +68,7 @@ const modal = computed(
 );
 
 const icons = ref([
-  { id: 1, src: "/src/assets/addiction/icons/Alcohol.png", alt: "Alcohol" },
+  { id: 1, src: "/src/assets/addiction/icons/alcohol.png", alt: "Alcohol" },
   { id: 2, src: "/src/assets/addiction/icons/Coffee.png", alt: "Coffee" },
   { id: 3, src: "/src/assets/addiction/icons/Drug.png", alt: "Drug" },
   { id: 4, src: "/src/assets/addiction/icons/Fastfood.png", alt: "Fastfood" },
