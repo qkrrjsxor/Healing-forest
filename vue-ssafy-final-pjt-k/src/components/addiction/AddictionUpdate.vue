@@ -2,7 +2,7 @@
   <div id="form-container">
     <div id="update-box">
       <form @submit.prevent="updateAddiction" id="update-form">
-        <Alert id="alert" />
+        <Alert id="alert" componentId="AddictionUpdate" />
         <div id="target-input">
           <h2>변경할 목표 일 수를 입력해주세요.</h2>
           <input
@@ -123,7 +123,11 @@ const targetTimeInputRef = ref(null);
 // 수정
 const updateAddiction = async () => {
   if (!targetTime.value) {
-    alertStore.setAlert("목표 일수를 입력해주세요.", "addiction");
+    alertStore.setAlert(
+      "목표 일수를 입력해주세요.",
+      "addiction",
+      "AddictionUpdate"
+    );
     nextTick(() => {
       targetTimeInputRef.value.focus();
     });

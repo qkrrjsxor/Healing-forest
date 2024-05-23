@@ -2,7 +2,7 @@
   <div id="container">
     <section id="login-section">
       <div id="login-form-box">
-        <Alert id="alert" />
+        <Alert id="alert" componentId="LoginView" />
         <h2>Log In</h2>
         <form id="login-form" @submit.prevent="submitLogin">
           <div id="input-set">

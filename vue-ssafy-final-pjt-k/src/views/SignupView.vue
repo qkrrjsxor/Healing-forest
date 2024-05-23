@@ -8,7 +8,7 @@
     />
     <section id="signup-section">
       <div id="signup-form-box">
-        <Alert id="alert" />
+        <Alert id="alert" componentId="SignupView" />
         <h2>Sign up</h2>
         <form id="signup-form" @submit.prevent="submitSignup">
           <ul id="input-set">
@@ -150,21 +150,21 @@ const setNickname = (event) => {
 const submitSignup = async () => {
   // 입력 안 한 경우
   if (!userId.value.trim()) {
-    alertStore.setAlert("아이디를 입력해주세요.", "signup");
+    alertStore.setAlert("아이디를 입력해주세요.", "signup", "SignupView");
     nextTick(() => {
       userIdInputRef.value.focus();
     });
     return;
   }
   if (!password.value.trim()) {
-    alertStore.setAlert("비밀번호를 입력해주세요.", "signup");
+    alertStore.setAlert("비밀번호를 입력해주세요.", "signup", "SignupView");
     nextTick(() => {
       passwordInputRef.value.focus();
     });
     return;
   }
   if (!nickname.value.trim()) {
-    alertStore.setAlert("닉네임을 입력해주세요.", "signup");
+    alertStore.setAlert("닉네임을 입력해주세요.", "signup", "SignupView");
     nextTick(() => {
       nicknameInputRef.value.focus();
     });

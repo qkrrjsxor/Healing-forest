@@ -1,18 +1,20 @@
-import router from "@/router";
+import { useRouter } from "vue-router";
+import { useAlertStore } from "./alert";
 import axios from "axios";
 import { defineStore } from "pinia";
 import { ref } from "vue";
-import { useAlertStore } from "./alert";
 
 const USER_REST_API = "http://localhost:8080/api-user";
 
 export const useUserStore = defineStore("user", () => {
+  const router = useRouter();
+
   // state
   const loginUser = ref(null);
 
   // actions
   // 1) 로그인 요청
-  const submitLogin = async (user) => {
+  const submitLogin = async (user, fromSignup = false) => {
     const alertStore = useAlertStore();
 
     try {
@@ -27,12 +29,28 @@ export const useUserStore = defineStore("user", () => {
         nickname: res.data.nickname,
       };
       sessionStorage.setItem("loginUser", JSON.stringify(loginUser.value));
-      router.push({ name: "addictionList" });
-    } catch (err) {
-      if (err.response) {
-        alertStore.setAlert(err.response.data, "login");
+      if (fromSignup) {
+        alertStore.setAlert(
+          "힐링 포레스트에 오신 것을 환영합니다.",
+          "signup",
+          "SignupView"
+        );
       } else {
-        alertStore.setAlert("서버 연결이 끊어졌습니다.", "login");
+        alertStore.setAlert(
+          "힐링 포레스트에 오신 것을 환영합니다.",
+          "login",
+          "LoginView"
+        );
+      }
+      setTimeout(() => {
+        router.push({ name: "addictionList" });
+      }, 1000);
+    } catch (err) {
+      const viewName = fromSignup ? "SignupView" : "LoginView";
+      if (err.response) {
+        alertStore.setAlert(err.response.data, "login", viewName);
+      } else {
+        alertStore.setAlert("네트워크 오류가 발생했습니다.", "login", viewName);
       }
     }
   };
@@ -49,15 +67,19 @@ export const useUserStore = defineStore("user", () => {
       });
       loginUser.value = null;
       sessionStorage.removeItem("loginUser");
-      alertStore.setAlert("로그아웃 되었습니다.", "logout");
+      alertStore.setAlert("로그아웃 되었습니다.", "logout", "ProfileModal");
       setTimeout(() => {
         router.push({ name: "home" });
       }, 1000);
     } catch (err) {
       if (err.response) {
-        alertStore.setAlert(err.response.data, "logout");
+        alertStore.setAlert(err.response.data, "logout", "ProfileModal");
       } else {
-        alertStore.setAlert("서버 연결이 끊어졌습니다.", "logout");
+        alertStore.setAlert(
+          "네트워크 오류가 발생했습니다.",
+          "logout",
+          "ProfileModal"
+        );
       }
     }
   };
@@ -81,15 +103,19 @@ export const useUserStore = defineStore("user", () => {
       });
       // 회원가입 성공 후 바로 로그인
       if (res.status === 200) {
-        await submitLogin({ userId, password });
+        await submitLogin({ userId, password }, true); // fromSignup을 true로 설정
       } else {
-        alertStore.setAlert("회원가입에 실패했습니다.", "signup");
+        alertStore.setAlert("회원가입에 실패했습니다.", "signup", "SignupView");
       }
     } catch (err) {
       if (err.response) {
-        alertStore.setAlert(err.response.data, "signup");
+        alertStore.setAlert(err.response.data, "signup", "SignupView");
       } else {
-        alertStore.setAlert("서버 연결이 끊어졌습니다.", "signup");
+        alertStore.setAlert(
+          "네트워크 오류가 발생했습니다.",
+          "signup",
+          "SignupView"
+        );
       }
     }
   };

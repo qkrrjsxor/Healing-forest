@@ -1,29 +1,47 @@
 import { defineStore } from "pinia";
-import { ref } from "vue";
+import { ref, watch } from "vue";
 
 export const useAlertStore = defineStore("alert", () => {
   // state
-  const message = ref("");
-  const type = ref("");
+  const alertQueue = ref([]); // 알림 큐
+  const currentAlert = ref(null); // 현재 알림
 
   // action
-  const setAlert = (msg, alertType, duration = 1000) => {
-    message.value = msg;
-    type.value = alertType;
-
-    setTimeout(() => {
-      clearAlert();
-    }, duration);
+  const setAlert = (msg, alertType, componentId, duration = 1000) => {
+    alertQueue.value.push({ msg, alertType, componentId, duration });
+    if (!currentAlert.value) {
+      showAlert();
+    }
   };
 
   const clearAlert = () => {
-    message.value = "";
-    type.value = "";
+    currentAlert.value = null;
+    if (alertQueue.value.length > 0) {
+      showAlert();
+    }
   };
 
+  const showAlert = () => {
+    if (alertQueue.value.length > 0) {
+      const nextAlert = alertQueue.value.shift();
+      currentAlert.value = nextAlert;
+
+      setTimeout(clearAlert, nextAlert.duration);
+    }
+  };
+
+  watch(
+    alertQueue,
+    (newQueue, oldOueue) => {
+      if (newQueue.length > 0 && !oldOueue.length) {
+        showAlert();
+      }
+    },
+    { deep: true }
+  );
+
   return {
-    message,
-    type,
+    currentAlert,
     setAlert,
     clearAlert,
   };
