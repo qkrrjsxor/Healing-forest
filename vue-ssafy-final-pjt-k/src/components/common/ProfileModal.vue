@@ -1,6 +1,6 @@
 <template>
   <div class="modal-overlay" @click.self="closeModal">
-    <Alert id="alert" />
+    <Alert id="alert" componentId="ProfileModal" />
     <div class="modal-content">
       <button @click="readyAlert">마이페이지</button>
       <button @click="logout">로그아웃</button>
@@ -25,7 +25,7 @@ const closeModal = () => {
 
 // 마이페이지 준비중
 const readyAlert = () => {
-  alertStore.setAlert("마이페이지 준비 중입니다.", "mypage");
+  alertStore.setAlert("마이페이지 준비 중입니다.", "mypage", "ProfileModal");
 };
 
 // 로그아웃
