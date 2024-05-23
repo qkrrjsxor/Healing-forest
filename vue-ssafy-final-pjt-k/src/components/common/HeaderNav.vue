@@ -64,6 +64,9 @@ const toggleProfileModal = () => {
 
 const openModal = (id) => {
   modalStore.showModal(id, "profile");
+  setTimeout(() => {
+    showProfileModal.value = false; // 3초 후에는 자동으로 닫히도록
+  }, 3000);
 };
 const closeModal = (id) => {
   modalStore.closeModal(id);
