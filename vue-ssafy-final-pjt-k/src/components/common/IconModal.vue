@@ -14,17 +14,8 @@
           </div>
 
           <ul v-if="showIcons" id="select-icons">
-            <li
-              v-for="icon in icons"
-              :key="icon.id"
-              id="icon-box"
-              @click.stop="selectIcon(icon)"
-            >
-              <img
-                id="icon-img"
-                :src="getIconImage(icon.src)"
-                :alt="icon.alt"
-              />
+            <li v-for="icon in icons" :key="icon.id" id="icon-box" @click.stop="selectIcon(icon)">
+              <img id="icon-img" :src="getIconImage(icon.src)" :alt="icon.alt" />
               {{ icon.alt }}
             </li>
           </ul>
@@ -68,7 +59,7 @@ const modal = computed(
 );
 
 const icons = ref([
-  { id: 1, src: "/src/assets/addiction/icons/alcohol.png", alt: "Alcohol" },
+  { id: 1, src: "/src/assets/addiction/icons/Alcohol.png", alt: "Alcohol" },
   { id: 2, src: "/src/assets/addiction/icons/Coffee.png", alt: "Coffee" },
   { id: 3, src: "/src/assets/addiction/icons/Drug.png", alt: "Drug" },
   { id: 4, src: "/src/assets/addiction/icons/Fastfood.png", alt: "Fastfood" },
@@ -239,13 +230,18 @@ const updateIcon = async () => {
 
 /* 스크롤바 제거 */
 .modal-overlay::-webkit-scrollbar {
-  display: none; /* Chrome, Edge, and Safari */
+  display: none;
+  /* Chrome, Edge, and Safari */
 }
+
 .modal-overlay {
-  scrollbar-width: none; /* Firefox */
+  scrollbar-width: none;
+  /* Firefox */
 }
+
 .modal-overlay {
-  -ms-overflow-style: none; /* IE11 */
+  -ms-overflow-style: none;
+  /* IE11 */
 }
 
 /* media query */

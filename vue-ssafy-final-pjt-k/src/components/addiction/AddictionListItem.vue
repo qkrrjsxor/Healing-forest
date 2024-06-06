@@ -2,15 +2,13 @@
   <li @click="showDetail(addiction.addictionId)" id="addiction-item">
     <div id="item-top">
       <div id="item-title">
-        <img :src="getIconImage(addiction.iconPath)" alt="alcohol" />
+        <img :src="getIconImage(addiction.iconPath)" alt="Alcohol" />
         <h3>{{ addiction.title }}</h3>
       </div>
       <div id="item-progress">
         <div id="progress-num">
           <span class="text-color">목표 달성률</span>
-          <span class="text-color"
-            >{{ ((startToCurrent / startToEnd) * 100).toFixed(1) }}%</span
-          >
+          <span class="text-color">{{ ((startToCurrent / startToEnd) * 100).toFixed(1) }}%</span>
         </div>
         <div id="progress-container">
           <div id="progress-bar" :style="{ width: progressWidth }"></div>
@@ -175,6 +173,7 @@ onUnmounted(() => {
   justify-items: flex-end;
 
   row-gap: 0;
+
   p {
     margin: 0.3rem 0;
   }

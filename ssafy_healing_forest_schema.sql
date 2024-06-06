@@ -167,13 +167,13 @@ INSERT INTO `user` (user_id, password, nickname, user_score) VALUES
 
 INSERT INTO `addiction_list` (user_id, title, start_time, target_time, end_time, icon_path, addiction_score) VALUES
 -- Inserting various scenarios for addiction list
-('ssafy', '알코올', NOW() - INTERVAL 1 DAY, 3, DATE_ADD(start_time, INTERVAL target_time DAY), '/src/assets/addiction/icons/alcohol.png', 10),
+('ssafy', '알코올', NOW() - INTERVAL 1 DAY, 3, DATE_ADD(start_time, INTERVAL target_time DAY), '/src/assets/addiction/icons/Alcohol.png', 10),
 ('ssafy', '커피', NOW() - INTERVAL 10 DAY, 5, DATE_ADD(start_time, INTERVAL target_time DAY), '/src/assets/addiction/icons/Coffee.png', 150),
 ('ssafy', '게임', NOW() - INTERVAL 110 DAY, 100, DATE_ADD(start_time, INTERVAL target_time DAY), '/src/assets/addiction/icons/Game.png', 3220),
 ('ssafy2', '유튜브', NOW() - INTERVAL 7 DAY, 4, DATE_ADD(start_time, INTERVAL target_time DAY), '/src/assets/addiction/icons/Youtube.png', 100),
 ('ssafy2', '패스트푸드', NOW() - INTERVAL 67 DAY, 50, DATE_ADD(start_time, INTERVAL target_time DAY), '/src/assets/addiction/icons/Fastfood.png', 1520),
 ('ssafy3', '담배', NOW() - INTERVAL 17 DAY, 10, DATE_ADD(start_time, INTERVAL target_time DAY), '/src/assets/addiction/icons/Smoke.png', 380),
-('ssafy3', '인스타그램', NOW() - INTERVAL 20 DAY, 30, DATE_ADD(start_time, INTERVAL target_time DAY), '/src/assets/addiction/icons/alcohol.png', 720);
+('ssafy3', '인스타그램', NOW() - INTERVAL 20 DAY, 30, DATE_ADD(start_time, INTERVAL target_time DAY), '/src/assets/addiction/icons/Alcohol.png', 720);
 
 INSERT INTO `comment` (`user_id`, `nickname`, `content`, `create_date`) VALUES
 ('ssafy', '웃는고래', '명상과 호흡 운동이 큰 도움이 되었습니다. 추천해요!', '2024-05-23 17:28:04'),
